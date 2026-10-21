@@ -68,13 +68,13 @@
     },
     {
       "path": "docs/04-文件逐项说明.html",
-      "bytes": 12887,
-      "sha256": "243909d24616b86fd7a6629fb34fa5749627906e3218ccb5f0bdb6dec4a0f0df"
+      "bytes": 12982,
+      "sha256": "267f38bb703bfbb5e6342f9051eab5f7bdeb6a371c4a1cb93a24525d80d42a79"
     },
     {
       "path": "docs/04-文件逐项说明.md",
-      "bytes": 8854,
-      "sha256": "2cf1478205cce7e1fa558580850b00472682bce9f4f18d01109e5b2c49ab4e7b"
+      "bytes": 8949,
+      "sha256": "ec9419c816b469d23e7f83bbadbc2ff48abacf50dfcee7526dd83f254f29602e"
     },
     {
       "path": "docs/05-更换户型和维护.html",
@@ -467,14 +467,9 @@
       "sha256": "8822f768b492704a595cdccc5f9817173d31965e86a8c88c852359794db4c55f"
     },
     {
-      "path": "README.html",
-      "bytes": 7456,
-      "sha256": "e28932acc7b18477d6b04147fa83e9aabcd983086cb76f643cf2f8b1d9fcd70b"
-    },
-    {
       "path": "README.md",
-      "bytes": 5259,
-      "sha256": "08d1ed0d432b0ed519f1334414b591a7efd94b3e53fbf6c9890bb64b7bfa8685"
+      "bytes": 5388,
+      "sha256": "29605c5cb7ad992e053c7e0908949c9adee4e8a0b4013a0c6466cee509fe9c9e"
     },
     {
       "path": "tests/control-actions.test.mjs",
@@ -840,6 +835,11 @@
       "path": "www/home-evening/weather.js",
       "bytes": 23934,
       "sha256": "b2f78efa823d42d14cfa4cf4010a4f633980a33e1ef786163a08363968fd7d73"
+    },
+    {
+      "path": "离线使用说明.html",
+      "bytes": 7563,
+      "sha256": "7a4c94141ee5c0dcb41a0f62d4041fe98c3a73767c394821784148f648adda16"
     }
   ]
 }
