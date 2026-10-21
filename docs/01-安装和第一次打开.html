@@ -1,4 +1,5 @@
 <!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>01-安装和第一次打开</title><style>*{box-sizing:border-box}body{margin:0;background:#f4f5f2;color:#28342e;font-family:system-ui,"Microsoft YaHei",sans-serif;line-height:1.85}main{max-width:1000px;margin:0 auto;background:white;padding:36px 46px 70px}h1{font-size:28px;line-height:1.5}h2{margin-top:2em;font-size:23px}h3{font-size:19px}p,li{overflow-wrap:anywhere}a{color:#286c55;overflow-wrap:anywhere}pre{padding:18px;background:#edf2ee;border-radius:8px;white-space:pre-wrap;word-break:break-word;overflow-wrap:anywhere;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}table{border-collapse:collapse;min-width:540px;width:100%;font-size:14px}td,th{padding:10px;border:1px solid #d6ded8;text-align:left}th{background:#edf2ee}.table{overflow-x:auto;max-width:100%}img{max-width:100%;height:auto;border-radius:8px}blockquote{margin:20px 0;border-left:3px solid #8aa995;padding:5px 20px;background:#f4f7f3}@media(max-width:600px){main{padding:22px 18px 45px}h1{font-size:24px}h2{font-size:21px}}</style><main><h1>安装和第一次打开</h1>
+<p>如果希望从下载开始跟着做，先看 <a href="00-%E6%96%B0%E6%89%8B%E4%B8%8A%E6%89%8B%E4%B8%8E%E9%85%8D%E7%BD%AE%E7%A4%BA%E4%BE%8B.html">新手上手与完整配置示例</a>。本节补充文件位置、YAML 注册和加载排查。</p>
 <h2>先判断你需要哪部分</h2>
 <p>已有 HA 实体，只想用界面：只处理 <code>www/home-evening</code>、<code>site-config.js</code> 和仪表盘配置。</p>
 <p>设备还没接入：先按设备品牌安装集成。控客用户可参考本包 <code>konke_local</code>；其他品牌不用改成控客，只要最终得到可用的 <code>light</code>、<code>switch</code>、<code>climate</code> 或 <code>fan</code> 实体即可。</p>
@@ -49,4 +50,6 @@
 <h2>更新配置没有生效</h2>
 <p>确认编辑的是 HA 上正在提供的 <code>www/home-evening/site-config.js</code>，不是解压包里另一份文件。浏览器可能缓存 ES module，先重新加载 iframe 或用新的隐私窗口验证；更新入口时也可以在 iframe URL 上改变一个版本参数。仍然显示旧内容时，检查该模块请求的实际返回内容，不要只改 HTML URL 就认定所有依赖已经更新。</p>
 <p>如果自己部署了额外 Service Worker，还需要按自己的缓存规则处理。本包不注册 Service Worker，也不改 HA 全局缓存。</p>
+<h2>外观怎么改</h2>
+<p>背景更换、小时轮换、固定单图与缓存处理见 <a href="06-%E6%9B%B4%E6%8D%A2%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87.html">更换背景图片</a>。中间户型另见 <a href="05-%E6%9B%B4%E6%8D%A2%E6%88%B7%E5%9E%8B%E5%92%8C%E7%BB%B4%E6%8A%A4.html">更换户型和维护</a>，不要用换背景的步骤代替户型坐标调整。</p>
 </main></html>

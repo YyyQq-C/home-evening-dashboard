@@ -190,7 +190,7 @@
 <td>电费组件引用的电网图标，本包已改成本地相对路径</td>
 </tr>
 </tbody></table></div>
-<p><code>assets/floorplan-textured.webp</code> 是二维材质底图，<code>floorplan.webp</code> 是早期底图。<code>background-day*.webp</code>、<code>background-night*.webp</code> 是主题背景。<code>washer.png</code>、<code>fridge.png</code>、<code>purifier.png</code>、<code>drinker.png</code> 是原项目的产品展示图；只说明外观，不能证明真实接入。</p>
+<p><code>assets/floorplan-textured.webp</code> 是二维材质底图，<code>floorplan.webp</code> 是早期底图。<code>background-day*.webp</code>、<code>background-night*.webp</code> 是主题背景，深浅各三张；替换、固定和扩展步骤见 <a href="06-%E6%9B%B4%E6%8D%A2%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87.html">更换背景图片</a>。<code>washer.png</code>、<code>fridge.png</code>、<code>purifier.png</code>、<code>drinker.png</code> 是原项目的产品展示图；只说明外观，不能证明真实接入。</p>
 <h2>三维源码</h2>
 <p><code>model-source/model.js</code> 是建模入口，导入 Three.js 和同目录模块。<code>cad-layout.js</code> 负责示例结构与尺寸；<code>device-display.js</code> 负责模拟设备标注；<code>ceiling-strips.js</code> 负责灯带；<code>curtains.js</code> 负责窗帘；<code>soft-furnishings.js</code>、<code>warm-home.js</code>、<code>living-quality.js</code> 负责局部软装和材质；<code>render-quality.js</code> 负责渲染调整。</p>
 <p><code>index.html</code> 是模型独立预览页面；<code>package.json</code>、<code>package-lock.json</code> 用于安装固定的 Three.js 依赖。原始 DWG、含住址的文件名、实景照片和 CAD 原始证据没有打包。源码中的结构坐标保留为示例，不是用户自己住宅的尺寸。</p>

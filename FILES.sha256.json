@@ -37,14 +37,24 @@
       "sha256": "690f4c6be481289191f85839de458967ca0626a46eae84925562dc0004d9e641"
     },
     {
+      "path": "docs/00-新手上手与配置示例.html",
+      "bytes": 11529,
+      "sha256": "99cbb21fb9e480178c98f6c5ac99ebe6483ab11658eaaaccfe5f9555357a104d"
+    },
+    {
+      "path": "docs/00-新手上手与配置示例.md",
+      "bytes": 8158,
+      "sha256": "ff42ff7cb596cabb3542d70aa4403d3f65e4b29a7037e7b17b302992afcef301"
+    },
+    {
       "path": "docs/01-安装和第一次打开.html",
-      "bytes": 6227,
-      "sha256": "1e61fd3f7d8bdd7ca353c7ccf2526356d497f4771bfb8f504f85a8a1a583c34f"
+      "bytes": 6855,
+      "sha256": "53bbf9dbc049ed0521622f213082b7009cb2783e5575a7281342b976204e9292"
     },
     {
       "path": "docs/01-安装和第一次打开.md",
-      "bytes": 4423,
-      "sha256": "db8eedc2b47d38a89e63fb7ab0eeefb066327eb9fc988eaa8b5b70f60af9cbfb"
+      "bytes": 4866,
+      "sha256": "d1fa1307341a95e600c74c7578b8dec9f2c230a8037459ce5d82a8164f92b107"
     },
     {
       "path": "docs/02-真实控制配置.html",
@@ -68,23 +78,33 @@
     },
     {
       "path": "docs/04-文件逐项说明.html",
-      "bytes": 12982,
-      "sha256": "267f38bb703bfbb5e6342f9051eab5f7bdeb6a371c4a1cb93a24525d80d42a79"
+      "bytes": 13132,
+      "sha256": "b742a6a9df2ec449089ae1fda093aea217843a30e4487b5bceaaf2398fa312df"
     },
     {
       "path": "docs/04-文件逐项说明.md",
-      "bytes": 8949,
-      "sha256": "ec9419c816b469d23e7f83bbadbc2ff48abacf50dfcee7526dd83f254f29602e"
+      "bytes": 9050,
+      "sha256": "ca5b9ddec88c6db0475025f192dfbc7d28e1b5c7b3c11477a05c9d34359a2f1e"
     },
     {
       "path": "docs/05-更换户型和维护.html",
-      "bytes": 8407,
-      "sha256": "1bbbbee4cc937f0010ecaea82a496ca302808aaa55b59f4a9acec8021e0caaa2"
+      "bytes": 8649,
+      "sha256": "4718568d0f6c9608559e69cc9e5ebd50374fb979acca46fb2c31f6d8c836ae1a"
     },
     {
       "path": "docs/05-更换户型和维护.md",
-      "bytes": 6286,
-      "sha256": "96d9982097556bb8733df2f9b154c15a2d0ac6c46a6109ca2d602d4cca1861c9"
+      "bytes": 6475,
+      "sha256": "80cc10e0b1f9186c66354a242b877f7dd4fa8011a22bb5b34be26d182491e5a5"
+    },
+    {
+      "path": "docs/06-更换背景图片.html",
+      "bytes": 203429,
+      "sha256": "c27119b06c344e705d923b99b7bab7d5c5cde3901ca4f2b822b0def72587fb71"
+    },
+    {
+      "path": "docs/06-更换背景图片.md",
+      "bytes": 9300,
+      "sha256": "7e850eb47c875d5dd3696d4b9344120d7a939c0cdcb0b442963c24a4ebefa44b"
     },
     {
       "path": "docs/images/control-mobile.png",
@@ -95,6 +115,11 @@
       "path": "docs/images/control-readonly.png",
       "bytes": 55110,
       "sha256": "4b54d172706db536243e840d890b019d1c58d86068592bb4d54573337b21d144"
+    },
+    {
+      "path": "docs/images/home-demo.png",
+      "bytes": 599158,
+      "sha256": "73a068b0e359700afaf39555c2631714e01ecc9cfca3dada74c8044a6d0c01cf"
     },
     {
       "path": "docs/实体映射索引.html",
@@ -108,13 +133,13 @@
     },
     {
       "path": "docs/验证与脱敏说明.html",
-      "bytes": 123941,
-      "sha256": "eeb79b77827ea00ee80ea0704f810d8e8fc17cc5090b7cb2f3d4d2286269ef3e"
+      "bytes": 124367,
+      "sha256": "5aaf1e08e1a88900448937df51867cbba2f66047636f2d361a2e714cd5713c0e"
     },
     {
       "path": "docs/验证与脱敏说明.md",
-      "bytes": 4415,
-      "sha256": "775b9a5c2c525003e51d4e36b1fac13f6c2d0fd03962767cbe9714067ac9d6bc"
+      "bytes": 4799,
+      "sha256": "45b59e5edb4fa8ccfe3eb5ee180da0ba19ac5ea12cc4fda2d9421d3c5ca0efdd"
     },
     {
       "path": "integrations/custom_components/ezviz_stream/__init__.py",
@@ -468,8 +493,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 5388,
-      "sha256": "29605c5cb7ad992e053c7e0908949c9adee4e8a0b4013a0c6466cee509fe9c9e"
+      "bytes": 8968,
+      "sha256": "19e28896aa872bd3b97053054b69cd3c732f3660f7a8907eefe41a1919b6adfa"
     },
     {
       "path": "tests/control-actions.test.mjs",
@@ -838,8 +863,8 @@
     },
     {
       "path": "离线使用说明.html",
-      "bytes": 7563,
-      "sha256": "7a4c94141ee5c0dcb41a0f62d4041fe98c3a73767c394821784148f648adda16"
+      "bytes": 811611,
+      "sha256": "7fb89019a957419ecd0ccb766d9396bd1e7d844408d7f2df85fb5a1cc2b81e38"
     }
   ]
 }

@@ -1,0 +1,203 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>00-新手上手与配置示例</title><style>*{box-sizing:border-box}body{margin:0;background:#f4f5f2;color:#28342e;font-family:system-ui,"Microsoft YaHei",sans-serif;line-height:1.85}main{max-width:1000px;margin:0 auto;background:white;padding:36px 46px 70px}h1{font-size:28px;line-height:1.5}h2{margin-top:2em;font-size:23px}h3{font-size:19px}p,li{overflow-wrap:anywhere}a{color:#286c55;overflow-wrap:anywhere}pre{padding:18px;background:#edf2ee;border-radius:8px;white-space:pre-wrap;word-break:break-word;overflow-wrap:anywhere;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}table{border-collapse:collapse;min-width:540px;width:100%;font-size:14px}td,th{padding:10px;border:1px solid #d6ded8;text-align:left}th{background:#edf2ee}.table{overflow-x:auto;max-width:100%}img{max-width:100%;height:auto;border-radius:8px}blockquote{margin:20px 0;border-left:3px solid #8aa995;padding:5px 20px;background:#f4f7f3}@media(max-width:600px){main{padding:22px 18px 45px}h1{font-size:24px}h2{font-size:21px}}</style><main><h1>新手上手与配置示例</h1>
+<p>这份流程从“已经有 Home Assistant，但还没部署这个项目”开始。不先装全部集成，不先改三维，先让默认页面正常显示，再接一台自己的设备。</p>
+<h2>开始前准备</h2>
+<div class="table"><table>
+<thead>
+<tr>
+<th>需要什么</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>已能正常登录的 HA</td>
+<td>提供页面宿主、已有实体与服务</td>
+</tr>
+<tr>
+<td>能管理 HA 配置目录的文件工具</td>
+<td>复制前端、编辑自己的配置；使用自己已有的文件编辑或文件共享方式</td>
+</tr>
+<tr>
+<td>本项目 ZIP 或 Git 工作副本</td>
+<td>提供 <code>www/home-evening</code> 和配置例子</td>
+</tr>
+<tr>
+<td>一台已接入 HA 的设备（可稍后准备）</td>
+<td>核对实体和实际控制；没有设备也可先看页面</td>
+</tr>
+</tbody></table></div>
+<p>仅运行现成前端不需要 npm。设备尚未接入 HA 时，先看页面也没关系，但自定义界面不会替你完成品牌账号登录或网关配网。</p>
+<h2>第一步：下载并找到真正的运行目录</h2>
+<p>项目地址：</p>
+<ul>
+<li><a href="https://github.com/YyyQq-C/home-evening-dashboard">GitHub</a></li>
+<li><a href="https://gitee.com/YongQianc/home-evening-dashboard">Gitee</a></li>
+</ul>
+<p>下载 ZIP，解压后进入包含 <code>README.md</code> 的那一层，再找 <code>www/home-evening</code>。某些压缩包外面有一层仓库名，不要把这个外层目录误复制成 HA 的 <code>www</code>。</p>
+<p>文件全部解压后，应能看到 <code>index.html</code>、<code>screen.css</code>、<code>site-config.js</code> 和 <code>assets</code>，不要只下载单独一个 HTML。</p>
+<h2>第二步：复制到 HA</h2>
+<p>找到包含 <code>configuration.yaml</code> 的 HA 配置目录，将前端放成：</p>
+<pre><code class="language-text">HA 配置目录/www/home-evening/index.html
+HA 配置目录/www/home-evening/control.html
+HA 配置目录/www/home-evening/site-config.js
+HA 配置目录/www/home-evening/assets/...
+</code></pre>
+<p>HA OS/容器内常见配置目录为 <code>/config</code>；文件共享和 SSH 所见路径可能不同，以自己的环境为准。没有 <code>www</code> 时可新建；已存在同名项目目录则先备份，避免覆盖自己的配置。</p>
+<p>在浏览器用当前 HA 地址加上以下路径检查一个背景文件：</p>
+<pre><code class="language-text">/local/home-evening/assets/background-night.webp
+</code></pre>
+<p>能看到背景图，说明基本静态路径可用。404 时先检查目录有没有多套一层、文件名大小写是否一致。看到图片还不等于页面已获得 HA 会话。</p>
+<h2>第三步：添加新仪表盘</h2>
+<ol>
+<li>在 HA“设置 → 仪表盘”新建可编辑仪表盘。</li>
+<li>进入新仪表盘的编辑和原始配置编辑器。</li>
+<li>复制 <a href="../configs/dashboard.yaml">configs/dashboard.yaml</a> 的全部内容到这里，保存。</li>
+<li>打开“户型展示”，应看到默认户型、时钟、背景。</li>
+<li>打开日历，应能查看月份；打开“真实控制”，应看到只读提示。</li>
+</ol>
+<p>页面左侧导航在边缘收起，展开以后可以找到显示设置，切换主题、2D/3D 和屏保参数。显示偏好保存在当前浏览器，另一台平板需要单独设置。</p>
+<p>没有配实体时，天气、概览等显示未配置或不可用是预期结果。直接打开静态 HTML 或本机预览地址没有 HA 父级会话，设备连接状态不能与仪表盘内的结果混为一谈。</p>
+<p>不想通过界面注册仪表盘时，可使用 <a href="01-%E5%AE%89%E8%A3%85%E5%92%8C%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%89%93%E5%BC%80.html">YAML 方式</a>。静态资源复制不要求重启；只有实际修改了需要加载的 HA 配置，才按安装环境检查并重载。</p>
+<h2>第四步：找自己的实体 ID 和能力</h2>
+<p>在 HA“开发者工具 → 状态”搜索设备名称，点击结果，复制类似 <code>climate.my_living_ac</code> 的实体 ID。名称可以重复，ID 才是配置目标。</p>
+<div class="table"><table>
+<thead>
+<tr>
+<th>实体类型</th>
+<th>示例（不是实际设备）</th>
+<th>应核对的字段</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>灯</td>
+<td><code>light.my_living_light</code></td>
+<td>状态、是否支持调光</td>
+</tr>
+<tr>
+<td>继电器灯</td>
+<td><code>switch.my_living_light</code></td>
+<td>仅开关，不会有灯光亮度</td>
+</tr>
+<tr>
+<td>空调</td>
+<td><code>climate.my_living_ac</code></td>
+<td><code>hvac_modes</code>、<code>fan_modes</code>、<code>min_temp</code>、<code>max_temp</code>、<code>target_temp_step</code></td>
+</tr>
+<tr>
+<td>地暖</td>
+<td><code>climate.my_living_floor</code></td>
+<td>支持的 <code>heat/off</code>、温度范围和步长</td>
+</tr>
+<tr>
+<td>新风</td>
+<td><code>fan.my_fresh_air</code></td>
+<td>是否提供 <code>percentage</code>、<code>preset_modes</code></td>
+</tr>
+</tbody></table></div>
+<p>先在 HA 原生详情卡片确认实体正常，再接这张页面。<code>unknown</code>、<code>unavailable</code>、缺失实体或无权限，都不能通过修改前端显示名解决。</p>
+<h2>第五步：完整配置例子，先只读</h2>
+<p>先备份自己的 <code>site-config.js</code>。下面是一份最小完整结构，适合第一次试用；所有 <code>my_...</code> 都要改成自己已有实体，没有的设备删除整项。</p>
+<pre><code class="language-js">/** 项目配置：只放实体映射，不放密码、Token 或 API 密钥。 */
+export const SITE = {
+  control: {
+    mode: &#39;read-only&#39;,
+    timeoutMs: 15000,
+    devices: [
+      {key:&#39;living_light&#39;, name:&#39;客厅灯光&#39;,
+       kind:&#39;light&#39;, entity:&#39;light.my_living_light&#39;},
+      {key:&#39;living_ac&#39;, name:&#39;客厅空调&#39;, kind:&#39;climate&#39;,
+       entity:&#39;climate.my_living_ac&#39;, onMode:&#39;cool&#39;},
+      {key:&#39;living_floor&#39;, name:&#39;客厅地暖&#39;, kind:&#39;climate&#39;,
+       entity:&#39;climate.my_living_floor&#39;, onMode:&#39;heat&#39;},
+      {key:&#39;fresh&#39;, name:&#39;全屋新风&#39;,
+       kind:&#39;fan&#39;, entity:&#39;fan.my_fresh_air&#39;}
+    ],
+    scenes: []
+  },
+  camera: {serial:&#39;&#39;},
+  weather: {sensors:{}},
+  entities: {
+    &#39;climate.example_ac_living&#39;: &#39;climate.my_living_ac&#39;,
+    &#39;climate.example_floor_living&#39;: &#39;climate.my_living_floor&#39;
+  }
+};
+
+/** 供原展示页按照别名读取显式配置的实体。 */
+export function entityId(alias) {
+  return SITE.entities[alias] || &#39;&#39;;
+}
+</code></pre>
+<p>如果已经配过天气、电费或其他房间，不要整份覆盖，合并示例中的相应字段即可。保留 <code>SITE</code> 和 <code>entityId</code> 两个导出。</p>
+<p><code>onMode:&#39;cool&#39;</code> 只在设备支持制冷、且你需要制冷开机时使用；需要制热则核对 <code>heat</code>。这些是明确配置，不由页面按季节猜测。</p>
+<p>两组绑定用途不同：</p>
+<div class="table"><table>
+<thead>
+<tr>
+<th>配置字段</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>control.devices</code></td>
+<td>独立实控页的设备列表、目标和动作类型</td>
+</tr>
+<tr>
+<td><code>entities</code></td>
+<td>原展示页的只读数据别名，不把其模拟按钮自动改成实控</td>
+</tr>
+<tr>
+<td><code>weather.sensors</code></td>
+<td>天气详情的附属传感器</td>
+</tr>
+<tr>
+<td><code>camera.serial</code></td>
+<td>需要特定 SD 回放卡片时的序列号，不是密码或验证码</td>
+</tr>
+</tbody></table></div>
+<p>保存后，从 HA 重新加载控制页。浏览器可能缓存模块，实际更新文件和缓存排查见 <a href="01-%E5%AE%89%E8%A3%85%E5%92%8C%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%89%93%E5%BC%80.html">安装说明</a>。只读状态下应能读到在线实体，操作按钮禁用。</p>
+<h2>第六步：需要真实控制时再启用</h2>
+<ol>
+<li>原生 HA 中确认设备可控，自己能观察设备。</li>
+<li>将 <code>control.mode</code> 从 <code>read-only</code> 改为 <code>live</code>，刷新，确认页面提示真实控制已启用。</li>
+<li>先操作一台设备、一个动作，核对服务提示、实体回读、物理设备三项。</li>
+<li>设备失联、超时或结果未知时先查状态，不连续重复提交。</li>
+<li>测试后不需要实控时，可改回只读。</li>
+</ol>
+<p>“HA 已受理”不代表空调已经完成制冷或设备一定执行成功。范围、步长、能力不完整时会拒绝相应动作，详细规则见 <a href="02-%E7%9C%9F%E5%AE%9E%E6%8E%A7%E5%88%B6%E9%85%8D%E7%BD%AE.html">真实控制配置</a>。</p>
+<h2>第七步：换背景，再加其他数据</h2>
+<p>只换背景不必改户型坐标。按 <a href="06-%E6%9B%B4%E6%8D%A2%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87.html">背景教程</a> 替换六张主题图，或固定单图；不要误替换 <code>floorplan-textured.webp</code>。</p>
+<p>天气、电网、摄像头每加一类，先确认其 HA 原生实体，再配到前端。完整后端、桥接和预算步骤见 <a href="03-%E6%95%B0%E6%8D%AE%E6%8E%A5%E5%85%A5%E9%85%8D%E7%BD%AE.html">数据接入</a>。已有对应集成不必重复安装。</p>
+<h2>完成后检查</h2>
+<div class="table"><table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>预期结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>静态文件</td>
+<td>能打开 <code>/local/.../assets/background-night.webp</code></td>
+</tr>
+<tr>
+<td>仪表盘</td>
+<td>有展示、控制两个页签；无配置也能打开日历</td>
+</tr>
+<tr>
+<td>只读设备</td>
+<td>在线实体显示实际读数，不能下发</td>
+</tr>
+<tr>
+<td>自己的背景</td>
+<td>深浅主题和轮换图与预期一致</td>
+</tr>
+<tr>
+<td>实控（可选）</td>
+<td>一次明确目标的动作，有受理、回读与物理观察</td>
+</tr>
+<tr>
+<td>分享文件前</td>
+<td>清理自己的实体、序列号、位置、账号和日志</td>
+</tr>
+</tbody></table></div>
+<p>新手容易出错的通常是目录多了一层、编辑错副本、把展示名当实体 ID、绕过 HA iframe、只换轮换中的一张或遇到缓存。先按这些位置查，再看各专题文档，不用一上来重装所有集成。</p>
+</main></html>
