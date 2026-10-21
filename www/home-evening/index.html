@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#181918">
+  <meta name="color-scheme" content="dark">
+  <title>暮色居家 · 全屋大屏</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23e7bd79' d='M3 11 12 3l9 8v10h-6v-7H9v7H3z'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./screen.css">
+</head>
+<body>
+<div style="position:fixed;right:12px;bottom:8px;z-index:10000;background:#152b2aee;color:white;padding:8px 14px;border-radius:18px;font:13px sans-serif">展示页 · 操作仅模拟　<a style="color:#e6c786" href="./control.html">打开真实控制入口</a></div>
+  <main id="screen" class="screen">
+    <header class="header">
+      <div class="clock-block" aria-hidden="true"></div>
+      <div id="header-content"></div>
+      <div class="weather"><button type="button" class="weather-line" id="weather" aria-label="查看天气详情" aria-haspopup="dialog"></button></div>
+    </header>
+    <button type="button" id="calendar-open" class="calendar-trigger" aria-label="查看万年历" aria-haspopup="dialog" aria-expanded="false" title="查看万年历"><time id="clock">--:--</time><span id="date"></span><span id="lunar-date"></span></button>
+    <nav class="navigation" aria-label="页面导航" id="navigation"></nav>
+    <button class="nav-handle" id="nav-handle" type="button" data-action="nav-toggle" aria-label="展开导航" aria-expanded="false" aria-controls="navigation"></button>
+    <section id="home-page" class="page home-page" aria-label="全屋主页">
+      <button type="button" id="pad-open" aria-label="查看平板设备详情" aria-haspopup="dialog" aria-expanded="false"></button>
+      <div id="floorplan" class="floorplan-stage" aria-label="可交互的二维房屋平面图"></div>
+      <div class="model-stage" id="model-stage" hidden>
+        <iframe id="model" title="可交互的三维房屋模型"></iframe>
+        <div class="model-loading" id="model-loading"><span></span>正在加载房屋模型</div>
+      </div>
+      <div class="home-environment"><span class="environment-metric"><span>室内</span><b>—</b></span><span class="environment-metric"><span>湿度</span><b>—</b></span></div>
+      <div class="model-footer" id="model-footer" aria-label="房屋模型控制">
+      <div class="model-categories" id="model-categories" role="group" aria-label="模型图标显示"></div>
+      <div class="view-controls" id="view-controls"></div>
+      </div>
+      <aside id="room-panel" class="room-panel" aria-label="房间快捷控制" hidden></aside>
+      <button id="room-panel-open" class="room-panel-reopen" data-action="open-room-panel" aria-label="显示房间信息" hidden></button>
+    </section>
+    <section id="overview-page" class="page overview-page" aria-label="家中概览" hidden></section>
+    <section id="appliance-page" class="page appliance-page" aria-label="家电设备" hidden></section>
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+    <div id="settings-layer" class="settings-layer" hidden></div>
+    <div id="appliance-layer" class="appliance-detail-layer" hidden></div>
+    <div id="climate-layer" class="climate-layer" hidden></div>
+    <div id="weather-layer" class="weather-layer" hidden></div>
+    <div id="calendar-layer" class="calendar-layer" hidden></div>
+    <div id="pad-layer" class="pad-layer" hidden></div>
+    <div id="standby" class="standby" role="button" tabindex="0" aria-label="唤醒屏幕" hidden><time></time><div class="standby-date"></div><span>轻触屏幕，回到家</span></div>
+  </main>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

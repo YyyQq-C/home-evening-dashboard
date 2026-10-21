@@ -1,0 +1,10 @@
+{
+  "name": "lunar-javascript",
+  "version": "1.7.7",
+  "repository": "https://github.com/6tail/lunar-javascript",
+  "commit": "4c45a59f79b856125516f31aefa8295035c16afd",
+  "source_sha256": "9750324bfe1aa63c146f8c72b1143df924466c11c8a5277d7d9225c541a18aaa",
+  "vendored_sha256": "7ad249dcf3d10d963a12550932c63ed6bbabe37f76f1958fc7f9bdc94ebfbaa3",
+  "license": "MIT",
+  "adaptation": "UMD factory wrapped as an ES module; calendar data and algorithms unchanged"
+}

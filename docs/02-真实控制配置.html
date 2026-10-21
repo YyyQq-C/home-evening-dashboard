@@ -1,0 +1,124 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>02-真实控制配置</title><style>*{box-sizing:border-box}body{margin:0;background:#f4f5f2;color:#28342e;font-family:system-ui,"Microsoft YaHei",sans-serif;line-height:1.85}main{max-width:1000px;margin:0 auto;background:white;padding:36px 46px 70px}h1{font-size:28px;line-height:1.5}h2{margin-top:2em;font-size:23px}h3{font-size:19px}p,li{overflow-wrap:anywhere}a{color:#286c55;overflow-wrap:anywhere}pre{padding:18px;background:#edf2ee;border-radius:8px;white-space:pre-wrap;word-break:break-word;overflow-wrap:anywhere;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}table{border-collapse:collapse;min-width:540px;width:100%;font-size:14px}td,th{padding:10px;border:1px solid #d6ded8;text-align:left}th{background:#edf2ee}.table{overflow-x:auto;max-width:100%}img{max-width:100%;height:auto;border-radius:8px}blockquote{margin:20px 0;border-left:3px solid #8aa995;padding:5px 20px;background:#f4f7f3}@media(max-width:600px){main{padding:22px 18px 45px}h1{font-size:24px}h2{font-size:21px}}</style><main><h1>真实控制配置</h1>
+<h2>先弄清两张页面</h2>
+<p><code>index.html</code> 继续用于展示原暮色界面：模型、灯光、房间、场景和家电操作为模拟；可以配置真实只读数据。</p>
+<p><code>control.html</code> 是本次新增的实际服务调用入口。它没有复制原页面的假状态，不先把图标改成“成功”，而是把命令提交到当前 HA 会话，持续读取真实实体。刚解压时是 <code>read-only</code>，只有你明确修改为 <code>live</code> 才允许下发。</p>
+<h2>一份最小可用配置</h2>
+<p>将下例中的实体全部换成自己的实体后，写入 <code>www/home-evening/site-config.js</code>。没有的设备删除对应对象，不填假实体凑数。</p>
+<pre><code class="language-js">export const SITE = {
+  control: {
+    mode: &#39;read-only&#39;,
+    timeoutMs: 15000,
+    devices: [
+      {key:&#39;living_light&#39;, name:&#39;客厅灯光&#39;, kind:&#39;light&#39;, entity:&#39;light.my_living_light&#39;},
+      {key:&#39;living_ac&#39;, name:&#39;客厅空调&#39;, kind:&#39;climate&#39;, entity:&#39;climate.my_living_ac&#39;, onMode:&#39;cool&#39;},
+      {key:&#39;living_floor&#39;, name:&#39;客厅地暖&#39;, kind:&#39;climate&#39;, entity:&#39;climate.my_living_floor&#39;, onMode:&#39;heat&#39;},
+      {key:&#39;fresh&#39;, name:&#39;全屋新风&#39;, kind:&#39;fan&#39;, entity:&#39;fan.my_fresh_air&#39;}
+    ],
+    scenes: []
+  },
+  camera: {serial:&#39;&#39;},
+  weather: {sensors:{}},
+  entities: {}
+};
+// 供原展示页读取显式配置的实体；不要删除这个导出。
+export function entityId(alias) { return SITE.entities[alias] || &#39;&#39;; }
+</code></pre>
+<p><code>key</code> 是当前配置里的唯一操作标识，不能重复。<code>name</code> 是给人看的名称，可以修改。<code>entity</code> 必须是自己 HA 中已存在的实体。<code>kind</code> 决定允许调用的服务类别，不接受任意服务名或任意目标。</p>
+<p><code>entities</code> 用于原展示页的数据绑定，<code>control.devices</code> 用于新增入口的实际控制，两者不是自动匹配。想让原房间卡片读同一台空调，再加：</p>
+<pre><code class="language-js">entities: {
+  &#39;climate.example_ac_living&#39;: &#39;climate.my_living_ac&#39;,
+  &#39;climate.example_floor_living&#39;: &#39;climate.my_living_floor&#39;
+}
+</code></pre>
+<p>不要在一个对象里重复定义两个 <code>entities</code>，把内容合并到已有对象即可。</p>
+<h2>灯光和继电器</h2>
+<p><code>kind:&#39;light&#39;</code> 允许绑定 <code>light.xxx</code> 或用于开关灯的 <code>switch.xxx</code>。</p>
+<p>绑定 <code>light</code> 时，开关发送 <code>light.turn_on</code> / <code>light.turn_off</code>；实体确实提供调光能力时，亮度发送 <code>light.turn_on</code>，参数为 <code>brightness_pct</code>。不支持调光的灯不会因为界面有输入框就获得调光能力。</p>
+<p>绑定 <code>switch</code> 时只允许开关，不允许提交亮度。不要把童锁、排水、门锁之类的实体当灯光映射。</p>
+<p>一次动作只针对该配置的一个实体。如果需要同时控制多路灯，先在 HA 建立灯组或场景，再显式配置；不要让前端通过名称猜测“客厅所有灯”。动作说明见 <a href="https://www.home-assistant.io/integrations/light/">HA Light 文档</a>。</p>
+<h2>空调</h2>
+<p>支持的动作包括电源、设定温度、运行模式和设备风速。界面的模式与风速选项来自实体的 <code>hvac_modes</code>、<code>fan_modes</code>，提交原始英文值，不用中文标签作为 API 参数。</p>
+<div class="table"><table>
+<thead>
+<tr>
+<th>操作</th>
+<th>HA 服务</th>
+<th>主要参数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>开机</td>
+<td><code>climate.set_hvac_mode</code></td>
+<td>关闭状态下使用自己配置的 <code>onMode</code></td>
+</tr>
+<tr>
+<td>关机</td>
+<td><code>climate.set_hvac_mode</code></td>
+<td><code>hvac_mode: &#39;off&#39;</code></td>
+</tr>
+<tr>
+<td>调温</td>
+<td><code>climate.set_temperature</code></td>
+<td><code>temperature</code>，不夹带模式</td>
+</tr>
+<tr>
+<td>改运行模式</td>
+<td><code>climate.set_hvac_mode</code></td>
+<td>实体实际支持的模式</td>
+</tr>
+<tr>
+<td>改设备风速</td>
+<td><code>climate.set_fan_mode</code></td>
+<td>实体实际支持的 <code>fan_mode</code></td>
+</tr>
+</tbody></table></div>
+<p>为什么需要 <code>onMode</code>？设备关闭时，仅凭 <code>state:&#39;off&#39;</code> 无法决定开机要制冷还是制热。示例中的 <code>cool</code> 需要你自己确认，不适合的设备不要照抄。已经开启的设备点“开启”，保持它当前的有效模式，不另选一个模式。</p>
+<p>温度输入按实体提供的 <code>min_temp</code>、<code>max_temp</code> 和 <code>target_temp_step</code> 校验。范围或步长缺失时，本入口禁用调温，避免给未知设备套一个固定范围。只读原生实体正常却缺少元数据时，先处理集成能力，而不是在前端强行补值。</p>
+<p>例如下列调用说明的是协议内容，不会由文档自动执行：</p>
+<pre><code class="language-yaml">action: climate.set_temperature
+target:
+  entity_id: climate.my_living_ac
+data:
+  temperature: 25
+</code></pre>
+<p>该动作没有额外发送开机、制冷或风速设置。具体硬件如何响应仍取决于集成和设备。官方能力说明见 <a href="https://www.home-assistant.io/integrations/climate/">HA Climate 文档</a>。</p>
+<h2>地暖</h2>
+<p>地暖同样使用 <code>kind:&#39;climate&#39;</code>，不是在前端创造一个“地暖协议”。控客集成创建的地暖实体与其他品牌温控器都可以按实际能力填写。</p>
+<p>普通开关型地暖通常填写 <code>onMode:&#39;heat&#39;</code>，但必须在其 <code>hvac_modes</code> 中确实存在 <code>heat</code>。步长以实体为准，可能为 0.5°C。没有 <code>fan_modes</code> 的地暖会禁用风速选项，不下发空调风速服务。</p>
+<p>把每个分区分别列入 <code>devices</code>，按实际房间核对。作者的原空调编号和地暖编号对应关系不同，项目已经移除了真实编号，不能拿示例数组顺序当作自己的接线表。</p>
+<h2>新风</h2>
+<p>实体应为 <code>fan.xxx</code>，<code>kind:&#39;fan&#39;</code>。开关调用 <code>fan.turn_on</code> / <code>fan.turn_off</code>，百分比调用 <code>fan.set_percentage</code>。只有实体提供百分比读数时才开放该输入；原厂档位与百分比的换算由后端集成负责。</p>
+<p>控客三档在作者原环境里对应约 33/67/100%，用户仍应核对自己的实体和集成。<code>preset_modes</code> 非空时才显示可提交的预设值，不能给没有“自动”预设的设备自行发一个 <code>auto</code>。</p>
+<p>有些集成在设置非零风速时会启动设备。本包不会附加另一条开机命令，但也不承诺“调风速绝不改变电源”。先观察自己的原生卡片行为。见 <a href="https://www.home-assistant.io/integrations/fan/">HA Fan 文档</a>。</p>
+<h2>回家、离家和睡眠</h2>
+<p>真正的场景放在 HA 后端管理。前端只绑定你已经验证过的 <code>scene</code> 或 <code>script</code>，不把展示页里的模拟场景批量翻译成设备命令。</p>
+<pre><code class="language-js">scenes: [
+  {key:&#39;home&#39;, name:&#39;回家&#39;, entity:&#39;scene.my_home&#39;},
+  {key:&#39;leave&#39;, name:&#39;离家&#39;, entity:&#39;script.my_leave&#39;}
+]
+</code></pre>
+<p><code>configs/scripts.example.yaml</code> 提供一个离家脚本的结构。先逐项替换实体，再把脚本合并进自己的 <code>scripts.yaml</code>，检查并重载脚本后确认真实实体 ID，最后配置前端。场景服务返回不表示每台设备都完成了动作；脚本中途失败也可能已经执行了一部分操作。</p>
+<h2>状态、超时与刷新</h2>
+<p>按钮提交以后显示“HA 已受理”，卡片读数继续从实体回读，不立即改成本地期望状态。控客的原厂缓存默认约 30 秒轮询，所以服务受理与界面读数改变可能有时间差。</p>
+<p>15 秒是服务响应等待时间，不是设备物理升温完成时间。超时显示“执行结果未知”，先看实体和设备，不能把超时等同于未执行并不停重试。同一设备等待响应期间阻止重复提交；不同设备彼此隔离。</p>
+<p>断线、缺失实体、<code>unknown</code>、<code>unavailable</code> 都拒绝下发。前端不保存令牌，实际权限仍由当前 HA 用户及后端控制；配置白名单只是限制这张页面的行为，不是 HA 的权限隔离机制。</p>
+<h2>验证顺序</h2>
+<ol>
+<li>在原生 HA 里确认一个准确实体及其动作。</li>
+<li>只读模式核对读数、上下限和可选项。</li>
+<li>改为 <code>live</code> 后，自己观察一台设备，完成单次动作。</li>
+<li>同时检查服务结果、实体回读和物理设备，三项分别记录。</li>
+<li>再测设备断线、重复点击、刷新、温度草稿和返回页面。</li>
+<li>单设备稳定以后，才绑定 HA 场景或脚本。</li>
+</ol>
+<h2>后续把原模型按钮也接上，应该改哪里</h2>
+<p>这一步未在本包自动完成。原展示页有三条不同操作路径，不能只在 <code>saveState()</code> 上加请求，也不能通过比较整份状态来判断应该控制哪台设备。</p>
+<ul>
+<li><code>app.js</code> 的 <code>toggleState()</code> 同时被房间按钮、2D 标记和 3D 消息调用，应统一接入一个明确的设备动作入口。</li>
+<li>温度经 <code>editTemperature()</code> 的草稿计时器处理；要改成每台设备独立防抖的真实服务提交，回读更新不能覆盖尚未提交的草稿。</li>
+<li><code>climate-dialog.js</code> 的电源、模式和风速有独立事件分支，目前直接修改模拟对象，必须逐项改为明确调用。</li>
+<li><code>onClick()</code> 的 <code>scene</code>、<code>speed</code>、<code>fresh-mode</code> 和家电分支也要分别处理。场景应指向 HA 场景或脚本，家电不应通过通用猜测控制。</li>
+<li><code>model-adapter.js</code> 只收发几何标记的消息。保留来源与 origin 校验，不能让消息直接指定任意 HA 服务或实体。</li>
+</ul>
+<p>可以复用本包 <code>control-actions.js</code> 的白名单和校验逻辑，但还需要重做展示页的 pending、失败提示、真实状态回读和全部入口的回归。原展示页里的“已模拟执行”文案也必须同步调整。完成这些工作以前，应保留“模拟”标记，而不是让用户把模型动画当作真实控制成功。</p>
+</main></html>

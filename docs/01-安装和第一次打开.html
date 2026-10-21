@@ -1,0 +1,52 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>01-安装和第一次打开</title><style>*{box-sizing:border-box}body{margin:0;background:#f4f5f2;color:#28342e;font-family:system-ui,"Microsoft YaHei",sans-serif;line-height:1.85}main{max-width:1000px;margin:0 auto;background:white;padding:36px 46px 70px}h1{font-size:28px;line-height:1.5}h2{margin-top:2em;font-size:23px}h3{font-size:19px}p,li{overflow-wrap:anywhere}a{color:#286c55;overflow-wrap:anywhere}pre{padding:18px;background:#edf2ee;border-radius:8px;white-space:pre-wrap;word-break:break-word;overflow-wrap:anywhere;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}table{border-collapse:collapse;min-width:540px;width:100%;font-size:14px}td,th{padding:10px;border:1px solid #d6ded8;text-align:left}th{background:#edf2ee}.table{overflow-x:auto;max-width:100%}img{max-width:100%;height:auto;border-radius:8px}blockquote{margin:20px 0;border-left:3px solid #8aa995;padding:5px 20px;background:#f4f7f3}@media(max-width:600px){main{padding:22px 18px 45px}h1{font-size:24px}h2{font-size:21px}}</style><main><h1>安装和第一次打开</h1>
+<h2>先判断你需要哪部分</h2>
+<p>已有 HA 实体，只想用界面：只处理 <code>www/home-evening</code>、<code>site-config.js</code> 和仪表盘配置。</p>
+<p>设备还没接入：先按设备品牌安装集成。控客用户可参考本包 <code>konke_local</code>；其他品牌不用改成控客，只要最终得到可用的 <code>light</code>、<code>switch</code>、<code>climate</code> 或 <code>fan</code> 实体即可。</p>
+<p>只想用原生界面实控：把 <code>configs/native-controls.example.yaml</code> 中的实体替换成自己的实体，在新仪表盘使用。不需要这套 Three.js 模型。</p>
+<h2>文件放在哪里</h2>
+<p>HA 配置目录是包含 <code>configuration.yaml</code> 的目录。HA OS 或容器内常见为 <code>/config</code>，作者的 SSH 环境另用配置目录名；用户必须以自己安装方式为准，不能照抄作者机器的绝对路径。</p>
+<p>复制后结构应是：</p>
+<pre><code class="language-text">&lt;HA 配置目录&gt;/
+  configuration.yaml
+  www/
+    home-evening/
+      index.html
+      control.html
+      app.js
+      control-page.js
+      control-actions.js
+      site-config.js
+      model-host.html
+      model.js
+      assets/
+      optional/
+</code></pre>
+<p>对应的浏览器资源路径是 <code>/local/home-evening/index.html</code>。不是 <code>/www/home-evening/</code>，也不是 Windows 本机磁盘路径。</p>
+<p>这些静态资源可以由 HA 提供，不要在其中放凭据、数据库、整个集成目录或自己的 <code>.storage</code>。实体 ID、摄像头序列号也会进入客户端；本包默认留空，若自己的分享包要再次公开，先清理这些字段。</p>
+<h2>添加仪表盘：界面方式</h2>
+<ol>
+<li>在 HA 的“设置 → 仪表盘”创建一个新的可编辑仪表盘，命名为自己能区分的名称。</li>
+<li>打开新仪表盘，进入编辑和“原始配置编辑器”。只在这个新仪表盘粘贴 <code>configs/dashboard.yaml</code>。</li>
+<li>保存后出现“户型展示”和“真实控制”两个页签。</li>
+<li>从这两个页签打开页面，而不是把 <code>/local/...</code> 地址直接当作独立应用收藏。直接打开静态 HTML 时没有父级 HA 的 <code>hass</code> 对象，不能取得当前会话。</li>
+</ol>
+<p>页面复用当前用户登录，不新增长期令牌。HA 使用 HTTPS 时，保持同源 <code>/local/</code>，不要另外嵌入一个 HTTP 服务器。映射方式依据 <a href="https://www.home-assistant.io/dashboards/iframe/">HA Webpage card 文档</a>。</p>
+<h2>添加仪表盘：YAML 方式</h2>
+<p><code>configs/configuration-dashboard.example.yaml</code> 是合并示例，不是一份可以覆盖整个 <code>configuration.yaml</code> 的文件。</p>
+<p>将 <code>configs/dashboard.yaml</code> 复制为 <code>&lt;HA 配置目录&gt;/home-evening-reader.yaml</code>，然后把示例中 <code>home-evening-reader</code> 这一项合并到现有 <code>lovelace.dashboards</code>。已有顶层键时向原结构追加，不重复写两个 <code>lovelace:</code>。</p>
+<p>由使用 HA CLI 的管理员执行 <code>ha core check</code> 检查配置；确实需要加载新的 YAML 注册时，再按安装环境重载或重启。<code>ha core restart</code> 会短暂中断 HA，复制静态页面文件本身不要求每次重启。</p>
+<h2>第一次配置</h2>
+<p>先打开 <code>site-config.example.js</code> 看结构，再编辑正在使用的 <code>site-config.js</code>。示例里的 <code>climate.my_living_ac</code> 等只是占位名，没有对应设备。</p>
+<p>基础顺序是：</p>
+<ol>
+<li>HA“开发者工具 → 状态”复制准确实体 ID，别复制展示名称。</li>
+<li>填入 <code>control.devices</code>，保持只读。</li>
+<li>回到 HA 的“真实控制”页检查状态，空调应能显示当前模式、设定温度等真实字段。</li>
+<li>回到原生设备详情，确认该设备在 HA 中确实可控。</li>
+<li>修改 <code>mode</code> 为 <code>live</code> 后，再开始一台设备的验证。</li>
+</ol>
+<p>如果暂时只看户型、日历和背景，不填实体也能运行。天气、概览、平板状态会提示未配置或不可用；真实控制按钮保持禁用。户型展示里的设备按钮始终只是本地模拟。</p>
+<h2>更新配置没有生效</h2>
+<p>确认编辑的是 HA 上正在提供的 <code>www/home-evening/site-config.js</code>，不是解压包里另一份文件。浏览器可能缓存 ES module，先重新加载 iframe 或用新的隐私窗口验证；更新入口时也可以在 iframe URL 上改变一个版本参数。仍然显示旧内容时，检查该模块请求的实际返回内容，不要只改 HTML URL 就认定所有依赖已经更新。</p>
+<p>如果自己部署了额外 Service Worker，还需要按自己的缓存规则处理。本包不注册 Service Worker，也不改 HA 全局缓存。</p>
+</main></html>

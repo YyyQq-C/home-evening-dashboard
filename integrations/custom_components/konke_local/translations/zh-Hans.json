@@ -1,0 +1,25 @@
+{
+  "title": "控客本地 SSH",
+  "config": {
+    "step": {
+      "user": {
+        "title": "连接控客主机",
+        "description": "通过 SSH 隧道接入原厂设备。请填写自己的控客地址，并先独立核对主机公钥（算法名加 Base64 公钥）。",
+        "data": {
+          "host": "控客地址",
+          "port": "SSH 端口",
+          "username": "SSH 用户",
+          "password": "SSH 密码",
+          "host_key": "已核对的主机公钥"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "无法连接控客，请检查 SSH 凭据和主机公钥。"
+    },
+    "abort": {
+      "already_configured": "此控客主机已经配置。",
+      "cannot_connect": "无法连接控客，请检查 SSH 凭据和主机公钥。"
+    }
+  }
+}

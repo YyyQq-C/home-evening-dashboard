@@ -1,0 +1,845 @@
+{
+  "algorithm": "SHA256",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "bytes": 90,
+      "sha256": "acaef03485db36a7dc99ee8b46530a43c44d89c2dc8b03a5dc5eda7df6ebc1c8"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 281,
+      "sha256": "8d50a94c525f7136c690982c1a24b8475f0b864ed947d62c180e29ed3493c2a2"
+    },
+    {
+      "path": "configs/configuration-dashboard.example.yaml",
+      "bytes": 488,
+      "sha256": "b1673b6a8057f03a525aa0feac7072356cc0a6395a3a25082a5f3043e69204be"
+    },
+    {
+      "path": "configs/dashboard.yaml",
+      "bytes": 405,
+      "sha256": "87f06ea6f4863dd471c740f7142ce1cb5b1b43dae51fa2d26a5aab2d868bd6fd"
+    },
+    {
+      "path": "configs/native-controls.example.yaml",
+      "bytes": 554,
+      "sha256": "725211cc74071b53a1350ab3c0f287555e75568d35ed9f108fd7f86e8dd12a4b"
+    },
+    {
+      "path": "configs/scripts.example.yaml",
+      "bytes": 544,
+      "sha256": "5d8fd15eb589af4d94684185b3b367c768f67865586b2e772579b65f5024808f"
+    },
+    {
+      "path": "configs/template-grid.example.yaml",
+      "bytes": 237,
+      "sha256": "690f4c6be481289191f85839de458967ca0626a46eae84925562dc0004d9e641"
+    },
+    {
+      "path": "docs/01-安装和第一次打开.html",
+      "bytes": 6227,
+      "sha256": "1e61fd3f7d8bdd7ca353c7ccf2526356d497f4771bfb8f504f85a8a1a583c34f"
+    },
+    {
+      "path": "docs/01-安装和第一次打开.md",
+      "bytes": 4423,
+      "sha256": "db8eedc2b47d38a89e63fb7ab0eeefb066327eb9fc988eaa8b5b70f60af9cbfb"
+    },
+    {
+      "path": "docs/02-真实控制配置.html",
+      "bytes": 12120,
+      "sha256": "bd81d5a86f62adffb5fe963efd37e825030d45be47829e83daf293b9a3bb43c8"
+    },
+    {
+      "path": "docs/02-真实控制配置.md",
+      "bytes": 9172,
+      "sha256": "db1a455a4e9e5a13669d6fb797d0075401c5a4f938d039d058551cc739f076d7"
+    },
+    {
+      "path": "docs/03-数据接入配置.html",
+      "bytes": 14063,
+      "sha256": "cc419d80d6f3e18f70cd9a1cf67815dc61be91bd7a6e40a5a47b17c684d802fa"
+    },
+    {
+      "path": "docs/03-数据接入配置.md",
+      "bytes": 11513,
+      "sha256": "862408a10485eab53a35122c28b6401ece50a06f8c7248a84b47a9a2b285e61c"
+    },
+    {
+      "path": "docs/04-文件逐项说明.html",
+      "bytes": 12887,
+      "sha256": "243909d24616b86fd7a6629fb34fa5749627906e3218ccb5f0bdb6dec4a0f0df"
+    },
+    {
+      "path": "docs/04-文件逐项说明.md",
+      "bytes": 8854,
+      "sha256": "2cf1478205cce7e1fa558580850b00472682bce9f4f18d01109e5b2c49ab4e7b"
+    },
+    {
+      "path": "docs/05-更换户型和维护.html",
+      "bytes": 8407,
+      "sha256": "1bbbbee4cc937f0010ecaea82a496ca302808aaa55b59f4a9acec8021e0caaa2"
+    },
+    {
+      "path": "docs/05-更换户型和维护.md",
+      "bytes": 6286,
+      "sha256": "96d9982097556bb8733df2f9b154c15a2d0ac6c46a6109ca2d602d4cca1861c9"
+    },
+    {
+      "path": "docs/images/control-mobile.png",
+      "bytes": 33052,
+      "sha256": "becec0831af53951da9b464f99792dec70fefcca8378c2fb5b56cdb6017b22f0"
+    },
+    {
+      "path": "docs/images/control-readonly.png",
+      "bytes": 55110,
+      "sha256": "4b54d172706db536243e840d890b019d1c58d86068592bb4d54573337b21d144"
+    },
+    {
+      "path": "docs/实体映射索引.html",
+      "bytes": 16607,
+      "sha256": "55db02d494ef2dc9b006813d4df10b5cad79a094aa510d42d09f47c4aec0d9a9"
+    },
+    {
+      "path": "docs/实体映射索引.md",
+      "bytes": 11368,
+      "sha256": "e69916e89d047d158e55afcfeacde5994f65751c4aa6e1f610b0a2f0d07105af"
+    },
+    {
+      "path": "docs/验证与脱敏说明.html",
+      "bytes": 123941,
+      "sha256": "eeb79b77827ea00ee80ea0704f810d8e8fc17cc5090b7cb2f3d4d2286269ef3e"
+    },
+    {
+      "path": "docs/验证与脱敏说明.md",
+      "bytes": 4415,
+      "sha256": "775b9a5c2c525003e51d4e36b1fac13f6c2d0fd03962767cbe9714067ac9d6bc"
+    },
+    {
+      "path": "integrations/custom_components/ezviz_stream/__init__.py",
+      "bytes": 9182,
+      "sha256": "6069a59f06969cb712e74ee398661a3b1082a02a5f5a6f39de21c1689c47b1b2"
+    },
+    {
+      "path": "integrations/custom_components/ezviz_stream/api.py",
+      "bytes": 35962,
+      "sha256": "e497e9f4387c8fca32239e89253dab687ca577c277038ab6a83b560ad5b1ff19"
+    },
+    {
+      "path": "integrations/custom_components/ezviz_stream/broadcast.py",
+      "bytes": 28604,
+      "sha256": "61578fe4dfffd0ab773dce87376c223bb61a55ba3bcf05d780daf063cb92d69f"
+    },
+    {
+      "path": "integrations/custom_components/ezviz_stream/camera.py",
+      "bytes": 27602,
+      "sha256": "b616470aead78775bb5900a3d1779606607a5951b2c284557a56818ea889ebfe"
+    },
+    {
+      "path": "integrations/custom_components/ezviz_stream/cloud_replay.py",
+      "bytes": 15202,
+      "sha256": "f89ef3ff01f1dcf308c24f709cfbe748f06c694292baa3e167832d0ba7e0c503"
+    },
+    {
+      "path": "integrations/custom_components/ezviz_stream/config_flow.py",
+      "bytes": 31101,
+      "sha256": "d977dbccbe13bc613b638ed25e7ee0b8fba3bf336817bb789e7a95de37c4ee63"
+    },
+    {
+      "path": "integrations/custom_components/ezviz_stream/const.py",
+      "bytes": 6413,
+      "sha256": "79b1761f0fadb99e797a5e9727bdd150338325573d49c31b79d68be1607ded0e"
+    },
+    {
+      "path": "integrations/custom_components/ezviz_stream/decrypt_image.py",
+      "bytes": 4112,
+      "sha256": "9672b12136fe850dc8e35bfa62408af3345a0b6fca88913303279cd1fc9d2527"
+    },
+    {
+      "path": "integrations/custom_components/ezviz_stream/decrypt_stream.py",
+      "bytes": 30063,
+      "sha256": "6cb7e47e52993d8d4be66a736ecfb1426810056b1428d86121cdaef58f626ea0"
+    },
+    {
+      "path": "integrations/custom_components/ezviz_stream/manifest.json",
+      "bytes": 417,
+      "sha256": "352a1e377dd71b7157c6bc01b5f4b40bdfd078b760818c793004b555ee85a75c"
+    },
+    {
+      "path": "integrations/custom_components/ezviz_stream/media_source.py",
+      "bytes": 9604,
+      "sha256": "12516966b0e3dfed19126b95e6131ef3959c90ec981379687bb904bd998f4422"
+    },
+    {
+      "path": "integrations/custom_components/ezviz_stream/stream.py",
+      "bytes": 28921,
+      "sha256": "1a50068e874259b810c3961e8744240e855d98af2327f0cd5f2f396037bfc6af"
+    },
+    {
+      "path": "integrations/custom_components/ezviz_stream/stream_view.py",
+      "bytes": 9568,
+      "sha256": "7bb3f1bc24c60d6d22c3127ac7b9c1e8231c646323ccf56f8f9cd7b1f06bcd4e"
+    },
+    {
+      "path": "integrations/custom_components/ezviz_stream/strings.json",
+      "bytes": 8439,
+      "sha256": "4530abc667d60b95a8f33c7562c603daf1c22fe59720e7293a6028e29ddba070"
+    },
+    {
+      "path": "integrations/custom_components/ezviz_stream/translations/en.json",
+      "bytes": 8439,
+      "sha256": "4530abc667d60b95a8f33c7562c603daf1c22fe59720e7293a6028e29ddba070"
+    },
+    {
+      "path": "integrations/custom_components/ezviz_stream/ysproto.py",
+      "bytes": 11154,
+      "sha256": "8cb544bc590fd24f88777d7a2cef2e92b3735b524018999ab5316cfa971479ec"
+    },
+    {
+      "path": "integrations/custom_components/heweather/__init__.py",
+      "bytes": 4270,
+      "sha256": "4fdafc77112c3c8a6fa3fc7161033c4195f9839614d2ffda61171fdb5ef03050"
+    },
+    {
+      "path": "integrations/custom_components/heweather/config_flow.py",
+      "bytes": 29732,
+      "sha256": "e8d6bf264c368cf809b3c60b8dbd7c8561039be0806484c98f9521f8964e1f92"
+    },
+    {
+      "path": "integrations/custom_components/heweather/heweather/const.py",
+      "bytes": 2852,
+      "sha256": "0a758659bd990007b138b6982437225f4e5c051aa71f67e5eeb384dcaa0bf651"
+    },
+    {
+      "path": "integrations/custom_components/heweather/heweather/heweather_cert.py",
+      "bytes": 11632,
+      "sha256": "e39f86074e573c064b6e8db1641f3a8a54eb77a9a43aac81db1e31b56ec6936c"
+    },
+    {
+      "path": "integrations/custom_components/heweather/manifest.json",
+      "bytes": 400,
+      "sha256": "8b18730100f5ee3911f6c9d3b61c4b0152aee031523b1bede467ba4ae9e3492f"
+    },
+    {
+      "path": "integrations/custom_components/heweather/monthly_quota.py",
+      "bytes": 6138,
+      "sha256": "cc660b6a35f87d96dd407570dffb8eff028c8e3117a2238d464505e96bab59c7"
+    },
+    {
+      "path": "integrations/custom_components/heweather/sensor.py",
+      "bytes": 33697,
+      "sha256": "cc59a6995be0925ebb395d83b0c1b277818a90c25fbb4b481d5b2ac126f0c91f"
+    },
+    {
+      "path": "integrations/custom_components/heweather/translations/en.json",
+      "bytes": 9393,
+      "sha256": "8652bb010c7d54782a505feb6f4410c3057678e0c6bafe9cbafd4f6af9952f6f"
+    },
+    {
+      "path": "integrations/custom_components/heweather/translations/zh-Hans.json",
+      "bytes": 9394,
+      "sha256": "c852fa9e69c4d9689ebd6aafe6db7652e12c9f9e6a9a8b863d6f5e0b59c1f865"
+    },
+    {
+      "path": "integrations/custom_components/heweather/weather.py",
+      "bytes": 22266,
+      "sha256": "e4dc822fc609eadb419b4c3c4545f092d9f8530ef1a7efb19ddb375943ddbf67"
+    },
+    {
+      "path": "integrations/custom_components/konke_local/__init__.py",
+      "bytes": 3226,
+      "sha256": "cd2208e8f8d74486d2b3031f8267f24261e24e6ebee7d2e02df391d89534771e"
+    },
+    {
+      "path": "integrations/custom_components/konke_local/client.py",
+      "bytes": 10232,
+      "sha256": "b4fab76ed6af193978ce4a69c2d4f671686a5141e54ea657813d4bef17d5bc26"
+    },
+    {
+      "path": "integrations/custom_components/konke_local/climate.py",
+      "bytes": 4218,
+      "sha256": "a789467365a55938b188fc628e9d846ff25dbb8ff0e9ce77f9d2e037ffd93622"
+    },
+    {
+      "path": "integrations/custom_components/konke_local/config_flow.py",
+      "bytes": 2365,
+      "sha256": "da05ffa494001829e6bc6055d02c1c173270d88e881b57956812c2f470eb0dff"
+    },
+    {
+      "path": "integrations/custom_components/konke_local/entity.py",
+      "bytes": 1758,
+      "sha256": "52daf6a7a7d1cfec39330ab77f6a15a36ffc112016e73a8946dc1888e300b021"
+    },
+    {
+      "path": "integrations/custom_components/konke_local/fan.py",
+      "bytes": 2048,
+      "sha256": "a83a5c712d4b13fd2c9fe780acfb14ba627e074efc0c0643d2559396aaf922da"
+    },
+    {
+      "path": "integrations/custom_components/konke_local/manifest.json",
+      "bytes": 394,
+      "sha256": "6678f4baa074f003fb8ae4c2e50d8dbdb08493f794d277c7e502ef74d3bf7897"
+    },
+    {
+      "path": "integrations/custom_components/konke_local/strings.json",
+      "bytes": 792,
+      "sha256": "8146a507df5cc90ebda8407d7955800e3c9d07423129b22ba511c3d6b21d209f"
+    },
+    {
+      "path": "integrations/custom_components/konke_local/translations/zh-Hans.json",
+      "bytes": 792,
+      "sha256": "8146a507df5cc90ebda8407d7955800e3c9d07423129b22ba511c3d6b21d209f"
+    },
+    {
+      "path": "integrations/custom_components/state_grid/__init__.py",
+      "bytes": 3506,
+      "sha256": "ce6bff1f7d4d463ab0ccac97dc15d68cfa18c9d525ef511cd0e0f7a47bfdddf8"
+    },
+    {
+      "path": "integrations/custom_components/state_grid/api.py",
+      "bytes": 32228,
+      "sha256": "24e1ecdf2f72010fbb1ee7b7a70313952f8c3f1e70d41c7025ac08aaa684759d"
+    },
+    {
+      "path": "integrations/custom_components/state_grid/config_flow.py",
+      "bytes": 20929,
+      "sha256": "93f06900a940433279b28ad2fd0f1900be6b3729afa74bd25b15ecfa40e005c5"
+    },
+    {
+      "path": "integrations/custom_components/state_grid/const.py",
+      "bytes": 805,
+      "sha256": "ff39ba721d60c618651839be762dbcfc519e7313e2272773f85e9a7ed3f9f9d0"
+    },
+    {
+      "path": "integrations/custom_components/state_grid/coordinator.py",
+      "bytes": 3748,
+      "sha256": "b4c535c582c5f080ca3e9a6cc3bb4d4cf2a5d6a6857a53b6f4b309cec7bd6049"
+    },
+    {
+      "path": "integrations/custom_components/state_grid/crypto.py",
+      "bytes": 5014,
+      "sha256": "f70309db9725f88f3ec6a4a6e6a7c871b919a7c44139df8813b2972ef5899668"
+    },
+    {
+      "path": "integrations/custom_components/state_grid/login.py",
+      "bytes": 6237,
+      "sha256": "3c29fd3a276803f184605ca0a0ee3bfc4faa1a6d7349ae68f5edfad40e4e527b"
+    },
+    {
+      "path": "integrations/custom_components/state_grid/manifest.json",
+      "bytes": 441,
+      "sha256": "78241b1452a7fe4422a3ea123cdbdb2c07c998d8c840828ba9ac6ade41414313"
+    },
+    {
+      "path": "integrations/custom_components/state_grid/models.py",
+      "bytes": 14169,
+      "sha256": "a3be83f2098dd8a2ffab8f2b3991e35834bdf2bae78f24c0b14e1ebdc3971c46"
+    },
+    {
+      "path": "integrations/custom_components/state_grid/sensor.py",
+      "bytes": 8849,
+      "sha256": "f36076c41805448cd4c84b362a7efb4e005e3b06d7e3615dda361eb4dfe0279e"
+    },
+    {
+      "path": "integrations/custom_components/state_grid/strings.json",
+      "bytes": 3195,
+      "sha256": "31b7f95702bcd3afcf3ea601901dc9391d8cbfda2175e7178acae8b8cf26aa27"
+    },
+    {
+      "path": "integrations/custom_components/state_grid/synthetic_device.py",
+      "bytes": 4732,
+      "sha256": "4d5c698108d2201120dff70895bfc3d64c21a73a889a02fa104783ad88b56e48"
+    },
+    {
+      "path": "integrations/custom_components/state_grid/translations/en.json",
+      "bytes": 3337,
+      "sha256": "92591ae0b16c030b7f400fe29bd4008f3927805ce1cd9dc494075a75ef9c22bc"
+    },
+    {
+      "path": "integrations/custom_components/state_grid/translations/zh-Hans.json",
+      "bytes": 3173,
+      "sha256": "a55a192ccfabca6c7bb31a8c5d0af876b952c3d7cc072f524a6566c8851b6bd9"
+    },
+    {
+      "path": "integrations/custom_components/state_grid/turing/__init__.py",
+      "bytes": 55,
+      "sha256": "e9fe9ec1bcdce1286a58a531ca2d0b85cdcc4e30fce814fc84555b38b442b9db"
+    },
+    {
+      "path": "integrations/custom_components/state_grid/turing/device_token.py",
+      "bytes": 7820,
+      "sha256": "2efe93ac5ce4e5e6e2c38a7e803a9936d2c1de177b0755b11dc39bf4ea998115"
+    },
+    {
+      "path": "integrations/custom_components/state_grid/turing/feature_profile.py",
+      "bytes": 16750,
+      "sha256": "791a155415f01fea88a3315f393c3a07bd848394c6620311f8f2aeb39b5a38d1"
+    },
+    {
+      "path": "integrations/custom_components/state_grid/turing/field_policy.json",
+      "bytes": 71001,
+      "sha256": "bc86217bf778303678b529001716771fe3c0238d137f486f5affc389646608d5"
+    },
+    {
+      "path": "integrations/custom_components/state_grid/turing/hash_python.py",
+      "bytes": 2768,
+      "sha256": "619a50276ba42d738816ccd23ff51e88b1a188daebe73f500c9c182b0ce7fe27"
+    },
+    {
+      "path": "integrations/custom_components/state_grid/turing/jce.py",
+      "bytes": 16091,
+      "sha256": "32ad0559f56a7e8c0ea075d24ed84633d864344f18459cb9ec3e5e66fc303c86"
+    },
+    {
+      "path": "integrations/custom_components/state_grid/turing/profile_diagnostics.py",
+      "bytes": 12769,
+      "sha256": "e8d196ee0fe16296a182a07c0676ee1b3a73511ed98eae7889e45b0926c8bbf2"
+    },
+    {
+      "path": "integrations/custom_components/state_grid/turing/reference_environment.json",
+      "bytes": 5591,
+      "sha256": "b61347740d8a472d258641c81c58c7dff791486a0a18c573b159be3a628e981a"
+    },
+    {
+      "path": "model-source/cad-layout.js",
+      "bytes": 71652,
+      "sha256": "b6909e8f59de1faa655672153df5330cfde8b956f3c1a6fffd8313a548985b98"
+    },
+    {
+      "path": "model-source/ceiling-strips.js",
+      "bytes": 2889,
+      "sha256": "5042049d2ab7ca9b73702546ff64055d0100f6d811c34ba704c098a2460788c9"
+    },
+    {
+      "path": "model-source/curtains.js",
+      "bytes": 6713,
+      "sha256": "e1d3cca8f7bde2afcd9473cc0b73ca334ee9e24819cffe5eebe3238d37b3bb81"
+    },
+    {
+      "path": "model-source/device-display.js",
+      "bytes": 12184,
+      "sha256": "2d37852fd48adad38e8b8c2ab3403d6209f9be39d33efdf15e7347c723c890cc"
+    },
+    {
+      "path": "model-source/index.html",
+      "bytes": 5228,
+      "sha256": "87e2439ba7ed390e57cdd146f698a48eb8769a866158c8b9e4f59d4ae7833030"
+    },
+    {
+      "path": "model-source/living-quality.js",
+      "bytes": 7046,
+      "sha256": "b341f0cc010d25388c57eb997588bc5c35fa3dbc450590c88d0f4a13465f807b"
+    },
+    {
+      "path": "model-source/model.js",
+      "bytes": 61532,
+      "sha256": "bc502e4456cb31946f1ffd0a721365c4643eed9c7d7da42ba4430d8d41a5c0a6"
+    },
+    {
+      "path": "model-source/package-lock.json",
+      "bytes": 467,
+      "sha256": "3ec3736bfc1839c56845dca8ec6eae50ae52754e2ea50c393906f25314b8383b"
+    },
+    {
+      "path": "model-source/package.json",
+      "bytes": 52,
+      "sha256": "bf047ba2c0ac37131b4325b37b4524888aec407c5c5f8257c8cf886c87936249"
+    },
+    {
+      "path": "model-source/render-quality.js",
+      "bytes": 8118,
+      "sha256": "8b5190371921db1ea5bb5e2d5a16b103e1d5d93ca3b2f7b7db1ca57f9394d6ca"
+    },
+    {
+      "path": "model-source/soft-furnishings.js",
+      "bytes": 8405,
+      "sha256": "a05334011090942d7cc87d450f5eb9fe9df7fdb538486acaf66449d9304c3586"
+    },
+    {
+      "path": "model-source/warm-home.js",
+      "bytes": 5313,
+      "sha256": "55326c4c0ea2623b2760cc8a4d0ba8d16b989ce8bccaa8cbb2c93aa5afffa0de"
+    },
+    {
+      "path": "package.json",
+      "bytes": 229,
+      "sha256": "8822f768b492704a595cdccc5f9817173d31965e86a8c88c852359794db4c55f"
+    },
+    {
+      "path": "README.html",
+      "bytes": 7456,
+      "sha256": "e28932acc7b18477d6b04147fa83e9aabcd983086cb76f643cf2f8b1d9fcd70b"
+    },
+    {
+      "path": "README.md",
+      "bytes": 5259,
+      "sha256": "08d1ed0d432b0ed519f1334414b591a7efd94b3e53fbf6c9890bb64b7bfa8685"
+    },
+    {
+      "path": "tests/control-actions.test.mjs",
+      "bytes": 8594,
+      "sha256": "a3db6fe5de24dbd288a6688b96bc90c374ac1d88bde03e4f9e9d5ede59eae645"
+    },
+    {
+      "path": "third-party/ezviz_stream.LICENSE",
+      "bytes": 11360,
+      "sha256": "5aaccceb01334298be9a19850ba8e5075711f08bacfc0a7b5db879a793be9fbf"
+    },
+    {
+      "path": "third-party/konke_local.LICENSE",
+      "bytes": 1064,
+      "sha256": "8a815f19dd184f1a2d40352dc26b766d7f2ee2b104c2dff5de4931cecfd27489"
+    },
+    {
+      "path": "third-party/product-sources.json",
+      "bytes": 1400,
+      "sha256": "844bc7d4324a939dc58ccf9ef5954bac4dc3ffefe27c6b3998bbc9090597d875"
+    },
+    {
+      "path": "third-party/state_grid.LICENSE",
+      "bytes": 1092,
+      "sha256": "e58fcf3ef53c5304271506f2244fce30a45035005bcff25360fa22e7accb0af7"
+    },
+    {
+      "path": "third-party/three.LICENSE",
+      "bytes": 1081,
+      "sha256": "bfe119ea4fd413f5f7ca3fcd63adb0c4a073ed39daa2fe7d3e6b769e21272601"
+    },
+    {
+      "path": "THIRD_PARTY.html",
+      "bytes": 5107,
+      "sha256": "b6fa0f4b43d3c66ec856ea6e652006eaef3413789bd55b9a84eef2c63b368e2f"
+    },
+    {
+      "path": "THIRD_PARTY.md",
+      "bytes": 3054,
+      "sha256": "4627dda249d4b44ca549f3cd047d209f6aa2248e8ad459f5bb7de945525d9c82"
+    },
+    {
+      "path": "tools/electricity_bridge.py",
+      "bytes": 5828,
+      "sha256": "c09e8f795284bc901f28a36d66be87c5c0497d053d522ff83e160ce704802fec"
+    },
+    {
+      "path": "tools/make_weather_quota.py",
+      "bytes": 1503,
+      "sha256": "f9d7e81de706dbe6c2ab6570e30717458c6736b104a500004af1fd83e5091d9a"
+    },
+    {
+      "path": "tools/validate_package.py",
+      "bytes": 3979,
+      "sha256": "9d149bdb5055d3cc5be8b861ec48ce5dc11c50a25fc9b0b2c5fd1f8461fc9066"
+    },
+    {
+      "path": "www/home-evening/ambient.js",
+      "bytes": 324,
+      "sha256": "c338896be0d46cc6fe1ce7202de5c69460e31e55151d35a8422db9bbe50235ca"
+    },
+    {
+      "path": "www/home-evening/app.js",
+      "bytes": 51180,
+      "sha256": "2b2c1dc2607a0f3452610d09d3f18261f497436f93677dd946979c4ab87848d0"
+    },
+    {
+      "path": "www/home-evening/appliance-data.js",
+      "bytes": 16284,
+      "sha256": "cdbc4b5253da62fe7f46a38485561cdc1b07b70a25822e4a0b1d8dbaa522a036"
+    },
+    {
+      "path": "www/home-evening/appliance-dialog.js",
+      "bytes": 10398,
+      "sha256": "14d8e63cc93e24fa966a3f89519dc50211eeca1d0148646837e37515a7a128c4"
+    },
+    {
+      "path": "www/home-evening/assets/background-day-interior.webp",
+      "bytes": 13184,
+      "sha256": "973809a33e927bdef792389910849aec7e72b62c7248df10cbd4dea2e438e091"
+    },
+    {
+      "path": "www/home-evening/assets/background-day-lineart.webp",
+      "bytes": 13698,
+      "sha256": "981474ab4499b2541496433a999b9be3a9bc863dddb743c7dc35e80b4936dc71"
+    },
+    {
+      "path": "www/home-evening/assets/background-day.webp",
+      "bytes": 15594,
+      "sha256": "9bad4c2163152c0ac03a0d673dec0654b2e32b2f3a8d47f4ff51004f80878ca8"
+    },
+    {
+      "path": "www/home-evening/assets/background-night-aurora.webp",
+      "bytes": 11630,
+      "sha256": "b505e849d44eed4c1417e8b49d4b22621b8502806d6d8bbc71528cd115001995"
+    },
+    {
+      "path": "www/home-evening/assets/background-night-interior.webp",
+      "bytes": 13628,
+      "sha256": "9e360bb5d89228bee18940fa081ffa35ec2cdb89df380e1dfdd0089b8d5927bd"
+    },
+    {
+      "path": "www/home-evening/assets/background-night.webp",
+      "bytes": 75424,
+      "sha256": "5941a98478c04c40020085811aee2966ad7ecd2ed9363fa0f23ed1af94c7ff5e"
+    },
+    {
+      "path": "www/home-evening/assets/drinker.png",
+      "bytes": 703782,
+      "sha256": "b08bca9056e91ab403f31e167b9290a73f4872a06b3c07db1a400bcd0a0300c8"
+    },
+    {
+      "path": "www/home-evening/assets/floorplan-textured.webp",
+      "bytes": 157974,
+      "sha256": "a015bce1c3201946f4968051aa2980432ef7ab1833c241755df5beceede42616"
+    },
+    {
+      "path": "www/home-evening/assets/floorplan.webp",
+      "bytes": 83014,
+      "sha256": "aa83f73cda4b894b4ca6b2b31a534ea216838f1b095f0ca6baaa1cb2519d3330"
+    },
+    {
+      "path": "www/home-evening/assets/fridge.png",
+      "bytes": 601004,
+      "sha256": "24a89813114bfe186ac0470051f71169a6ae67b814489e7de9b7cefbc194febc"
+    },
+    {
+      "path": "www/home-evening/assets/purifier.png",
+      "bytes": 343696,
+      "sha256": "aea49fdade2d760628355f7b438ec5ae228dd73e6c74a7267aa00f55c075e3ec"
+    },
+    {
+      "path": "www/home-evening/assets/room-child.png",
+      "bytes": 59510,
+      "sha256": "f07ca7e2ae55aa871ecde7c3ee490c24610219ab6dd1073f6e10979adf645d53"
+    },
+    {
+      "path": "www/home-evening/assets/room-living.png",
+      "bytes": 61738,
+      "sha256": "7e6aca07e265471de1932bd9cd3629b74db37af4e2a5c6d2c96d9bb355d5fec1"
+    },
+    {
+      "path": "www/home-evening/assets/room-master.png",
+      "bytes": 52948,
+      "sha256": "e39f2b95297c8cdecf781d8deecb225aacf045fa84d054a0886bf4892a2ba848"
+    },
+    {
+      "path": "www/home-evening/assets/room-secondary.png",
+      "bytes": 43299,
+      "sha256": "1c48b74a6f1cbf83812008bd4e491ac42748efd0113eb1b81fe2af01f7face9f"
+    },
+    {
+      "path": "www/home-evening/assets/room-study.png",
+      "bytes": 70192,
+      "sha256": "500bcf97878a97139f86f8b4292c470c0aa22bcd394f269e90ff6523ce7c9b87"
+    },
+    {
+      "path": "www/home-evening/assets/washer.png",
+      "bytes": 706953,
+      "sha256": "0b67ee87c8816c2985826a0bdfab11c6dc0575015fe0664d3cea906d2250671a"
+    },
+    {
+      "path": "www/home-evening/calendar-almanac.js",
+      "bytes": 2644,
+      "sha256": "c1fba3f4e83303f98d1e3f526bf600343059b783a148e2fa966d737a731cbbcc"
+    },
+    {
+      "path": "www/home-evening/calendar-data.js",
+      "bytes": 4158,
+      "sha256": "d64cad98cc3ed0e0ffd2080c46cbb1c570fe8a1b9ef8d871190efc896c5a24e7"
+    },
+    {
+      "path": "www/home-evening/calendar.js",
+      "bytes": 24286,
+      "sha256": "7ca77649007a7bef9c63713f34eb295dbedf1c2fe402de0f39f27630852d5d05"
+    },
+    {
+      "path": "www/home-evening/camera-expand.js",
+      "bytes": 4087,
+      "sha256": "766a75d40c03896a064cdb8996b8ca185ba8877d0f16158b2d255a5e4150fcef"
+    },
+    {
+      "path": "www/home-evening/camera-player.js",
+      "bytes": 4718,
+      "sha256": "56881f4620e1dd33fc3a0e2795351e3f2f927048827a46f2894dd9f79619f49b"
+    },
+    {
+      "path": "www/home-evening/climate-dialog.js",
+      "bytes": 8069,
+      "sha256": "e6a4a82b346c70683c321f23755a14584ad5b1d7d08c9ce46e96c5356c88d361"
+    },
+    {
+      "path": "www/home-evening/control-actions.js",
+      "bytes": 6423,
+      "sha256": "6620b234e2ff9b83ec81cc7d5d47aff266afb855f06e011525288a53b9e28f0e"
+    },
+    {
+      "path": "www/home-evening/control-page.js",
+      "bytes": 9709,
+      "sha256": "aa6617e7cc63d6b07ff38a6d95f43f3eeb614870d46542d3c4b7def2aa991eeb"
+    },
+    {
+      "path": "www/home-evening/control.css",
+      "bytes": 1686,
+      "sha256": "4ab17281117bf9de8339d2fc10560b85724ace2071720101234c90ab2fc1ad2c"
+    },
+    {
+      "path": "www/home-evening/control.html",
+      "bytes": 886,
+      "sha256": "0d6f8587e34226f767c3e84ffd11502f8b7306f85f0afd4d497ae2b4d15234f9"
+    },
+    {
+      "path": "www/home-evening/floorplan-layout.js",
+      "bytes": 2880,
+      "sha256": "da23a04978a58f139186d7d2f25e0405ea33f89bd941351b7ebb67d32be7d803"
+    },
+    {
+      "path": "www/home-evening/floorplan.js",
+      "bytes": 5810,
+      "sha256": "9f6ae89579c853dc3de972fd3dfda4ff70d3867867654301f5b31d37fd7fe31f"
+    },
+    {
+      "path": "www/home-evening/ha-evening-screen.js",
+      "bytes": 1623,
+      "sha256": "29728fb061bbfacbe039aaf7cef80a7fe365bab4b4b0b39fa8cceb95fd21f863"
+    },
+    {
+      "path": "www/home-evening/hls-vendor-source.json",
+      "bytes": 238,
+      "sha256": "60f21c218cbde74a698333ce04717d94fc2232024ec2025f077a8cdd73708566"
+    },
+    {
+      "path": "www/home-evening/hls-vendor.js",
+      "bytes": 889757,
+      "sha256": "22049648a67cf3f85c57036439cd81737cffb9ac5808127d1309ad28eff34994"
+    },
+    {
+      "path": "www/home-evening/hls-vendor.LICENSE.txt",
+      "bytes": 1338,
+      "sha256": "ca8773cf798c7ed997d4dd7c8e23c348699f8d5b7462636694cc14de6cda12db"
+    },
+    {
+      "path": "www/home-evening/home-overview.js",
+      "bytes": 24373,
+      "sha256": "9a03560f001fe77bec318055d1c557e1bac91c69313e43b9bb61b6d6eb03aff7"
+    },
+    {
+      "path": "www/home-evening/icons.js",
+      "bytes": 6066,
+      "sha256": "3a838d3f91727c632159133e9688c04af8dad42cc84725ac13729e39d23ccb06"
+    },
+    {
+      "path": "www/home-evening/index.html",
+      "bytes": 3891,
+      "sha256": "7010ea5d8a41ae1042751beac90326fb1b115ee32bde6804a9c066da0991f38f"
+    },
+    {
+      "path": "www/home-evening/lunar-vendor-source.json",
+      "bytes": 471,
+      "sha256": "3926382e6d852e739c58c01d01e8afcf3f33090e5b9bcc6457c0aea78f94be0e"
+    },
+    {
+      "path": "www/home-evening/lunar-vendor.js",
+      "bytes": 445502,
+      "sha256": "f8ae9eb831ae0f0270d3a1babf4601093575c22664a3d0c351198c11daccbe73"
+    },
+    {
+      "path": "www/home-evening/lunar-vendor.LICENSE.txt",
+      "bytes": 1081,
+      "sha256": "42b559a84807d17ab4cdc4807d68cfa9fcdbfb65383536f835662a54b19f6333"
+    },
+    {
+      "path": "www/home-evening/model-adapter.js",
+      "bytes": 21152,
+      "sha256": "bb27eb15eb42dc578bf681aded8e6dd1b43347898592803a6b7e5ee8694d77c5"
+    },
+    {
+      "path": "www/home-evening/model-host.html",
+      "bytes": 8545,
+      "sha256": "79468fe930c489a16d46735dcfd157c023e701b010b82bfb6769030fc72edac2"
+    },
+    {
+      "path": "www/home-evening/model.js",
+      "bytes": 1224624,
+      "sha256": "682f7a5f04c298b84818d96d40c38fa8464e2e4417cd6c2fba4089f609a6f4c8"
+    },
+    {
+      "path": "www/home-evening/optional/icons/state-grid-off.svg",
+      "bytes": 19497,
+      "sha256": "3cee665948b2c00d47a8a9d52f165a51016ce4b32838f2308b7d42e12702c4d8"
+    },
+    {
+      "path": "www/home-evening/optional/icons/state-grid-on.svg",
+      "bytes": 19894,
+      "sha256": "387a1cf8ed56d9ec2c9552348b96d4172ce6b5b04a78ea70ea0fa82d3a999864"
+    },
+    {
+      "path": "www/home-evening/optional/sd-replay-card.js",
+      "bytes": 7982,
+      "sha256": "c29334a7689ef917c0757e200deebe8ff697ada8d2e8f98648f8cedcf9ccdabc"
+    },
+    {
+      "path": "www/home-evening/optional/smart-utilities-card-ele.js",
+      "bytes": 759602,
+      "sha256": "8e5053c71d106f7b77544157823d3679392d579f9c23fa095fd588b96ce96963"
+    },
+    {
+      "path": "www/home-evening/pad-data.js",
+      "bytes": 6002,
+      "sha256": "7b5d8b8b53cf880be0f366f650fe258b7316116b604f0f2e2071f48051e7e52b"
+    },
+    {
+      "path": "www/home-evening/pad.js",
+      "bytes": 7268,
+      "sha256": "e5d85cf007d9c357faa8429effe45f699d8599ea0aef3781e8fc0d0efb4a81fa"
+    },
+    {
+      "path": "www/home-evening/preferences.js",
+      "bytes": 2309,
+      "sha256": "bef773947cdac2c470e4e838d9ae8a63424475dc7ec0b45ab467d355ea725ba7"
+    },
+    {
+      "path": "www/home-evening/room-climate-data.js",
+      "bytes": 3454,
+      "sha256": "ed64f4b867a603c4e8f1afdddba817ecf282ce7e3566340ce5b07965ee1eca25"
+    },
+    {
+      "path": "www/home-evening/runtime.js",
+      "bytes": 1355,
+      "sha256": "fa151a6e286a87d020e6ed638c66ea5dc109105772fc5b439079813f99066147"
+    },
+    {
+      "path": "www/home-evening/screen.css",
+      "bytes": 107394,
+      "sha256": "777362342ad68561784c785f4d139c1471ccd2e196b6103fc8637a471242cbc4"
+    },
+    {
+      "path": "www/home-evening/settings.js",
+      "bytes": 12663,
+      "sha256": "aa68b0c508a177d2270a3d09473a82d52ddd18cf586b9f715f45ee92a88ae06e"
+    },
+    {
+      "path": "www/home-evening/site-config.example.js",
+      "bytes": 1519,
+      "sha256": "7ee395a9c7c3179d1c51c68d9cdbf0626cc94c52a398732bae54ab56b3fa8ff9"
+    },
+    {
+      "path": "www/home-evening/site-config.js",
+      "bytes": 8021,
+      "sha256": "bac81a74b8b04118ed62cdd55fb0a0d3f9d1fd6a8cb5ef19a21353f762972552"
+    },
+    {
+      "path": "www/home-evening/state.js",
+      "bytes": 4495,
+      "sha256": "75b02581f6af81466f3acb1eef32143af2e0f15f360f1f9e05ed4f65d1e3579b"
+    },
+    {
+      "path": "www/home-evening/weather-data.js",
+      "bytes": 6718,
+      "sha256": "c5ffec335c9f71bc5cf30d9b8d0638928eea98feb0a89442fdc44d42308572ee"
+    },
+    {
+      "path": "www/home-evening/weather.js",
+      "bytes": 23934,
+      "sha256": "b2f78efa823d42d14cfa4cf4010a4f633980a33e1ef786163a08363968fd7d73"
+    }
+  ]
+}

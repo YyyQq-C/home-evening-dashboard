@@ -1,0 +1,32 @@
+{
+  "washer": {
+    "brand": "海尔",
+    "model": "XHG13L98U1",
+    "page": "https://www.haier.com/laundry/20250106_254577.shtml",
+    "image": "https://image.haier.com/cn/laundry/W020250106402961220952_1200.png",
+    "sha256": "0b67ee87c8816c2985826a0bdfab11c6dc0575015fe0664d3cea906d2250671a"
+  },
+  "fridge": {
+    "brand": "卡萨帝",
+    "model": "BCD-570WGCFDM4WHU1",
+    "color": "白色",
+    "page": "https://www.casarte.com/cooling/20240930_251557.shtml",
+    "image": "https://image.casarte.com/cooling/W020250417607947577180_1200.png",
+    "sha256": "24a89813114bfe186ac0470051f71169a6ae67b814489e7de9b7cefbc194febc"
+  },
+  "purifier": {
+    "brand": "美的",
+    "model": "MRC1975-1000G",
+    "page": "https://www.midea.cn/detail/index?itemid=10000000004006931039045",
+    "image": "https://dsdcp.smartmidea.net/mcsp/prod/20250103/aa7be74734f643268595d4486b7c141b.png",
+    "sha256": "aea49fdade2d760628355f7b438ec5ae228dd73e6c74a7267aa00f55c075e3ec"
+  },
+  "drinker": {
+    "brand": "COLMO",
+    "model": "CWG-DA05",
+    "page": "https://www.midea.cn/40/1000000000400693590052.html",
+    "manufacturer_page": "https://www.colmo.com.cn/Whole-house-water/CWG-DA05",
+    "image": "https://dsdcp.smartmidea.net/mcsp/prod/20230407/401c3d138a1e46dfbdbe519e186224e9.png",
+    "sha256": "3435099481bb3edd108d9c4321e83e94a08d1ef5d38e14e4047db0beaa352c10"
+  }
+}

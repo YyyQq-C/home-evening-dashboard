@@ -1,0 +1,62 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>THIRD_PARTY</title><style>*{box-sizing:border-box}body{margin:0;background:#f4f5f2;color:#28342e;font-family:system-ui,"Microsoft YaHei",sans-serif;line-height:1.85}main{max-width:1000px;margin:0 auto;background:white;padding:36px 46px 70px}h1{font-size:28px;line-height:1.5}h2{margin-top:2em;font-size:23px}h3{font-size:19px}p,li{overflow-wrap:anywhere}a{color:#286c55;overflow-wrap:anywhere}pre{padding:18px;background:#edf2ee;border-radius:8px;white-space:pre-wrap;word-break:break-word;overflow-wrap:anywhere;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}table{border-collapse:collapse;min-width:540px;width:100%;font-size:14px}td,th{padding:10px;border:1px solid #d6ded8;text-align:left}th{background:#edf2ee}.table{overflow-x:auto;max-width:100%}img{max-width:100%;height:auto;border-radius:8px}blockquote{margin:20px 0;border-left:3px solid #8aa995;padding:5px 20px;background:#f4f7f3}@media(max-width:600px){main{padding:22px 18px 45px}h1{font-size:24px}h2{font-size:21px}}</style><main><h1>第三方来源、版本和改动</h1>
+<p>本包保留既有第三方许可，没有把所有源码和图片重新声明为作者原创或统一改成一种许可证。程序快照不包含作者配置的登录资料。</p>
+<div class="table"><table>
+<thead>
+<tr>
+<th>部分</th>
+<th>来源及版本</th>
+<th>本包处理</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Three.js</td>
+<td><a href="https://github.com/mrdoob/three.js">https://github.com/mrdoob/three.js</a> ，模型锁文件为 0.180.0</td>
+<td>保留现成模型包；许可在 <code>third-party/three.LICENSE</code></td>
+</tr>
+<tr>
+<td>lunar-javascript</td>
+<td><a href="https://github.com/6tail/lunar-javascript">https://github.com/6tail/lunar-javascript</a> ，1.7.7</td>
+<td>ES module 包装，许可和来源摘要在前端同目录</td>
+</tr>
+<tr>
+<td>hls.js</td>
+<td><a href="https://github.com/video-dev/hls.js">https://github.com/video-dev/hls.js</a> ，1.6.15</td>
+<td>本地模块，许可和来源摘要在前端同目录</td>
+</tr>
+<tr>
+<td>控客集成</td>
+<td><a href="https://github.com/YyyQq-C/home-assistant-konke">https://github.com/YyyQq-C/home-assistant-konke</a> ，0.1.0</td>
+<td>复制程序、翻译和清单；MIT 原许可保留</td>
+</tr>
+<tr>
+<td>国网集成</td>
+<td><a href="https://github.com/stevenjoezhang/hass-state-grid">https://github.com/stevenjoezhang/hass-state-grid</a> ，0.10.0</td>
+<td>复制组件程序；原许可保留，不包含登录会话</td>
+</tr>
+<tr>
+<td>萤石流集成</td>
+<td><a href="https://github.com/rhanekom/hass-ezviz-stream">https://github.com/rhanekom/hass-ezviz-stream</a> ，清单 0.3.0</td>
+<td>作者本地项目程序快照，含中国区适配；Apache-2.0 原许可保留</td>
+</tr>
+<tr>
+<td>和风集成</td>
+<td><a href="https://github.com/c1pher-cn/heweather">https://github.com/c1pher-cn/heweather</a> ，清单 2.4.8</td>
+<td>只读复制作者运行环境程序，含本地月预算；不含认证材料和账本</td>
+</tr>
+<tr>
+<td>电费前端组件</td>
+<td>原项目保存的 <code>smart-utilities-card-ele.js</code> 论坛附件及本地补丁</td>
+<td>保留原文件内说明；本包只改本地图标路径，未补造原附件作者或许可证</td>
+</tr>
+<tr>
+<td>SD 卡片</td>
+<td>原项目 <code>sd-replay-card.js</code></td>
+<td>读取配置的序列号，无作者序列号默认值</td>
+</tr>
+</tbody></table></div>
+<p>电费附件的准确帖子链接和独立授权文本在现有材料中没有完整记录。本包把其来源状态写明，公开发布说明中不应把它写成原创组件或声称已经补齐了独立许可。其后续卡片集合可参考相关项目页面，但不能据此认定两个不同名称文件逐字同源。</p>
+<p>原家电展示图片来自海尔、卡萨帝、美的及 COLMO 官网。<code>third-party/product-sources.json</code> 保留原产品页和图像来源。它们用于原界面的外观展示，不是设备接入证明，也没有在本包中被重新授予统一素材许可。替换成自己的图片时，保持页面需要的透明背景和文件路径。</p>
+<p>作者自己生成的背景和二维材质底图，以及示例模型结构随运行目录提供；原始住宅 CAD、含住址的文件名和实景照片未包含。示例模型仍会表现一套住宅布局，用户自己的户型须重新校准。</p>
+<p>此次项目文件修改：移除家庭端点、原摄像头序列号、户号和设备硬件 ID；把原展示页实体读取改为中性别名；附属天气改成显式传感器映射；移除原发布入口和登录脚本；新增独立的只读/真实控制入口、离线控制测试、配置模板、预算初始化工具和使用文档。</p>
+<p>这是面向用户的代码与配置参考，不代表上述第三方项目官方发行了整个暮色界面，也不代表所有新环境已完成兼容性测试。</p>
+</main></html>

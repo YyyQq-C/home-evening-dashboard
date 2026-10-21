@@ -1,0 +1,4 @@
+# 先用 tools/electricity_bridge.py 生成 grid-card.json，再合并到现有 template 配置。
+# 若已有 template，追加一个列表项，不要重复定义顶层键。
+template:
+  - sensor: !include templates/grid-card.json

@@ -1,0 +1,9 @@
+{
+  "name": "home-evening-reader-kit",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "preview": "python -m http.server 8793 --bind 127.0.0.1 --directory www"
+  }
+}

@@ -1,0 +1,17 @@
+# 可选的纯 HA 原生界面：把示例实体逐项替换后，放入新仪表盘。
+# 这些卡片会真实控制设备，不是暮色展示页的模拟按钮。
+title: 原生设备控制示例
+views:
+  - title: 设备
+    path: devices
+    cards:
+      - type: thermostat
+        entity: climate.my_living_ac
+      - type: thermostat
+        entity: climate.my_living_floor
+      - type: light
+        entity: light.my_living_light
+      - type: entities
+        title: 新风
+        entities:
+          - entity: fan.my_fresh_air

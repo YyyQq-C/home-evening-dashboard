@@ -1,0 +1,58 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>README</title><style>*{box-sizing:border-box}body{margin:0;background:#f4f5f2;color:#28342e;font-family:system-ui,"Microsoft YaHei",sans-serif;line-height:1.85}main{max-width:1000px;margin:0 auto;background:white;padding:36px 46px 70px}h1{font-size:28px;line-height:1.5}h2{margin-top:2em;font-size:23px}h3{font-size:19px}p,li{overflow-wrap:anywhere}a{color:#286c55;overflow-wrap:anywhere}pre{padding:18px;background:#edf2ee;border-radius:8px;white-space:pre-wrap;word-break:break-word;overflow-wrap:anywhere;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}table{border-collapse:collapse;min-width:540px;width:100%;font-size:14px}td,th{padding:10px;border:1px solid #d6ded8;text-align:left}th{background:#edf2ee}.table{overflow-x:auto;max-width:100%}img{max-width:100%;height:auto;border-radius:8px}blockquote{margin:20px 0;border-left:3px solid #8aa995;padding:5px 20px;background:#f4f7f3}@media(max-width:600px){main{padding:22px 18px 45px}h1{font-size:24px}h2{font-size:21px}}</style><main><h1>暮色居家 · Home Evening Dashboard</h1>
+<p>这是一个 Home Assistant 家居仪表盘项目，包含 2D/3D 户型展示、天气、日历、设备状态，以及可显式启用的设备控制入口。仓库同时提供模型源码、集成程序快照和配置示例。没有家庭账号、密码、Token、设备验证码、实际设备 ID、地址、原始 DWG、数据库、配置项或预算账本。不要把解压后的整个目录扔进 HA。</p>
+<p>快速开始：先复制 <code>www/home-evening</code>，配置实体，添加新仪表盘。后端集成只按你实际缺少的部分安装。</p>
+<p>有两个独立入口，使用前请分清：</p>
+<div class="table"><table>
+<thead>
+<tr>
+<th>入口</th>
+<th>用途</th>
+<th>是否真实控制</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>/local/home-evening/index.html</code></td>
+<td>原暮色界面的 2D/3D、天气、日历、概览、家电展示</td>
+<td>灯光、设备和场景按钮仍为本地模拟；绑定的读数可以是真实数据</td>
+</tr>
+<tr>
+<td><code>/local/home-evening/control.html</code></td>
+<td>本次新增的配置式设备控制入口</td>
+<td>默认只读；<code>control.mode</code> 显式改为 <code>live</code> 后才调用绑定实体的 HA 服务</td>
+</tr>
+</tbody></table></div>
+<p>没有把原模型按钮偷偷改成实控。本包的真实控制入口是一张独立页面；如果要让原模型、房间弹窗和场景按钮全部真实联动，还需要按《真实控制配置》最后一节改造原动作入口，并做单独回归。</p>
+<h2>按顺序阅读</h2>
+<ol>
+<li><a href="docs/01-%E5%AE%89%E8%A3%85%E5%92%8C%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%89%93%E5%BC%80.html">安装和第一次打开</a>：复制哪些文件、HA 仪表盘怎么加、为什么本机预览没有设备数据。</li>
+<li><a href="docs/02-%E7%9C%9F%E5%AE%9E%E6%8E%A7%E5%88%B6%E9%85%8D%E7%BD%AE.html">真实控制配置</a>：灯、空调、地暖、新风、场景的完整配置和调用范围。</li>
+<li><a href="docs/03-%E6%95%B0%E6%8D%AE%E6%8E%A5%E5%85%A5%E9%85%8D%E7%BD%AE.html">天气、电网、摄像头与平板</a>：原展示页读数、可选卡片、集成和预算初始化。</li>
+<li><a href="docs/04-%E6%96%87%E4%BB%B6%E9%80%90%E9%A1%B9%E8%AF%B4%E6%98%8E.html">文件逐项说明</a>：每组文件作用、修改入口、依赖、哪些不上传。</li>
+<li><a href="docs/05-%E6%9B%B4%E6%8D%A2%E6%88%B7%E5%9E%8B%E5%92%8C%E7%BB%B4%E6%8A%A4.html">更换户型和维护</a>：2D、3D、发布、回退、故障排查。</li>
+<li><a href="docs/%E5%AE%9E%E4%BD%93%E6%98%A0%E5%B0%84%E7%B4%A2%E5%BC%95.html">展示页实体映射索引</a>：所有预留读数别名，按需填写，不必全部配置。</li>
+<li><a href="THIRD_PARTY.html">第三方来源与版本</a>：组件来源、已有许可和本包适配范围。</li>
+<li><a href="docs/%E9%AA%8C%E8%AF%81%E4%B8%8E%E8%84%B1%E6%95%8F%E8%AF%B4%E6%98%8E.html">验证与脱敏说明</a>：本次检查结果与尚未验证的内容。</li>
+</ol>
+<p>各说明也提供同名 HTML，离线双击可读。文件中的路径均相对本包根目录。</p>
+<h2>最短安装流程</h2>
+<ol>
+<li>确认自己的设备已经接入 HA，原生卡片能正常显示和操作。</li>
+<li>把本包 <code>www/home-evening/</code> 整个目录复制到 自己的 HA 配置目录下的 <code>www/home-evening/</code>。不要复制 <code>integrations</code>、<code>model-source</code>、<code>tests</code> 和文档到 <code>www</code>。</li>
+<li>编辑复制过去的 <code>site-config.js</code>。先保持 <code>control.mode: &#39;read-only&#39;</code>，将 <code>control.devices[].entity</code> 改成自己的实体。空调、地暖的 <code>onMode</code> 由你根据实际支持模式填写；没有的设备从数组删除即可。</li>
+<li>新建一个仪表盘，在原始配置编辑器粘贴 <code>configs/dashboard.yaml</code>。这里的两个 iframe URL 都是相对当前 HA 的 <code>/local/</code> 地址。</li>
+<li>从 HA 仪表盘打开“真实控制”页，确认连接、设备名称、状态、支持模式和温度范围。</li>
+<li>需要实控时，修改 <code>control.mode</code> 为 <code>live</code>，刷新这个 iframe；首次只验证一台自己可观察的设备。</li>
+</ol>
+<p>不要把 HA 密码、长期令牌、萤石验证码、和风密钥填进 <code>site-config.js</code>。页面复用当前登录用户的 HA 会话，集成凭据在 HA 后端配置。</p>
+<h2>本机预览和离线测试</h2>
+<p>Windows PowerShell、Linux 或 macOS 终端，在本包根目录运行。以下两个命令只操作本机文件或内存，不部署、不连接家电：</p>
+<pre><code class="language-sh">python -m http.server 8793 --bind 127.0.0.1 --directory www
+node --test tests/control-actions.test.mjs
+</code></pre>
+<p>第一个命令提供本机 HTTP 预览，打开 <code>http://127.0.0.1:8793/home-evening/index.html</code>，用 Ctrl+C 停止。该地址没有 HA 宿主，因此天气、设备和真实控制提示未连接是正常现象。它不是交付给平板的运行地址。</p>
+<p>第二个命令只运行服务调用白名单、实体隔离、参数范围、只读、重复下发、超时及异常脱敏测试，不要求安装 npm 依赖，不访问 HA。</p>
+<p>完整包检查还可以运行 <code>python tools/validate_package.py</code>。它需要 Python 3.14 和 Node.js，原因是随包视频后端使用了 Python 3.14 语法；该命令只解析源码，不启动 HA。预算文件与桥接工具不需要加载视频后端。</p>
+<h2>验证范围</h2>
+<p>本包的真实控制适配通过离线 HA 替身测试和本地浏览器交互检查，未部署到作者的 HA，也没有执行真实家电动作。集成目录是来源版本的程序快照，未在用户的新安装环境执行整套安装、迁移、播放和物理效果验证。前端使用同源 HA 外壳的 <code>home-assistant.hass</code>；这是版本相关的前端对接点，不是独立登录客户端。</p>
+<p>已有同名集成的用户，应先备份和对照版本，不要直接把快照覆盖到运行中的配置。文档详细区分了必选前端和可选后端，最小运行不要求安装这里的全部集成。</p>
+</main></html>

@@ -1,0 +1,13 @@
+{
+  "domain": "ezviz_stream",
+  "name": "EZVIZ Stream",
+  "codeowners": ["@rhanekom"],
+  "config_flow": true,
+  "dependencies": ["ffmpeg", "http"],
+  "documentation": "https://github.com/rhanekom/hass-ezviz-stream",
+  "integration_type": "hub",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/rhanekom/hass-ezviz-stream/issues",
+  "requirements": ["pycryptodome>=3.20"],
+  "version": "0.3.0"
+}

@@ -1,0 +1,74 @@
+{
+  "title": "国家电网",
+  "config": {
+    "step": {
+      "user": {
+        "title": "登录国家电网",
+        "description": "请输入网上国网账号和密码。集成优先使用密码登录，只有服务端要求新设备认证时才发送短信验证码。",
+        "data": {
+          "username": "手机号",
+          "password": "密码"
+        }
+      },
+      "device_verification": {
+        "title": "新设备安全验证",
+        "description": "服务端要求验证新设备，验证码已发送到尾号 {phone_suffix} 的手机号。",
+        "data": {
+          "verification_code": "6 位短信验证码"
+        }
+      },
+      "reauth_confirm": {
+        "title": "完成安全验证",
+        "description": "自动登录未能完成。上次错误：{auth_error}\n\n点击继续可使用保存的账号和原设备身份重新登录，无需删除集成；仅当服务端要求新设备验证时才发送短信。RK008 表示安全校验未通过，重试不保证成功。",
+        "data": {
+          "continue": "继续"
+        }
+      },
+      "reauth_credentials": {
+        "title": "更新登录密码",
+        "description": "保存的密码已失效，请输入当前网上国网密码。",
+        "data": {
+          "password": "密码"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "无法连接国家电网网关（{error_code}）：{error_message}",
+      "invalid_auth": "登录失败（{error_code}）：{error_message}",
+      "cannot_send_verification_code": "无法发送新设备验证码（{error_code}）：{error_message}",
+      "interactive_challenge_unsupported": "服务端安全校验未通过，可能需要额外验证（{error_code}）：{error_message}",
+      "invalid_verification_code": "设备验证码验证失败（{error_code}）：{error_message}",
+      "server_error": "国家电网上游返回错误 [{error_source}] {error_code}：{error_message}",
+      "local_error": "本地请求构造失败（{error_type}）：{error_message}",
+      "unknown": "未预期错误（{error_type}）：{error_message}"
+    },
+    "abort": {
+      "already_configured": "该国家电网账户已配置",
+      "wrong_account": "重新登录得到的账户与原配置不一致"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "国家电网查询设置",
+        "data": {
+          "history_months": "查询最近几个月（1-3）",
+          "update_interval_hours": "更新间隔（6-24 小时）"
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "latest_daily_usage": {"name": "上一日用电量"},
+      "current_month_usage": {"name": "本月用电量"},
+      "latest_month_usage": {"name": "上一结算月电量"},
+      "latest_month_charge": {"name": "上一结算月电费"},
+      "current_year_usage": {"name": "本年累计电量"},
+      "current_year_charge": {"name": "本年累计电费"},
+      "account_balance": {"name": "账户余额"},
+      "amount_due": {"name": "应交金额"},
+      "latest_month_meter_reading": {"name": "上月抄表读数"}
+    }
+  }
+}

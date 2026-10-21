@@ -1,0 +1,11 @@
+# 如果选择 YAML 注册方式，只把 dashboards 下的新键合并到自己的配置。
+# 如果已有 lovelace 或 dashboards，不要重复定义，也不要整份覆盖。
+lovelace:
+  dashboards:
+    home-evening-reader:
+      mode: yaml
+      title: 暮色居家示例
+      icon: mdi:home-outline
+      show_in_sidebar: true
+      filename: home-evening-reader.yaml
+# 将本包 configs/dashboard.yaml 复制到 HA 配置目录，命名为 home-evening-reader.yaml。

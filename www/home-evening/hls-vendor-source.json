@@ -1,0 +1,7 @@
+{
+  "package": "hls.js",
+  "version": "1.6.15",
+  "source": "https://cdn.jsdelivr.net/npm/hls.js@1.6.15/dist/hls.light.mjs",
+  "license": "Apache-2.0",
+  "sha256": "b9168f2d7bde0784487bc948f2ad4959deac02313de5eb8fc7710a7fc8713a1e"
+}

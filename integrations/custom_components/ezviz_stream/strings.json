@@ -1,0 +1,139 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "description": "Sign in with your EZVIZ cloud account. Two-step verification must be disabled.",
+        "data": {
+          "username": "Email",
+          "password": "Password",
+          "region": "Region"
+        }
+      },
+      "reauth_confirm": {
+        "description": "The EZVIZ credentials for {username} are no longer valid. Enter the current password to reconnect.",
+        "data": {
+          "password": "Password"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Invalid email or password.",
+      "cannot_connect": "Unable to connect to the EZVIZ cloud.",
+      "invalid_region": "Unknown region.",
+      "mfa_not_supported": "This account has two-step verification enabled, which is not supported. Disable it in the EZVIZ app and try again.",
+      "unknown": "An unexpected error occurred."
+    },
+    "abort": {
+      "already_configured": "This EZVIZ account is already configured.",
+      "reauth_successful": "Re-authentication was successful."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "EZVIZ Stream options",
+        "description": "Tune how this integration talks to the EZVIZ cloud.",
+        "data": {
+          "max_concurrent_snapshots": "Max concurrent snapshot fetches",
+          "enable_recordings": "Show cloud recordings in the media library"
+        },
+        "data_description": {
+          "max_concurrent_snapshots": "How many camera thumbnails may refresh from the cloud at the same time. 1 (the default) serialises them, which is safest against EZVIZ rate-limiting; raise it only if a multi-camera dashboard fills too slowly.",
+          "enable_recordings": "Off by default. When on, each camera's cloud recordings become browsable and playable under Media. The media library is broadly visible to Home Assistant users, so enabling this shares recordings with them."
+        }
+      }
+    }
+  },
+  "config_subentries": {
+    "camera": {
+      "title": "Add camera",
+      "entry_type": "Camera",
+      "initiate_flow": {
+        "user": "Add camera"
+      },
+      "step": {
+        "user": {
+          "title": "Add camera",
+          "description": "Choose a camera to stream.",
+          "data": {
+            "serial": "Camera"
+          }
+        },
+        "options": {
+          "title": "Camera options",
+          "description": "Configure **{camera}**\n\n- Serial: {serial}\n- Battery camera: {battery}\n- Image Encryption: {encrypted}\n\n{code_hint}Saving grabs a frame to check the settings.{camera_note}",
+          "data": {
+            "verification_code": "Verification code (encryption password)"
+          },
+          "sections": {
+            "advanced": {
+              "name": "Advanced",
+              "data": {
+                "thumbnail_mode": "Thumbnail source",
+                "snapshot_interval": "Thumbnail refresh interval (seconds)",
+                "stream": "Video stream",
+                "force_h264": "Transcode to H.264 (compatibility)",
+                "recordings_mode": "Cloud recordings in the media library"
+              },
+              "data_description": {
+                "thumbnail_mode": "How the camera tile is filled. Live snapshot refreshes on the interval below and wakes battery cameras. Latest motion image uses the most recent cloud motion snapshot with no wake. Static image shows the last frame from a live view and refreshes for free whenever you open the stream (it never wakes the camera on its own). 'Static, then newer motion images' keeps that static shot but shows any motion event newer than the last time you saved this camera - the battery default; save again to dismiss an unwanted image.",
+                "snapshot_interval": "How often a viewed thumbnail refreshes. A longer interval wakes battery cameras less often. Applies to the live snapshot and motion-image sources, not the static image.",
+                "stream": "For battery cameras the lower-res Sub stream is recommended: it uses less bandwidth and is gentler on the battery and a weak connection.",
+                "force_h264": "Leave this off unless live view will not play in your browser. Home Assistant's built-in go2rtc already converts the camera's native HEVC to H.264 for browsers on demand, at no extra cost. Turning this on makes the server re-encode the video continuously whenever the camera is watched, which is CPU-intensive - roughly a full CPU core per 1080p camera, enough to overload a low-power host such as a Raspberry Pi when several cameras are viewed. Prefer the Sub stream above, and enable this only on cameras you actually watch in a browser."
+              }
+            }
+          }
+        },
+        "reconfigure": {
+          "title": "Camera options",
+          "description": "Update **{camera}**\n\n- Serial: {serial}\n- Battery camera: {battery}\n- Image Encryption: {encrypted}\n\n{code_hint}Saving grabs a frame to check the settings.",
+          "data": {
+            "verification_code": "Verification code (encryption password)"
+          },
+          "sections": {
+            "advanced": {
+              "name": "Advanced",
+              "data": {
+                "thumbnail_mode": "Thumbnail source",
+                "snapshot_interval": "Thumbnail refresh interval (seconds)",
+                "stream": "Video stream",
+                "force_h264": "Transcode to H.264 (compatibility)",
+                "recordings_mode": "Cloud recordings in the media library"
+              },
+              "data_description": {
+                "thumbnail_mode": "How the camera tile is filled. Live snapshot refreshes on the interval below and wakes battery cameras. Latest motion image uses the most recent cloud motion snapshot with no wake. Static image shows the last frame from a live view and refreshes for free whenever you open the stream (it never wakes the camera on its own). 'Static, then newer motion images' keeps that static shot but shows any motion event newer than the last time you saved this camera - the battery default; save again to dismiss an unwanted image.",
+                "snapshot_interval": "How often a viewed thumbnail refreshes. A longer interval wakes battery cameras less often. Applies to the live snapshot and motion-image sources, not the static image.",
+                "stream": "For battery cameras the lower-res Sub stream is recommended: it uses less bandwidth and is gentler on the battery and a weak connection.",
+                "force_h264": "Leave this off unless live view will not play in your browser. Home Assistant's built-in go2rtc already converts the camera's native HEVC to H.264 for browsers on demand, at no extra cost. Turning this on makes the server re-encode the video continuously whenever the camera is watched, which is CPU-intensive - roughly a full CPU core per 1080p camera, enough to overload a low-power host such as a Raspberry Pi when several cameras are viewed. Prefer the Sub stream above, and enable this only on cameras you actually watch in a browser."
+              }
+            }
+          }
+        },
+        "verify_failed": {
+          "title": "Couldn't verify the camera",
+          "description": "No video frame was received. The verification code may be wrong, or the camera may be asleep or temporarily unreachable. Try again, or save anyway.",
+          "menu_options": {
+            "retry": "Try again",
+            "save_anyway": "Save anyway"
+          }
+        }
+      },
+      "error": {
+        "code_required": "This camera has Image Encryption enabled - a verification code is required.",
+        "invalid_code": "That verification code does not match this camera. Check the 6-character code on the label."
+      },
+      "abort": {
+        "no_cameras": "All streamable cameras on this account have already been added.",
+        "cannot_connect": "Unable to connect to the EZVIZ cloud.",
+        "invalid_auth": "The account credentials are no longer valid. Reconfigure the account.",
+        "reconfigure_successful": "Camera updated."
+      }
+    }
+  },
+  "issues": {
+    "encrypted_no_code": {
+      "title": "{camera}: verification code needed",
+      "description": "**{camera}** ({serial}) has Image Encryption enabled but no verification code is configured, so its live stream and recordings can only decode to garbage. Reconfigure the camera and enter its 6-character verification code to restore it."
+    }
+  }
+}

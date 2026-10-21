@@ -1,0 +1,17 @@
+# 合并到自己的 scripts.yaml，仅保留实际存在并已核对的实体。
+# 前端 control.scenes 中绑定 script.my_leave；本例不会被项目自动安装或执行。
+my_leave:
+  alias: 示例离家
+  mode: single
+  sequence:
+    - action: light.turn_off
+      target:
+        entity_id: light.my_living_light
+    - action: climate.set_hvac_mode
+      target:
+        entity_id: climate.my_living_ac
+      data:
+        hvac_mode: "off"
+    - action: fan.turn_off
+      target:
+        entity_id: fan.my_fresh_air

@@ -1,0 +1,15 @@
+# 在一个新仪表盘的原始配置编辑器中使用；不要覆盖已有仪表盘。
+title: 暮色居家示例
+views:
+  - title: 户型展示
+    path: home
+    type: panel
+    cards:
+      - type: iframe
+        url: /local/home-evening/index.html
+  - title: 真实控制
+    path: control
+    type: panel
+    cards:
+      - type: iframe
+        url: /local/home-evening/control.html
