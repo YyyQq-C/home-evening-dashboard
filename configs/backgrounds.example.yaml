@@ -1,0 +1,5 @@
+# 可选：先复制 integrations/custom_components/home_evening_backgrounds
+# 到自己的 HA 配置目录 custom_components/home_evening_backgrounds。
+# 再把下列独立顶层键合并到 configuration.yaml；已有同名键不重复追加。
+# 所有已登录 HA 用户都能修改共享图库，启用前阅读背景教程。
+home_evening_backgrounds:

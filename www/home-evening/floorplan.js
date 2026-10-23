@@ -34,11 +34,51 @@ function lightingMarkup() {
   return `<svg class="floorplan-lighting" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none" aria-hidden="true" focusable="false"><defs>${clips}<radialGradient id="plan-light-falloff"><stop offset="0" stop-color="white"/><stop offset=".35" stop-color="white" stop-opacity=".94"/><stop offset=".72" stop-color="white" stop-opacity=".45"/><stop offset="1" stop-color="white" stop-opacity="0"/></radialGradient><mask id="plan-light-mask" x="0" y="0" width="${width}" height="${height}" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" style="mask-type:alpha">${lights}</mask></defs><image href="./assets/floorplan-textured.webp" width="${width}" height="${height}" preserveAspectRatio="none" mask="url(#plan-light-mask)"/></svg>`;
 }
 
-/** 创建静态俯视图和轻量设备覆盖层，不创建画布、动画循环或 WebGL 上下文。 */
+/** 将灯光 SVG 按状态缓存为单张位图，平移时复用纹理，失败时继续显示原 SVG。 */
+function createLightingCache(svg,texture) {
+  const canvas=document.createElement('canvas');canvas.className='floorplan-light-cache';canvas.hidden=true;
+  canvas.width=FLOORPLAN_LAYOUT.width;canvas.height=FLOORPLAN_LAYOUT.height;
+  canvas.setAttribute('aria-hidden','true');svg.after(canvas);
+  const context=canvas.getContext('2d');
+  let embedded=null,signature='',generation=0,pending=false,failed=false;
+  /** 只读取一次现有同源底图，嵌入快照以避免离屏 SVG 引用外部资源失败。 */
+  async function prepare() {
+    if(pending||embedded||failed||!context)return;pending=true;
+    try {
+      const response=await fetch(texture.currentSrc||texture.src);if(!response.ok)throw new Error('Floorplan texture request failed');
+      const blob=await response.blob();
+      embedded=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=()=>reject(new Error('Floorplan texture encoding failed'));reader.readAsDataURL(blob);});
+      signature='';refresh();
+    }catch(error){failed=true;console.error('Floorplan lighting cache preparation failed',error);}
+    finally{pending=false;}
+  }
+  /** 只为新的灯态生成一次快照，过期解码结果不能覆盖后到的设备状态。 */
+  async function refresh() {
+    if(!embedded){prepare();return;}
+    const next=[...svg.querySelectorAll('[data-plan-light]')].map(zone=>zone.style.opacity).join(',');
+    if(next===signature)return;signature=next;const id=++generation;
+    const clone=svg.cloneNode(true);clone.style.removeProperty('display');
+    clone.setAttribute('xmlns','http://www.w3.org/2000/svg');clone.setAttribute('width',canvas.width);clone.setAttribute('height',canvas.height);
+    const image=clone.querySelector('image');image.setAttribute('href',embedded);image.style.filter='sepia(.1) saturate(1.1) brightness(1.08)';
+    const url=URL.createObjectURL(new Blob([new XMLSerializer().serializeToString(clone)],{type:'image/svg+xml'}));
+    try {
+      const snapshot=new Image();snapshot.src=url;await snapshot.decode();
+      if(id!==generation)return;
+      context.clearRect(0,0,canvas.width,canvas.height);context.drawImage(snapshot,0,0);
+      // 保留原有 SVG 作为失败回退与灯态来源，动画中只合成已经绘好的纹理。
+      svg.style.display='none';canvas.hidden=false;canvas.dataset.signature=next;
+    }catch(error){signature='';if(id===generation){svg.style.removeProperty('display');canvas.hidden=true;}console.error('Floorplan lighting cache drawing failed',error);}
+    finally{URL.revokeObjectURL(url);}
+  }
+  return {refresh};
+}
+
+/** 创建静态俯视图和按灯态更新的位图覆盖层，不启动持续绘制循环或 WebGL。 */
 export function createFloorplan({onDevice}) {
   const host=document.querySelector('#floorplan');
   host.innerHTML=`<img class="floorplan-image" src="./assets/floorplan-textured.webp" width="${FLOORPLAN_LAYOUT.width}" height="${FLOORPLAN_LAYOUT.height}" alt="房屋俯视平面图，保留现有房间、家具与地面布局" draggable="false"><div class="floorplan-markers">${[...FLOORPLAN_LAYOUT.lights.map(item=>({...item,kind:'light',name:LIGHT_NAMES[item.id]})),...FLOORPLAN_LAYOUT.devices].map(item=>`<button type="button" class="floorplan-marker" data-plan-kind="${item.kind}" data-plan-id="${item.id}" style="left:calc(${item.x}% + ${item.offset||0}px);top:${item.y}%" aria-label="${item.name}，切换模拟开关" aria-pressed="false">${icon(item.kind==='light'?lightIcon(item.name):{ac:'aircon',floor:'heat',fresh:'wind'}[item.kind])}</button>`).join('')}</div>`;
   host.querySelector('img').insertAdjacentHTML('afterend',lightingMarkup());
+  const lightingCache=createLightingCache(host.querySelector('.floorplan-lighting'),host.querySelector('img'));
   host.addEventListener('click',event=>{
     const device=event.target.closest('[data-plan-kind]');
     if(device){onDevice(device.dataset.planKind,device.dataset.planId);return;}
@@ -53,6 +93,7 @@ export function createFloorplan({onDevice}) {
       const opacity=String(light?.on?Math.max(0,Math.min(1,brightness*gain/100)):0);
       if(zone.style.opacity!==opacity)zone.style.opacity=opacity;
     }
+    if(preferences.houseMode==='2d')lightingCache.refresh();
     for(const button of host.querySelectorAll('[data-plan-kind]')){
       const type=button.dataset.planKind,id=button.dataset.planId;
       const hidden=!preferences.markers||(kind!=='all'&&(type==='light'?'lights':type)!==kind);

@@ -1,0 +1,13 @@
+{
+  "domain": "home_evening_backgrounds",
+  "name": "Home Evening Backgrounds",
+  "version": "1.0.0",
+  "documentation": "https://github.com/YyyQq-C/home-evening-dashboard/blob/main/docs/06-更换背景图片.md",
+  "dependencies": [
+    "http"
+  ],
+  "codeowners": [],
+  "requirements": [],
+  "integration_type": "helper",
+  "iot_class": "local_polling"
+}

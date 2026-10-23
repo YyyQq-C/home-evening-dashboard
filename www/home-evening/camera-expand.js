@@ -41,9 +41,11 @@ export function createCameraExpansion(host,onOpen){
     if(event.key==='Escape'){event.preventDefault();event.stopImmediatePropagation();close();}
     else if(event.key==='Tab'){
       const closeButton=overlay.querySelector('.camera-modal-close');
-      if(video.hidden){event.preventDefault();closeButton.focus();}
-      else if(!event.shiftKey&&document.activeElement===closeButton){event.preventDefault();video.focus();}
-      else if(event.shiftKey&&document.activeElement===video){event.preventDefault();closeButton.focus();}
+      const controls=[...media.querySelectorAll('button,video'),closeButton].filter(element=>!element.disabled&&element.getClientRects().length&&(!element.matches('video')||element.controls));
+      const first=controls[0],last=controls.at(-1);
+      if(!controls.includes(document.activeElement)){event.preventDefault();first.focus();}
+      else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}
+      else if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}
     }
   }
   trigger.addEventListener('click',event=>{event.stopPropagation();open();});

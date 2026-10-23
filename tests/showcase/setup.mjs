@@ -1,0 +1,28 @@
+import {SITE} from '../../www/home-evening/site-config.js';
+/** 只在测试进程配置内存替身，不访问 HA。 */
+for(const alias of Object.keys(SITE.entities))SITE.entities[alias]=alias;
+SITE.weather.sensors={"co": "sensor.example_weather_co", "comfort_index": "sensor.example_weather_comfort_index", "disaster_warn": "sensor.example_weather_disaster_warn", "precip": "sensor.example_weather_precip", "outside_temperature": "sensor.example_weather_outside_temperature", "vis": "sensor.example_weather_vis", "cloud": "sensor.example_weather_cloud"};
+SITE.pad.mode='live';
+SITE.pad.entities["reload"]="button.example_pad_li_ji_shua_xin";
+SITE.pad.entities["home"]="button.example_pad_hui_dao_shou_ye";
+SITE.pad.entities["wake"]="button.example_pad_huan_xing_ping_mu";
+SITE.pad.entities["screenOff"]="button.example_pad_xi_ping";
+SITE.pad.entities["screenshot"]="button.example_pad_ping_mu_jie_tu";
+SITE.pad.entities["brightness"]="number.example_pad_she_zhi_liang_du";
+SITE.pad.entities["volume"]="number.example_pad_mei_ti_yin_liang";
+SITE.pad.entities["standbyBrightness"]="number.example_pad_dai_ji_liang_du";
+SITE.pad.entities["dimDelay"]="number.example_pad_wu_ren_hou_jiang_liang_du";
+SITE.pad.entities["motion"]="switch.example_pad_ren_ti_jian_ce";
+SITE.pad.entities["lock"]="switch.example_pad_suo_ding_mo_shi";
+SITE.pad.entities["schedule"]="switch.example_pad_an_shi_jian_qie_huan_liang_du";
+SITE.pad.entities["day"]="number.example_pad_bai_tian_liang_du";
+SITE.pad.entities["night"]="number.example_pad_ye_jian_liang_du";
+SITE.pad.entities["daily"]="switch.example_pad_mei_tian_shua_xin";
+SITE.pad.entities["dailyHour"]="number.example_pad_mei_tian_shua_xin_de_xiao_shi";
+SITE.pad.entities["dailyMinute"]="number.example_pad_mei_tian_shua_xin_de_fen_zhong";
+SITE.pad.entities["watchdog"]="number.example_pad_ye_mian_kan_men_gou";
+SITE.pad.entities["sleep"]="switch.example_pad_ye_jian_xi_ping";
+SITE.pad.entities["sleepStart"]="number.example_pad_xi_ping_kai_shi";
+SITE.pad.entities["sleepEnd"]="number.example_pad_xi_ping_jie_shu";
+SITE.pad.entities["notify"]="text.example_pad_hua_mian_tong_zhi";
+SITE.pad.entities["speak"]="text.example_pad_yu_yin_bo_bao";

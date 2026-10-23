@@ -1,0 +1,182 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>07-Pad操作与界面更新</title><style>*{box-sizing:border-box}body{margin:0;background:#f4f5f2;color:#28342e;font-family:system-ui,"Microsoft YaHei",sans-serif;line-height:1.85}main{max-width:1000px;margin:0 auto;background:white;padding:36px 46px 70px}h1{font-size:28px;line-height:1.5}h2{margin-top:2em;font-size:23px}h3{font-size:19px}p,li{overflow-wrap:anywhere}a{color:#286c55;overflow-wrap:anywhere}pre{padding:18px;background:#edf2ee;border-radius:8px;white-space:pre-wrap;word-break:break-word;overflow-wrap:anywhere;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}table{border-collapse:collapse;min-width:540px;width:100%;font-size:14px}td,th{padding:10px;border:1px solid #d6ded8;text-align:left}th{background:#edf2ee}.table{overflow-x:auto;max-width:100%}img{max-width:100%;height:auto;border-radius:8px}blockquote{margin:20px 0;border-left:3px solid #8aa995;padding:5px 20px;background:#f4f7f3}@media(max-width:600px){main{padding:22px 18px 45px}h1{font-size:24px}h2{font-size:21px}}</style><main><h1>Pad 操作与本轮界面更新</h1>
+<p>同步日期：2026 年 10 月 23 日。此次把本地暮色页面已完成的界面优化迁入公开项目，家庭实体仍为空映射，家居独立控制页保留，Pad 控制另有自己的开关。</p>
+<h2>更新了哪些地方</h2>
+<div class="table"><table>
+<thead>
+<tr>
+<th>部分</th>
+<th>本轮变化</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2D 房间动画</td>
+<td>房屋、卡片、工具栏使用 transform 平移；灯光蒙版缓存位图，失败保留 SVG 回退，快速反向从当前位置衔接</td>
+</tr>
+<tr>
+<td>页签和侧栏</td>
+<td>页签改为上下过渡；展开侧栏可上下滑动切页，首尾不循环；侧栏开合有平滑动画</td>
+</tr>
+<tr>
+<td>家中概览</td>
+<td>摄像头与电费布局收紧并等高，去掉冗余标题；切页期间延后重组件，返回复用卡片</td>
+</tr>
+<tr>
+<td>电网</td>
+<td>默认用电日历，详情区域固定高度，日月曲线减少相同数据重画；本月电量按已上报日记录累加，电费可独立待更新</td>
+</tr>
+<tr>
+<td>视频</td>
+<td>实时及录像支持 1～4 倍缩放、拖动、加减与复位；SD 回放在大弹窗显示，离开或关闭停止播放</td>
+</tr>
+<tr>
+<td>主题和家电</td>
+<td>深浅主题的侧栏、卡片、按钮、弹窗统一；双列管线机按内容撑高，三列长型号允许完整换行</td>
+</tr>
+<tr>
+<td>Pad</td>
+<td>详情顶部显示电量、内存、CPU、电池温度；六个操作分组默认收起，提供 23 项可配置操作</td>
+</tr>
+<tr>
+<td>背景</td>
+<td>图片上传到 HA 共享，支持图库、主题归属、显示方式和轮换规则，详见 <a href="06-%E6%9B%B4%E6%8D%A2%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87.html">背景教程</a></td>
+</tr>
+</tbody></table></div>
+<p>这些优化减少页面重建和重复绘制，不等于所有平板保证稳定帧率。本次公开配置的验证使用本地浏览器和测试替身，没有重新连接实际 Pad 或摄像头。</p>
+<h2>三类操作要分别配置</h2>
+<ol>
+<li>原户型、家电和场景：继续本地模拟；绑定的读数可以真实。</li>
+<li><code>control.html</code> 家居实控：由 <code>SITE.control</code> 管理，默认 <code>read-only</code>。</li>
+<li>原展示页中的 Pad 详情操作：由 <code>SITE.pad</code> 管理，也默认 <code>read-only</code>。</li>
+</ol>
+<p>启用家居实控不会连带启用 Pad，反过来也一样。背景上传、删除和规则保存则属于共享图库管理，不是设备控制；启用背景后端后，所有已登录账号均可管理。</p>
+<h2>Pad 实体从哪里来</h2>
+<p>需要自己的 HA Kiosk/MQTT 集成已经在 HA 创建对应的 <code>button</code>、<code>number</code>、<code>switch</code>、<code>text</code> 实体。这个项目不会自动创建它们，也不按名称猜测目标。Android 应用可参考 <a href="https://github.com/YyyQq-C/ha-kiosk-browser">ha-kiosk-browser</a>，本仓库不包含其 APK 或签名文件。</p>
+<p>先在 HA“开发者工具 → 状态”及原生实体详情确认每项 ID、范围和可控性。前端的单位与操作类型是适配该类实体的约定，不代表任意同名实体都兼容。</p>
+<h2>配置键与类型</h2>
+<div class="table"><table>
+<thead>
+<tr>
+<th>分组</th>
+<th><code>key</code></th>
+<th>实体类型</th>
+<th>操作或取值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>快捷操作</td>
+<td><code>reload</code> / <code>home</code> / <code>wake</code> / <code>screenOff</code> / <code>screenshot</code></td>
+<td><code>button</code></td>
+<td>立即刷新、首页、唤醒、熄屏、截图，<code>button.press</code></td>
+</tr>
+<tr>
+<td>屏幕与音量</td>
+<td><code>brightness</code></td>
+<td><code>number</code></td>
+<td>观看亮度 1～100</td>
+</tr>
+<tr>
+<td>屏幕与音量</td>
+<td><code>volume</code> / <code>standbyBrightness</code></td>
+<td><code>number</code></td>
+<td>音量、待机亮度 0～100</td>
+</tr>
+<tr>
+<td>屏幕与音量</td>
+<td><code>dimDelay</code></td>
+<td><code>number</code></td>
+<td>无人后降亮度秒数 0～86400</td>
+</tr>
+<tr>
+<td>屏幕与音量</td>
+<td><code>motion</code> / <code>lock</code></td>
+<td><code>switch</code></td>
+<td>人体检测、锁定</td>
+</tr>
+<tr>
+<td>自动亮度</td>
+<td><code>schedule</code></td>
+<td><code>switch</code></td>
+<td>按时间切亮度</td>
+</tr>
+<tr>
+<td>自动亮度</td>
+<td><code>day</code> / <code>night</code></td>
+<td><code>number</code></td>
+<td>日夜亮度 1～100</td>
+</tr>
+<tr>
+<td>定时刷新</td>
+<td><code>daily</code></td>
+<td><code>switch</code></td>
+<td>每日刷新</td>
+</tr>
+<tr>
+<td>定时刷新</td>
+<td><code>dailyHour</code> / <code>dailyMinute</code></td>
+<td><code>number</code></td>
+<td>小时 0～23、分钟 0～59</td>
+</tr>
+<tr>
+<td>定时刷新</td>
+<td><code>watchdog</code></td>
+<td><code>number</code></td>
+<td>页面看门狗 0～3600 秒</td>
+</tr>
+<tr>
+<td>夜间熄屏</td>
+<td><code>sleep</code></td>
+<td><code>switch</code></td>
+<td>夜间熄屏开关</td>
+</tr>
+<tr>
+<td>夜间熄屏</td>
+<td><code>sleepStart</code> / <code>sleepEnd</code></td>
+<td><code>number</code></td>
+<td>起止小时 0～23</td>
+</tr>
+<tr>
+<td>通知与语音</td>
+<td><code>notify</code> / <code>speak</code></td>
+<td><code>text</code></td>
+<td>画面通知、语音内容，1～200 字</td>
+</tr>
+</tbody></table></div>
+<p>以实际 <code>pad-controls.js</code> 的操作键为准。默认实体全空，不支持的项可以保留空串，界面会禁用。后端实体上下限比表中更严格时，使用两者交集。</p>
+<h2>最小配置例子</h2>
+<p>在现有 <code>SITE</code> 对象中增加或修改 <code>pad</code>，不要删除天气或家居控制配置。以下 ID 都是示例，要换成自己的实体：</p>
+<pre><code class="language-js">pad: {
+  mode: &#39;read-only&#39;,
+  entities: {
+    reload: &#39;button.my_pad_reload&#39;,
+    brightness: &#39;number.my_pad_brightness&#39;,
+    volume: &#39;number.my_pad_volume&#39;,
+    notify: &#39;text.my_pad_notice&#39;
+  }
+}
+</code></pre>
+<p>全部 23 个键见 <code>site-config.example.js</code>。修改后重新加载 iframe，让模块重新读取映射；首次先只读核对。需要提交时才把 <code>pad.mode</code> 改为 <code>live</code>。只有 <code>live</code> 才能构造 Pad 服务命令，缺失、离线或域不匹配的实体不可用。</p>
+<p>Pad 是否在线还依赖 <code>entities</code> 中配置的 Pad 读数。至少需要正确映射电量、内存或屏幕状态中的可用字段；具体别名见 <a href="%E5%AE%9E%E4%BD%93%E6%98%A0%E5%B0%84%E7%B4%A2%E5%BC%95.html">实体映射索引</a>，例如 <code>sensor.example_pad_dian_liang</code>。仅填控制 ID、完全没有状态来源时，页面仍可能按离线处理。</p>
+<h2>提交与状态回读</h2>
+<ul>
+<li>按钮和开关点击即提交；数值与文本修改只保留草稿，点击“应用／发送”才提交。</li>
+<li>数值必须为合法整数；空字符串不会当成 0，零音量等合法值会保留。</li>
+<li>刷新状态不覆盖未提交草稿，重新打开详情分组默认收起。</li>
+<li>服务成功仅显示已提交；数值、开关继续等待设备报告，不能把请求成功当作物理执行成功。</li>
+<li>原本从未按过的按钮和从未发送的文本，HA 状态可能为 <code>unknown</code>；这两类与普通不可用传感器分别处理。</li>
+<li>熄屏、锁定和音量等操作应在自己可观察设备时验证，不用真实动作测试单纯样式。</li>
+</ul>
+<h2>摄像头与手势说明</h2>
+<p>视频缩放只放大浏览器中的当前画面，不控制镜头光学变焦或 PTZ，也不改变录像文件。双指捏合与加减按钮支持 1～4 倍，放大后可拖动，复位恢复完整画面。</p>
+<p>SD 播放仍依赖原有认证、列表和取流能力。大弹窗及样本视频测试通过，不代表任何机型、任何 SD 录像都能播放。先确认原生 HA 媒体能力，再配置序列号。</p>
+<p>侧栏滑动只从侧栏开始，不接管天气、日历和详情正文的滚动；短滑、横向拖动、多指和取消不切页，减少动画设置下直接切换。</p>
+<h2>从上一版升级</h2>
+<ol>
+<li>备份自己的整个前端、<code>site-config.js</code> 和仪表盘。</li>
+<li>替换本轮前端时，包含新增的 <code>backgrounds.js</code>、<code>camera-zoom.js</code>、<code>sidebar-swipe.js</code>、<code>pad-controls.js</code>，不能只复制 <code>app.js</code>。</li>
+<li>合并 <code>SITE.pad</code>，保留已有实体；家居和 Pad 都先只读。没有 Pad 的用户留空即可。</li>
+<li>需要共享图库时，另外安装背景后端；仅更新静态页面不能获得上传接口。</li>
+<li>保留 HA 中已有 <code>.storage/home_evening_backgrounds</code> 和 <code>home-evening-backgrounds/</code>，不要把默认配置当成重置工具。</li>
+<li>按 <a href="01-%E5%AE%89%E8%A3%85%E5%92%8C%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%89%93%E5%BC%80.html">安装说明</a> 检查实际返回资源及缓存，再检查桌面、平板和实际设备。</li>
+</ol>
+<p>当前公开项目仍不带家庭序列号、图库记录、媒体、数据库或登录凭据，也不附带作者的 SSH 自动部署脚本。</p>
+</main></html>

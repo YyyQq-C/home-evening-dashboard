@@ -11,6 +11,34 @@ export const SITE={
     ],
     scenes:[{key:'home',name:'回家',entity:'scene.my_home'},{key:'leave',name:'离家',entity:'script.my_leave'}]
   },
+  pad:{
+  "mode": "read-only",
+  "entities": {
+    "reload": "button.my_pad_reload",
+    "home": "button.my_pad_home",
+    "wake": "button.my_pad_wake",
+    "screenOff": "button.my_pad_screenoff",
+    "screenshot": "button.my_pad_screenshot",
+    "brightness": "number.my_pad_brightness",
+    "volume": "number.my_pad_volume",
+    "standbyBrightness": "number.my_pad_standbybrightness",
+    "dimDelay": "number.my_pad_dimdelay",
+    "motion": "switch.my_pad_motion",
+    "lock": "switch.my_pad_lock",
+    "schedule": "switch.my_pad_schedule",
+    "day": "number.my_pad_day",
+    "night": "number.my_pad_night",
+    "daily": "switch.my_pad_daily",
+    "dailyHour": "number.my_pad_dailyhour",
+    "dailyMinute": "number.my_pad_dailyminute",
+    "watchdog": "number.my_pad_watchdog",
+    "sleep": "switch.my_pad_sleep",
+    "sleepStart": "number.my_pad_sleepstart",
+    "sleepEnd": "number.my_pad_sleepend",
+    "notify": "text.my_pad_notify",
+    "speak": "text.my_pad_speak"
+  }
+},
   camera:{serial:''}, // 只有需要本包的 SD 回放组件时才填自己的序列号。
   weather:{sensors:{feelslike:'sensor.my_weather_feelslike',humidity:'sensor.my_weather_humidity',wind_speed:'sensor.my_weather_wind_speed'}},
   entities:{

@@ -121,4 +121,6 @@ data:
 <li><code>model-adapter.js</code> 只收发几何标记的消息。保留来源与 origin 校验，不能让消息直接指定任意 HA 服务或实体。</li>
 </ul>
 <p>可以复用本包 <code>control-actions.js</code> 的白名单和校验逻辑，但还需要重做展示页的 pending、失败提示、真实状态回读和全部入口的回归。原展示页里的“已模拟执行”文案也必须同步调整。完成这些工作以前，应保留“模拟”标记，而不是让用户把模型动画当作真实控制成功。</p>
+<h2>新版背景与 Pad 操作</h2>
+<p>共享背景上传需额外安装背景组件，见 <a href="06-%E6%9B%B4%E6%8D%A2%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87.html">背景教程</a>。展示页内 Pad 操作由 <code>SITE.pad</code> 单独映射、默认只读，见 <a href="07-Pad%E6%93%8D%E4%BD%9C%E4%B8%8E%E7%95%8C%E9%9D%A2%E6%9B%B4%E6%96%B0.html">Pad 操作与更新</a>；它与 <code>SITE.control</code> 的家居控制开关互不连带。</p>
 </main></html>

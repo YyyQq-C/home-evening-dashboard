@@ -268,4 +268,16 @@
 <h2>没放进来的文件</h2>
 <p>原 SSH 连接脚本、自动部署脚本、<code>.storage</code>、凭据文件、家庭网络配置、原始 DWG、录像、缩略图缓存、真实设备快照、数据库、日志、私钥、供应商验证码和后台登录状态都不在包内。</p>
 <p>没有附带整个 HA 的 Python 环境、<code>node_modules</code> 或浏览器。后端依赖由 HA 按清单安装，模型开发依赖由用户按需安装。网页的日常运行已经带了打包的三维、HLS 和历法代码。</p>
+<h2>本轮新增模块</h2>
+<ul>
+<li><code>backgrounds.js</code>：共享图库前端、上传与规则同步、认证图片 Blob 生命周期。</li>
+<li><code>ambient.js</code>：内置列表、共享规则归一化、来源和主题筛选、顺序及确定性随机选择。</li>
+<li><code>sidebar-swipe.js</code>：仅在侧栏上识别上下切页手势，防止滑动后误点。</li>
+<li><code>camera-zoom.js</code>：1～4 倍显示缩放、拖动和复位，适配实时及回放容器。</li>
+<li><code>pad-controls.js</code>：显式 Pad 操作映射、只读开关、输入草稿和服务回读。</li>
+<li><code>integrations/custom_components/home_evening_backgrounds</code>：认证 HTTP 接口、规则存储与图片处理。</li>
+<li><code>configs/backgrounds.example.yaml</code>：可选背景组件顶层配置入口，合并而非覆盖。</li>
+<li><code>tests/showcase</code>：脱敏后的展示页逻辑测试；<code>setup.mjs</code> 仅在测试进程启用替身配置，不在页面导入。</li>
+<li><code>tests/background_backend_test.py</code>：不启动 HA 的后端图片及边界测试。</li>
+</ul>
 </main></html>

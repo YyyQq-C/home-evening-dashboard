@@ -1,11 +1,12 @@
 import {createVisiblePoll} from './runtime.js';
-import {ambientIndex} from './ambient.js';
+import {createSharedBackgrounds} from './backgrounds.js';
 import {PREFERENCE_KEY,loadPreferences,normalizePreferences,resolveTheme} from './preferences.js';
 
 /** 创建即时保存的显示设置侧面板和本地屏保，不调用设备服务。 */
 export function createSettings({icon,onChange}) {
   let preferences=loadPreferences(),resolved='dark',opened=false,previousFocus,lastActivity=Date.now(),sleeping=false,sunState,wakeClickPending=false,standbyMinute=-1;
   const screen=document.querySelector('#screen'),host=document.querySelector('#settings-layer'),saver=document.querySelector('#standby');
+  const backgrounds=createSharedBackgrounds({screen,getTheme:()=>resolved});
   /** 只读当前同源 HA 外壳已有的太阳状态；独立预览不伪造日出日落。 */
   function readSun() {
     try{return window.parent!==window?window.parent.document.querySelector('home-assistant')?.hass?.states?.['sun.sun']?.state:undefined;}
@@ -15,9 +16,8 @@ export function createSettings({icon,onChange}) {
   function apply() {
     sunState=readSun();resolved=resolveTheme(preferences.theme,sunState,resolved);
     document.documentElement.dataset.theme=resolved;screen.dataset.theme=resolved;
-    // 整点轮换背景；序号未变时不重复写入。
-    const ambient=String(ambientIndex(Date.now(),3));
-    if(screen.dataset.ambient!==ambient)screen.dataset.ambient=ambient;
+    // 背景图库及循环规则从 HA 同步，主题仍沿用当前浏览器的外观设置。
+    backgrounds.apply(resolved);
     screen.dataset.motion=String(preferences.motion);
     onChange?.({...preferences,resolvedTheme:resolved});
     const help=host.querySelector('#theme-help');
@@ -35,8 +35,9 @@ export function createSettings({icon,onChange}) {
   function render() {
     const scroll=host.querySelector('.settings-body')?.scrollTop||0,focused=host.contains(document.activeElement)?document.activeElement:null;
     const focusKey=focused?.dataset.preference,focusValue=focused?.dataset.value,focusIdle=focused?.matches('[data-idle]'),focusRoomIdle=focused?.matches('[data-room-idle]');
-    host.innerHTML=`<button class="settings-scrim" type="button" aria-label="关闭显示设置" data-settings-close></button><aside class="settings-drawer" role="dialog" aria-modal="true" aria-labelledby="settings-title"><header><div><span class="settings-eyebrow">让家，更合心意</span><h2 id="settings-title">显示设置</h2></div><button class="circle-button" type="button" aria-label="收起显示设置" data-settings-close>${icon('close')}</button></header><div class="settings-body"><section><h3>${icon('moon')}界面外观</h3>${options('theme',[['dark','深色'],['light','浅色'],['auto','跟随日出日落']])}<p id="theme-help" class="settings-help" role="status"></p></section><section><h3>${icon('appliance')}家电布局</h3>${options('applianceColumns',[[2,'每行 2 个'],[3,'每行 3 个'],[4,'每行 4 个']])}<p class="settings-help">立即调整卡片大小，刷新后保留布局</p></section><section><h3>${icon('cube')}房屋显示</h3>${options('houseMode',[['2d','2D 平面图'],['3d','3D 模型']])}<p class="settings-help">默认使用俯视平面图，切换为 3D 后可旋转查看</p><div data-model-only ${preferences.houseMode==='2d'?'hidden':''}>${switchRow('rotation','允许 3D 模型旋转','关闭后固定所选视角，图标仍可操作')}${switchRow('zoom','允许 3D 模型缩放','允许双指或滚轮调整大小')}<div class="setting-label">默认视角</div>${options('view',[['top','俯视'],['angled','45°斜视']])}</div>${switchRow('markers','显示设备图标','灯光、空调、新风和地暖标注')}<div class="setting-label">默认图标分类</div>${options('markerKind',[['all','全部'],['lights','灯光'],['ac','空调'],['fresh','新风'],['floor','地暖']])}${switchRow('autoOpenRoomInfo','是否自动打开房间信息','关闭后点击房屋图标只操作设备，不展开房间信息')}<label class="setting-row"><div><strong>房间信息自动收起</strong><small>无操作后收起，0 表示不自动收起</small></div><span class="idle-value"><input aria-label="房间信息自动收起时间" type="number" min="0" max="300" step="1" inputmode="numeric" data-room-idle value="${preferences.roomPanelSeconds}"><span>秒</span></span></label></section><section><h3>${icon('moon')}动效与屏保</h3>${switchRow('motion','界面动画','减少动画可让页面更加安静')}<label class="setting-row"><div><strong>进入屏保时间</strong><small>按最后一次操作计时，0 表示关闭</small></div><span class="idle-value"><input aria-label="进入屏保时间" type="number" min="0" max="120" step="1" inputmode="numeric" data-idle value="${preferences.idleMinutes}"><span>分钟</span></span></label><button type="button" class="settings-preview" data-standby-preview>预览屏保${icon('arrow')}</button></section><p class="settings-help settings-footnote">设置仅保存在当前浏览器 · 设备控制仍为模拟</p></div></aside>`;
+    host.innerHTML=`<button class="settings-scrim" type="button" aria-label="关闭显示设置" data-settings-close></button><aside class="settings-drawer" role="dialog" aria-modal="true" aria-labelledby="settings-title"><header><div><span class="settings-eyebrow">让家，更合心意</span><h2 id="settings-title">显示设置</h2></div><button class="circle-button" type="button" aria-label="收起显示设置" data-settings-close>${icon('close')}</button></header><div class="settings-body"><section><h3>${icon('moon')}界面外观</h3>${options('theme',[['dark','深色'],['light','浅色'],['auto','跟随日出日落']])}<p id="theme-help" class="settings-help" role="status"></p></section>${backgrounds.markup()}<section><h3>${icon('appliance')}家电布局</h3>${options('applianceColumns',[[2,'每行 2 个'],[3,'每行 3 个'],[4,'每行 4 个']])}<p class="settings-help">立即调整卡片大小，刷新后保留布局</p></section><section><h3>${icon('cube')}房屋显示</h3>${options('houseMode',[['2d','2D 平面图'],['3d','3D 模型']])}<p class="settings-help">默认使用俯视平面图，切换为 3D 后可旋转查看</p><div data-model-only ${preferences.houseMode==='2d'?'hidden':''}>${switchRow('rotation','允许 3D 模型旋转','关闭后固定所选视角，图标仍可操作')}${switchRow('zoom','允许 3D 模型缩放','允许双指或滚轮调整大小')}<div class="setting-label">默认视角</div>${options('view',[['top','俯视'],['angled','45°斜视']])}</div>${switchRow('markers','显示设备图标','灯光、空调、新风和地暖标注')}<div class="setting-label">默认图标分类</div>${options('markerKind',[['all','全部'],['lights','灯光'],['ac','空调'],['fresh','新风'],['floor','地暖']])}${switchRow('autoOpenRoomInfo','是否自动打开房间信息','关闭后点击房屋图标只操作设备，不展开房间信息')}<label class="setting-row"><div><strong>房间信息自动收起</strong><small>无操作后收起，0 表示不自动收起</small></div><span class="idle-value"><input aria-label="房间信息自动收起时间" type="number" min="0" max="300" step="1" inputmode="numeric" data-room-idle value="${preferences.roomPanelSeconds}"><span>秒</span></span></label></section><section><h3>${icon('moon')}动效与屏保</h3>${switchRow('motion','界面动画','减少动画可让页面更加安静')}<label class="setting-row"><div><strong>进入屏保时间</strong><small>按最后一次操作计时，0 表示关闭</small></div><span class="idle-value"><input aria-label="进入屏保时间" type="number" min="0" max="120" step="1" inputmode="numeric" data-idle value="${preferences.idleMinutes}"><span>分钟</span></span></label><button type="button" class="settings-preview" data-standby-preview>预览屏保${icon('arrow')}</button></section><p class="settings-help settings-footnote">显示偏好保存在当前浏览器 · 家居控制仍为模拟，Pad 操作会实际执行</p></div></aside>`;
     host.querySelector('.settings-body').scrollTop=scroll;
+    backgrounds.mount(host.querySelector('[data-background-editor]'));
     if(focusKey)host.querySelector(`[data-preference="${focusKey}"]${focusValue?`[data-value="${focusValue}"]`:''}`)?.focus({preventScroll:true});
     if(focusIdle)host.querySelector('[data-idle]')?.focus({preventScroll:true});
     if(focusRoomIdle)host.querySelector('[data-room-idle]')?.focus({preventScroll:true});
@@ -100,6 +101,6 @@ export function createSettings({icon,onChange}) {
   document.addEventListener('visibilitychange',()=>{if(!document.hidden){lastActivity=Date.now();apply();}});
   window.addEventListener('storage',event=>{if(event.key===PREFERENCE_KEY){preferences=loadPreferences();if(opened)syncControls();apply();}});
   createVisiblePoll(tick,1000).start({immediate:false});
-  createVisiblePoll(()=>{if(readSun()!==sunState||String(ambientIndex(Date.now(),3))!==screen.dataset.ambient)apply();},10000).start({immediate:false});
+  createVisiblePoll(()=>{if(readSun()!==sunState)apply();},10000).start({immediate:false});
   return {open,close,apply,get preferences(){return {...preferences};},get theme(){return resolved;}};
 }

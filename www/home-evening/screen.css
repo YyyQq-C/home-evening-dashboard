@@ -44,7 +44,7 @@
 .model-categories{position:absolute;left:210px;top:175px;display:flex;gap:6px;padding:7px;background:#24271fe8;border:1px solid var(--line);border-radius:44px;z-index:3}.model-category{display:flex;align-items:center;gap:9px;min-height:58px;padding:10px 16px;border:0;border-radius:34px;background:transparent;color:var(--muted);font-size:22px}.model-category .icon{width:25px;height:25px}.model-category[aria-pressed=true]{background:#e7bd7926;color:var(--gold)}.model-category[data-kind=ac][aria-pressed=true]{background:#9bc9ed26;color:#9bc9ed}.model-category[data-kind=fresh][aria-pressed=true]{background:#a6d4be26;color:#a6d4be}.model-category[data-kind=floor][aria-pressed=true]{background:#e59e8426;color:#e59e84}
 
 /* 设置侧面板延续圆角胶囊和暖色层次，内容独立滚动。 */
-.settings-layer{position:absolute;inset:0;z-index:20}.settings-scrim{position:absolute;inset:0;width:100%;height:100%;border:0;border-radius:0;background:#0c100d65;backdrop-filter:blur(9px)}.settings-drawer{position:absolute;left:50%;right:auto;translate:-50% 0;top:42px;bottom:42px;width:710px;padding:38px 36px 20px;border:1px solid var(--line);border-radius:56px;background:linear-gradient(145deg,#35372ff5,#20231ffb);box-shadow:0 28px 100px #0005;display:flex;flex-direction:column}.settings-drawer>header{display:flex;align-items:center;justify-content:space-between;padding:0 8px 22px}.settings-eyebrow{font-size:18px;color:var(--gold);letter-spacing:3px}.settings-drawer h2{margin:8px 0 0;font-size:40px;font-weight:500}.settings-drawer header .circle-button{width:64px;height:64px}.settings-body{min-height:0;overflow:auto;scrollbar-width:thin;scrollbar-color:#8f825650 transparent;padding:0 6px 8px}.settings-body section{padding:20px 22px;margin-bottom:18px;border-radius:32px;border:1px solid var(--line);background:#191e1940}.settings-body h3{margin:0 0 18px;display:flex;align-items:center;gap:12px;font-size:24px;font-weight:500}.settings-body h3 .icon{width:27px;height:27px;color:var(--gold)}.setting-options{display:flex;gap:6px;background:#141b1435;border-radius:28px;padding:5px}.setting-options button{flex:1;min-width:0;min-height:58px;padding:12px 9px;border:0;border-radius:24px;background:transparent;color:var(--muted);font-size:20px;white-space:nowrap}.setting-options button[aria-pressed=true]{background:#e7bd7929;color:var(--gold);box-shadow:inset 0 0 0 1px #e7bd7935}.setting-row{display:flex;justify-content:space-between;align-items:center;gap:20px;min-height:82px;padding:12px 0;border-bottom:1px solid var(--line)}.setting-row strong{display:block;font-size:23px;font-weight:500}.setting-row small{display:block;font-size:17px;margin-top:6px;color:var(--muted)}.setting-row .toggle{width:78px;height:46px}.setting-row .toggle:after{width:34px;height:34px;top:5px;left:5px}.setting-row .toggle[aria-checked=true]:after{left:37px}.setting-label{font-size:18px;color:var(--muted);margin:16px 0 10px}.settings-help{font-size:17px;line-height:1.6;color:var(--muted);margin:14px 0 0}.settings-footnote{padding:0 12px 10px;text-align:center}.idle-value{display:flex;align-items:center;gap:8px;font-size:18px;color:var(--muted)}.idle-value input{width:84px;text-align:center;background:#1c241b80;border:1px solid var(--line);border-radius:18px;color:var(--text);padding:12px 8px;font-size:24px}.settings-preview{display:flex;align-items:center;justify-content:center;gap:14px;min-height:58px;margin-top:16px;width:100%;border-radius:30px;font-size:21px}.settings-preview .icon{width:23px;height:23px}.standby{position:absolute;inset:0;z-index:30;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;outline:none;cursor:pointer}.standby time{font-size:200px;letter-spacing:6px;font-weight:300;font-variant-numeric:tabular-nums}.standby-date{font-size:32px;color:var(--muted);margin:14px 0 100px}.standby>span{font-size:21px;color:var(--muted);letter-spacing:4px}.screen[data-motion=false] *,.screen[data-motion=false] *:before,.screen[data-motion=false] *:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+.settings-layer{position:absolute;inset:0;z-index:28}.settings-scrim{position:absolute;inset:0;width:100%;height:100%;border:0;border-radius:0;background:#0c100d65;backdrop-filter:blur(9px)}.settings-drawer{position:absolute;left:50%;right:auto;translate:-50% 0;top:42px;bottom:42px;width:710px;padding:38px 36px 20px;border:1px solid var(--line);border-radius:56px;background:linear-gradient(145deg,#35372ff5,#20231ffb);box-shadow:0 28px 100px #0005;display:flex;flex-direction:column}.settings-drawer>header{display:flex;align-items:center;justify-content:space-between;padding:0 8px 22px}.settings-eyebrow{font-size:18px;color:var(--gold);letter-spacing:3px}.settings-drawer h2{margin:8px 0 0;font-size:40px;font-weight:500}.settings-drawer header .circle-button{width:64px;height:64px}.settings-body{min-height:0;overflow:auto;scrollbar-width:thin;scrollbar-color:#8f825650 transparent;padding:0 6px 8px}.settings-body section{padding:20px 22px;margin-bottom:18px;border-radius:32px;border:1px solid var(--line);background:#191e1940}.settings-body h3{margin:0 0 18px;display:flex;align-items:center;gap:12px;font-size:24px;font-weight:500}.settings-body h3 .icon{width:27px;height:27px;color:var(--gold)}.setting-options{display:flex;gap:6px;background:#141b1435;border-radius:28px;padding:5px}.setting-options button{flex:1;min-width:0;min-height:58px;padding:12px 9px;border:0;border-radius:24px;background:transparent;color:var(--muted);font-size:20px;white-space:nowrap}.setting-options button[aria-pressed=true]{background:#e7bd7929;color:var(--gold);box-shadow:inset 0 0 0 1px #e7bd7935}.setting-row{display:flex;justify-content:space-between;align-items:center;gap:20px;min-height:82px;padding:12px 0;border-bottom:1px solid var(--line)}.setting-row strong{display:block;font-size:23px;font-weight:500}.setting-row small{display:block;font-size:17px;margin-top:6px;color:var(--muted)}.setting-row .toggle{width:78px;height:46px}.setting-row .toggle:after{width:34px;height:34px;top:5px;left:5px}.setting-row .toggle[aria-checked=true]:after{left:37px}.setting-label{font-size:18px;color:var(--muted);margin:16px 0 10px}.settings-help{font-size:17px;line-height:1.6;color:var(--muted);margin:14px 0 0}.settings-footnote{padding:0 12px 10px;text-align:center}.idle-value{display:flex;align-items:center;gap:8px;font-size:18px;color:var(--muted)}.idle-value input{width:84px;text-align:center;background:#1c241b80;border:1px solid var(--line);border-radius:18px;color:var(--text);padding:12px 8px;font-size:24px}.settings-preview{display:flex;align-items:center;justify-content:center;gap:14px;min-height:58px;margin-top:16px;width:100%;border-radius:30px;font-size:21px}.settings-preview .icon{width:23px;height:23px}.standby{position:absolute;inset:0;z-index:30;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;outline:none;cursor:pointer}.standby time{font-size:200px;letter-spacing:6px;font-weight:300;font-variant-numeric:tabular-nums}.standby-date{font-size:32px;color:var(--muted);margin:14px 0 100px}.standby>span{font-size:21px;color:var(--muted);letter-spacing:4px}.screen[data-motion=false] *,.screen[data-motion=false] *:before,.screen[data-motion=false] *:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
 /* 浅色主题使用温暖的雾白与墨绿，覆盖所有分页和浮层。 */
 html[data-theme=light]{color-scheme:light;--bg:#f1f2eb;--panel:#fffdf6;--text:#29372e;--muted:#6d776a;--gold:#976a26;--blue:#3e7b99;--green:#438268;--line:#73836533}html[data-theme=light] body{background:#f1f2eb}.screen[data-theme=light],.screen[data-theme=light]:before{background:var(--bg)}.screen[data-theme=light]:after{background:radial-gradient(ellipse at 55% 48%,#d6debd35,transparent 65%)}.screen[data-theme=light] button{background:#fffdf5cc;border-color:var(--line)}.screen[data-theme=light] .scene-button{box-shadow:0 6px 20px #42523a08}.screen[data-theme=light] .navigation{background:linear-gradient(145deg,#fffef5e8,#e6e9dcd9);box-shadow:0 12px 32px #41503810}.screen[data-theme=light] .nav-button{background:transparent;border-color:transparent;color:var(--muted)}.screen[data-theme=light] .nav-button[aria-current=page]{color:var(--gold);background:#e4cba04a;border-color:#b08a4940}.screen[data-theme=light] .model-categories,.screen[data-theme=light] .home-environment{background:#fffff4dd}.screen[data-theme=light] .model-category{background:transparent;border:0}.screen[data-theme=light] .model-category[aria-pressed=true]{background:#dfc38c40;color:var(--gold)}.screen[data-theme=light] .model-category[data-kind=ac][aria-pressed=true]{background:#b5d3e944;color:var(--blue)}.screen[data-theme=light] .model-category[data-kind=floor][aria-pressed=true]{background:#edbd9d44;color:#a56843}.screen[data-theme=light] .model-category[data-kind=fresh][aria-pressed=true]{background:#b7dccb44;color:var(--green)}.screen[data-theme=light] .quick-controls{background:linear-gradient(135deg,#fffef6f0,#e8ecdfed);box-shadow:0 12px 40px #3d4c3012}.screen[data-theme=light] .quick-group{border-color:var(--line)}.screen[data-theme=light] .control-orb{background:#ece6d2;color:var(--gold)}.screen[data-theme=light] .quick-group.ac .control-orb{background:#dce9eb;color:var(--blue)}.screen[data-theme=light] .quick-group.floor .control-orb{color:#a56c42}.screen[data-theme=light] .quick-group.fresh .control-orb{background:#e0eade;color:var(--green)}.screen[data-theme=light] .toggle{background:#c6cebf;border-color:#aeb9a980}.screen[data-theme=light] .toggle[aria-checked=true]{background:linear-gradient(110deg,#e6bc72,#c99444);border-color:#d4ad67}.screen[data-theme=light] .quick-link,.screen[data-theme=light] .room-select{background:none;border:0}.screen[data-theme=light] .room-status,.screen[data-theme=light] .room-panel,.screen[data-theme=light] .fresh-panel,.screen[data-theme=light] .appliance-card,.screen[data-theme=light] .light-card{background:linear-gradient(140deg,#fffef8ef,#e9eddfeb);border-color:var(--line);box-shadow:none}.screen[data-theme=light] .status-row,.screen[data-theme=light] .room-section,.screen[data-theme=light] .fresh-summary,.screen[data-theme=light] .dial-power,.screen[data-theme=light] .option-button{background:#f9faf2cc;border-color:var(--line)}.screen[data-theme=light] .status-row.selected{background:#e7ddc743}.screen[data-theme=light] .cycle-ring:before{background:#f2f3e8}.screen[data-theme=light] .cycle-steps{color:var(--muted)}.screen[data-theme=light] .filter-track{background:#cbd2c3}.screen[data-theme=light] .air-orbit{border-color:#85ad9840}.screen[data-theme=light] .appliance-modal,.screen[data-theme=light] .settings-drawer{background:linear-gradient(145deg,#fffdf7fc,#eaf0e0fc);border-color:var(--line);box-shadow:0 28px 100px #33462e30}.screen[data-theme=light] .settings-scrim{background:#34463325}.screen[data-theme=light] .settings-body section{background:#f5f7ed80}.screen[data-theme=light] .setting-options{background:#dce3d250}.screen[data-theme=light] .setting-options button{background:transparent;border:0}.screen[data-theme=light] .setting-options button[aria-pressed=true]{background:#e3c99b50;color:var(--gold)}.screen[data-theme=light] .idle-value input{background:#fffef9;color:var(--text)}.screen[data-theme=light] .toast{background:#f4f6e9f2;border-color:var(--line);color:var(--text);box-shadow:0 10px 35px #42513620}.screen[data-theme=light] .demo-label{color:var(--muted)}.screen[data-theme=light] .product-model{color:var(--muted)}.screen[data-theme=light] .filter-button{color:var(--muted)}
 .screen[data-theme=light] .section-tabs{background:#e5e9dcbb;border-color:var(--line)}.screen[data-theme=light] .tab-button{background:transparent;border-color:transparent}.screen[data-theme=light] .tab-button[aria-selected=true],.screen[data-theme=light] .filter-button[aria-pressed=true]{background:linear-gradient(125deg,#edcc92,#d9ae61);color:#29372e}.screen[data-theme=light] .action-pill.gold{background:linear-gradient(125deg,#edcc92,#d9ae61);color:#29372e}
@@ -52,23 +52,23 @@ html[data-theme=light]{color-scheme:light;--bg:#f1f2eb;--panel:#fffdf6;--text:#2
 .screen{--ambient-image:url('./assets/background-night.webp');--ambient-wash:linear-gradient(180deg,#21364a30,#23374718);--model-halo:#a3c8f875;--model-edge:#b6d2ee70;background:#243e59}
 .screen[data-ambient="1"]{--ambient-image:url('./assets/background-night-aurora.webp')}
 .screen[data-ambient="2"]{--ambient-image:url('./assets/background-night-interior.webp')}
-.screen:before{background-image:var(--ambient-wash),var(--ambient-image);background-size:cover;background-position:center}
+.screen:before{background-image:var(--ambient-wash),var(--ambient-image);background-size:100% 100%,var(--ambient-size,cover);background-position:center;background-repeat:no-repeat}
 .screen:after{background:radial-gradient(ellipse at 50% 55%,#c1d3e40b,transparent 65%)}
 .screen[data-theme=light]{--ambient-image:url('./assets/background-day.webp');--ambient-wash:linear-gradient(180deg,#fffef524,#f3f5eb18);--model-halo:#d2e2ad99;--model-edge:#fffef4cc;background:#f3f5ec}
 .screen[data-theme=light][data-ambient="1"]{--ambient-image:url('./assets/background-day-interior.webp')}
 .screen[data-theme=light][data-ambient="2"]{--ambient-image:url('./assets/background-day-lineart.webp')}
-.screen[data-theme=light]:before{background-image:var(--ambient-wash),var(--ambient-image);background-size:cover;background-position:center}
+.screen[data-theme=light]:before{background-image:var(--ambient-wash),var(--ambient-image);background-size:100% 100%,var(--ambient-size,cover);background-position:center;background-repeat:no-repeat}
 .screen[data-theme=light]:after{background:radial-gradient(ellipse at 50% 55%,#ffffff18,transparent 65%)}
 /* 不绘制模型底部的独立椭圆光晕。 */
 .model-stage iframe{position:relative;z-index:1;filter:drop-shadow(0 12px 12px var(--model-halo)) drop-shadow(0 2px 3px var(--model-edge))}
 /* 单层侧边导航收进左边缘，通过窄把手展开，不再套入高亮卡片。 */
-.navigation{left:20px;top:330px;width:118px;padding:8px 0;gap:4px;border-radius:26px;background:#22384bd9;border:1px solid #c7d3d426;box-shadow:0 12px 28px #07142120;backdrop-filter:blur(12px)}
-.navigation .nav-button{min-height:108px;border:0;border-radius:0;gap:8px;font-size:20px;position:relative;background:transparent;color:#d1d9d9}
+.navigation{left:20px;top:330px;width:118px;padding:8px 0;gap:4px;border-radius:26px;background:var(--panel);border:1px solid var(--line);box-shadow:0 12px 28px #0002;backdrop-filter:blur(12px)}
+.navigation .nav-button{min-height:108px;border:0;border-radius:0;gap:8px;font-size:20px;position:relative;background:transparent;color:var(--muted)}
 .navigation .nav-button>.icon{width:34px;height:34px}
-.navigation .nav-button[aria-current=page]{background:transparent;border:0;color:#f3cf8d}
+.navigation .nav-button[aria-current=page]{background:transparent;border:0;color:var(--gold)}
 .navigation .nav-button[aria-current=page]:before{content:'';position:absolute;left:0;top:35px;width:3px;height:34px;background:currentColor;border-radius:4px}
 .navigation .nav-button[aria-current=page]>.icon{filter:none}
-.nav-handle{position:absolute;left:0;top:485px;width:42px;height:100px;border-radius:0 23px 23px 0;background:#263f56dd;border:1px solid #d4dfdc35;border-left:0;color:#e9dcc3;display:flex;align-items:center;justify-content:center;padding:7px;z-index:6;transition:left .2s,background .2s;backdrop-filter:blur(10px)}
+.nav-handle{position:absolute;left:0;top:485px;width:42px;height:100px;border-radius:0 23px 23px 0;background:var(--panel);border:1px solid var(--line);border-left:0;color:var(--gold);display:flex;align-items:center;justify-content:center;padding:7px;z-index:6;transition:left .2s,background .2s;backdrop-filter:blur(10px)}
 .nav-handle>.icon{width:23px;height:23px}
 .screen[data-nav-open=true] .nav-handle{left:138px;width:32px;height:76px;top:510px;border-radius:0 18px 18px 0}
 .screen[data-nav-open=true] .nav-handle>.icon{transform:rotate(180deg)}
@@ -76,8 +76,8 @@ html[data-theme=light]{color-scheme:light;--bg:#f1f2eb;--panel:#fffdf6;--text:#2
 .screen[data-theme=light] .navigation .nav-button{background:transparent;border:0;color:var(--muted)}
 .screen[data-theme=light] .navigation .nav-button[aria-current=page]{background:transparent;border:0;color:var(--gold)}
 .screen[data-theme=light] .nav-handle{background:#fffdf1e8;border-color:#8795783b;color:var(--gold)}
-/* 顶部六项快捷操作降低高度，保持横向排列和触控间距。 */
-.scene-strip{margin-top:2px}
+/* 顶部六项快捷操作在时钟与天气之间的空白区域整体居中，保持原有尺寸与间距。 */
+.scene-strip{margin-top:2px;justify-content:center}
 .scene-button{height:74px;border-radius:40px;font-size:23px;gap:10px}
 .scene-button>.icon{width:28px;height:28px}
 /* 根据显示设置重排家电卡片；三列采用紧凑横排，四列采用竖向主体展示。 */
@@ -117,7 +117,7 @@ html[data-theme=light]{color-scheme:light;--bg:#f1f2eb;--panel:#fffdf6;--text:#2
 .screen[data-appliance-columns='4'] .appliance-copy .cycle-ring{top:110px}
 
 /* 分页平移只提升合成层；离场页继续绘制，但不响应点击或键盘。 */
-.page-moving{will-change:transform,opacity;pointer-events:none}
+.page-moving{will-change:transform;pointer-events:none}
 .page.page-leaving[hidden]{display:block!important;visibility:visible!important;pointer-events:none}
 /* 内容区域保留自然高度，溢出时允许触摸惯性滚动，导航及页头固定。 */
 .environment-page,.appliance-page{overflow-x:hidden;overflow-y:auto;overscroll-behavior-y:contain;touch-action:pan-y;padding-bottom:16px}
@@ -285,7 +285,7 @@ html[data-theme=light]{color-scheme:light;--bg:#f1f2eb;--panel:#fffdf6;--text:#2
 .room-panel{bottom:26px}
 .model-footer{position:absolute;left:var(--model-center);bottom:28px;display:flex;align-items:center;justify-content:center;gap:20px;transform:translateX(-50%);z-index:12;white-space:nowrap;transition:left .32s cubic-bezier(.22,.75,.24,1)}
 /* 导航与把手保持可操作，天气和设置弹层仍在模型之上。 */
-.navigation{z-index:14}.nav-handle{z-index:15}
+.navigation{z-index:14;touch-action:none;user-select:none;-webkit-user-select:none}.nav-handle{z-index:15}
 /* 房间面板关闭后的恢复按钮属于模型操作入口，需保持可点击。 */
 .room-panel-reopen{z-index:17}
 .model-footer .model-categories,.home-page.room-open .model-footer .model-categories{position:static;left:auto;top:auto;bottom:auto;transform:none}
@@ -403,6 +403,8 @@ html[data-theme=light]{color-scheme:light;--bg:#f1f2eb;--panel:#fffdf6;--text:#2
 
 /* 摄像头预览压低高度，录像列表单独滚动，避免把整张概览卡片撑得过高。 */
 /* 两列卡片等高，监控卡片的剩余高度全部分配给实时视频区域。 */
+/* 限制嵌套电网组件的高层级，避免曲线和日历越过页面外的弹层。 */
+.page.overview-page{isolation:isolate}
 .overview-columns{align-items:stretch}
 .overview-columns>.overview-section{padding-top:20px;padding-bottom:20px}
 .overview-columns>.overview-section>header{margin-bottom:16px}
@@ -466,8 +468,8 @@ html[data-theme=light]{color-scheme:light;--bg:#f1f2eb;--panel:#fffdf6;--text:#2
 .screen[data-theme=light] .floorplan-marker{background:#fdfbf4;color:#566459;border-color:#a6b0a3}
 .screen[data-theme=light] .floorplan-marker[aria-pressed=true]{background:var(--plan-color);color:#27362d;border-color:#fff9}
 .screen[data-theme=light] .floorplan-room[aria-pressed=true]{background:#f9e9cb;border-color:#b58c4c;color:#765224}
-/* 设备栏与公历日期共用左侧起点，时间和农历保留居中。 */
-#pad-open{position:absolute;left:46px;top:198px;z-index:18;display:flex;align-items:center;justify-content:flex-start;gap:24px;width:400px;height:64px;padding:10px 0;border:0;border-radius:12px;background:transparent;color:var(--text)}
+/* 设备状态条与上方时间、日期入口共用宽度和水平中心线。 */
+#pad-open{position:absolute;left:36px;top:198px;z-index:18;display:flex;align-items:center;justify-content:center;gap:24px;width:270px;height:64px;padding:10px 0;border:0;border-radius:12px;background:transparent;color:var(--text)}
 #pad-open>span{display:flex;align-items:center;justify-content:center;gap:9px}#pad-open svg{width:32px;height:32px;flex-shrink:0}#pad-open .pad-value{font-size:25px;font-variant-numeric:tabular-nums;white-space:nowrap}.pad-memory-icon{opacity:.84}
 #pad-open[data-low-battery=true] .pad-battery-icon,#pad-open[data-low-memory=true] .pad-memory-icon{color:#e4a081}
 #pad-open[data-charging=true] .pad-battery-icon{color:var(--green)}
@@ -479,13 +481,24 @@ html[data-theme=light]{color-scheme:light;--bg:#f1f2eb;--panel:#fffdf6;--text:#2
 .pad-dialog>header{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:28px 34px 22px;border-bottom:1px solid var(--line);flex-shrink:0}
 .pad-dialog h2{font-size:34px;font-weight:500;margin:0 0 7px}.pad-dialog header p{margin:0;color:var(--muted);font-size:19px}.pad-dialog header .circle-button{width:62px;height:62px;flex-shrink:0}.pad-dialog header .icon{width:28px;height:28px}
 .pad-body{min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:24px 30px;scrollbar-width:none}.pad-body::-webkit-scrollbar{display:none}
-.pad-summary{display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:0 4px 23px}.pad-summary>div{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:0 22px}.pad-summary>div+div{border-left:1px solid var(--line)}.pad-summary span{font-size:23px;color:var(--muted)}.pad-summary strong{font-size:49px;font-weight:500;font-variant-numeric:tabular-nums}
+/* 顶部四项状态上下排列名称和读数，为 CPU 指标保留完整显示空间。 */
+.pad-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;padding:0 4px 23px}.pad-summary>div{display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;min-width:0;padding:0 12px}.pad-summary>div+div{border-left:1px solid var(--line)}.pad-summary span{font-size:23px;color:var(--muted)}.pad-summary strong{font-size:49px;font-weight:500;font-variant-numeric:tabular-nums}
 .pad-sections{display:grid;grid-template-columns:1fr 1fr;gap:18px}.pad-sections>section{min-width:0;border:1px solid var(--line);border-radius:24px;padding:23px;background:#16231e45}.pad-sections>section:last-child{grid-column:1/-1}.pad-sections h3{font-size:23px;font-weight:500;margin:0 0 20px}.pad-sections dl{display:grid;grid-template-columns:1fr 1fr;gap:19px 20px;margin:0}.pad-sections>section:last-child dl{grid-template-columns:repeat(3,minmax(0,1fr))}.pad-sections dl>div{min-width:0}.pad-sections dt{font-size:17px;color:var(--muted);margin:0 0 7px}.pad-sections dd{font-size:21px;line-height:1.45;margin:0;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}.pad-sections .pad-wide{grid-column:1/-1}
 .pad-dialog>footer{padding:17px 34px 22px;font-size:16px;color:var(--muted);border-top:1px solid var(--line);flex-shrink:0}
 .screen[data-theme=light] .pad-dialog{background:linear-gradient(145deg,#fffdf7fc,#eaf0e0fc);box-shadow:0 24px 90px #33462e30}.screen[data-theme=light] .pad-sections>section{background:#f5f7ed80}
 .screen[data-theme=light] .pad-scrim{background:#34463340}
 @keyframes pad-open{from{opacity:0}to{opacity:1}}
 @media(prefers-reduced-motion:reduce){.pad-layer{animation:none}}
+/* Pad 的全部真实操作集中在可滚动详情中，输入草稿不会随设备报告重建。 */
+.pad-operations{border:1px solid var(--line);border-radius:24px;padding:23px;margin-bottom:22px;background:#16231e45}
+.pad-operations h3{font-size:25px;font-weight:500;margin:0 0 12px}.pad-control-help{font-size:17px;color:var(--muted);line-height:1.6;margin:0 0 18px}
+.pad-control-quick-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:18px}.pad-control-quick{min-width:0}
+.pad-control-quick button{width:100%;min-height:66px;border-radius:18px;font-size:21px;padding:12px}.pad-control-quick small{display:block;text-align:center;font-size:15px;color:var(--muted);margin-top:6px}
+.pad-control-groups{display:flex;flex-direction:column;gap:14px}.pad-control-fields{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 20px}.pad-control-groups details:last-child .pad-control-fields{grid-template-columns:1fr}
+.pad-control-groups details{min-width:0;border:1px solid var(--line);border-radius:18px;padding:16px}.pad-control-groups summary{font-size:22px;cursor:pointer;color:var(--gold);line-height:1.5}.pad-control-groups summary:focus-visible{outline:2px solid var(--gold);outline-offset:4px}.pad-control-groups details:last-child{grid-column:1/-1}
+.pad-control-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 0;border-top:1px solid var(--line);margin-top:12px;min-width:0}.pad-control-row strong{font-size:20px;font-weight:500;display:block}.pad-control-row small{display:block;font-size:16px;line-height:1.5;color:var(--muted);margin-top:6px;overflow-wrap:anywhere}
+.pad-control-editor{display:block}.pad-control-value{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:18px}.pad-control-value input,.pad-control-value textarea{min-width:0;width:100%;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--text);padding:10px 12px;font:inherit;font-size:21px;line-height:1.5}.pad-control-value textarea{resize:vertical}.pad-control-value button{flex-shrink:0;min-height:56px;border-radius:14px;font-size:19px;padding:8px 15px}.pad-control-row .toggle{width:94px;height:54px}
+.pad-operations button:disabled,.pad-operations input:disabled,.pad-operations textarea:disabled{opacity:.45;cursor:default}.pad-control-result{margin:18px 0 0;min-height:26px;font-size:18px;line-height:1.5;color:var(--green)}.pad-control-result[data-error=true]{color:#e5a58d}.screen[data-theme=light] .pad-operations{background:#f5f7ed80}.screen[data-theme=light] .pad-control-result[data-error=true]{color:#a43f2f}
 /* 室内温湿度共用标签与数值结构，保持字号、字重、颜色和基线一致。 */
 .home-environment .environment-metric{display:inline-flex;align-items:baseline;gap:10px;white-space:nowrap}
 /* 房屋与底部工具栏固定布局基点，只改变合成层位移，展开前后不重新定位底图。 */
@@ -503,3 +516,99 @@ html[data-theme=light]{color-scheme:light;--bg:#f1f2eb;--panel:#fffdf6;--text:#2
 .camera-overlay h2{font-size:28px;font-weight:500;margin:0}.screen .camera-modal-close{width:64px;height:64px;background:#26342c;border-color:#ffffff55;color:#fff;pointer-events:auto}.camera-modal-close .icon{width:28px;height:28px}
 .camera-expanded .overview-camera-media{position:fixed;inset:100px;width:auto;height:auto;aspect-ratio:auto;z-index:2;border-radius:26px;border:1px solid #ffffff40;box-shadow:0 24px 90px #0008}
 .camera-expanded .overview-camera-preview{height:100%;aspect-ratio:auto}.camera-expanded .overview-camera-expand{display:none!important}.camera-expanded .overview-camera-playback{right:14px}
+
+/* 背景设置按图片、显示方式和轮换分组，整页使用同一个滚动区域。 */
+.background-current{display:grid;grid-template-columns:144px minmax(0,1fr);align-items:center;gap:18px;margin:18px 0 22px}
+.background-preview{aspect-ratio:5/3;width:100%;overflow:hidden;border:1px solid var(--line);border-radius:14px;background:var(--bg)}
+.background-preview img{display:block;width:100%;height:100%}
+.background-kicker{font-size:16px;color:var(--muted)}.background-current strong{display:block;font-size:21px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin:6px 0}.background-current small{display:block;font-size:16px;color:var(--muted);line-height:1.5}
+.background-group{border-top:1px solid var(--line)}.background-group>summary{display:flex;align-items:center;gap:12px;padding:20px 0;cursor:pointer;list-style:none;font-size:23px}.background-group>summary::-webkit-details-marker{display:none}.background-group>summary>span:first-child{flex:1;min-width:0}.background-group>summary small{display:block;font-size:17px;color:var(--muted);margin-top:6px;line-height:1.4}.background-group>summary::after{content:'＋';font-size:24px;color:var(--gold);flex-shrink:0}.background-group[open]>summary::after{content:'−'}.background-group>summary:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:10px}.background-group-count{font-size:17px;color:var(--muted);white-space:nowrap}.background-group-body{padding:0 0 22px}
+.background-upload-box{border:1px dashed var(--line);border-radius:18px;padding:18px;background:var(--panel)}.background-upload{width:100%;font-size:22px;padding:14px;border-radius:14px;min-height:60px;color:var(--gold)}
+.background-upload-theme{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:14px;font-size:18px;color:var(--muted)}
+.background-interval{display:flex;align-items:center;gap:8px}.background-interval input{width:90px;text-align:center}
+.background-interval input,.background-interval select,.background-upload-theme select,.background-card select{font:inherit;font-size:18px;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--text);min-width:0;min-height:46px}
+.background-gallery-title{font-size:21px;font-weight:500;margin:24px 0 10px}.background-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:14px}
+.background-card{position:relative;min-width:0;padding:10px;border:1px solid var(--line);border-radius:16px;background:var(--panel)}.background-card[data-current=true]{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
+.screen .background-pick{display:block;width:100%;border:0;background:transparent;border-radius:10px;padding:0;text-align:left;min-width:0}.background-pick img{display:block;width:100%;height:126px;object-fit:contain;background:var(--bg);border-radius:10px}.background-pick span{display:block;font-size:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:10px}.background-pick[aria-pressed=true]::after{content:'正在使用';position:absolute;top:16px;left:16px;padding:5px 9px;border-radius:8px;background:var(--panel);color:var(--gold);font-size:15px;pointer-events:none}
+.background-card>small{display:block;font-size:15px;color:var(--muted);margin:6px 0 10px}.background-card select{width:100%;font-size:17px;padding:7px}
+.background-card-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:10px}.background-card-actions button{font-size:17px;padding:8px 5px;min-height:46px;border-radius:9px}.background-card-actions button[data-bg-action=enabled]{grid-column:1/-1}.background-card-actions button[aria-pressed=true]{color:var(--gold)}.background-card-actions button[data-bg-action=delete]{grid-column:1/-1;color:#d39475;border-color:#d394754d}.screen[data-theme=light] .background-card-actions button[data-bg-action=delete]{color:#a43f2f;border-color:#a43f2f40}
+.background-empty{grid-column:1/-1;padding:28px 18px;text-align:center;border:1px dashed var(--line);border-radius:14px;color:var(--muted)}.background-empty strong{font-size:20px;font-weight:500}.background-empty p{font-size:17px;line-height:1.6;margin:8px 0 0}
+.background-status{font-size:17px;line-height:1.5;margin:12px 0 0;color:var(--muted)}.background-status[data-error=true]{color:#d39475}.background-retry{font-size:18px;padding:10px 15px;border-radius:14px;margin-top:12px}
+
+/* 快捷操作与其他分组一起默认收起，展开后保留按钮触控间距。 */
+.pad-control-groups .pad-control-quick-grid{margin-top:16px;margin-bottom:0}
+
+/* 二维房屋与工具栏统一采用 transform 合成，静止时保留纹理以避免打开时重新栅格化。 */
+.screen[data-house-mode="2d"] .floorplan-stage{translate:none;transform:translate3d(calc(var(--model-center) - 1000px - 50%),-50%,0);will-change:transform;backface-visibility:hidden}
+.screen[data-house-mode="2d"] .model-footer{translate:none;transform:translate3d(calc(var(--model-center) - 1000px - 50%),0,0);transition-property:transform;will-change:transform}
+.screen[data-house-mode="2d"] .room-panel{transform:translate3d(0,0,0);will-change:transform}
+.screen[data-house-mode="2d"] .home-page.room-moving .floorplan-stage,.screen[data-house-mode="2d"] .home-page.room-moving .model-footer,.screen[data-house-mode="2d"] .home-page.room-moving .room-panel{will-change:transform}
+/* 灯态变化时生成一次位图；SVG 作为回退保留，不参与每帧的蒙版和滤镜计算。 */
+.floorplan-light-cache{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+
+/* 收起时保留侧栏布局与合成层，避免再次展开重新布局、绘制十五张轮播副本。 */
+.screen[data-house-mode="2d"] .room-panel[hidden]{display:flex!important;visibility:hidden;pointer-events:none;transform:translate3d(calc(100% + 44px),0,0)}
+.screen[data-house-mode="2d"] .floorplan-stage{contain:paint;overflow:clip;overflow-clip-margin:16px}
+
+/* 导航沿用房间信息的开合时长与缓动，保留合成层以支持中途平滑反向。 */
+.screen .navigation{transform:translate3d(0,0,0);visibility:visible;transition:transform .46s var(--navigation-easing,cubic-bezier(.4,0,.2,1)),visibility 0s;will-change:transform}
+.screen .navigation[hidden]{display:flex!important;transform:translate3d(calc(-100% - 30px),0,0);visibility:hidden;pointer-events:none;transition-duration:.32s,0s;transition-delay:0s,.32s}
+.screen .nav-handle{left:0;top:485px;transform:translate3d(0,0,0);transition:transform .32s var(--navigation-easing,cubic-bezier(.4,0,.2,1)),width .32s var(--navigation-easing,cubic-bezier(.4,0,.2,1)),height .32s var(--navigation-easing,cubic-bezier(.4,0,.2,1)),border-radius .32s,background .2s;will-change:transform}
+.screen[data-nav-open=true] .nav-handle{left:0;top:485px;transform:translate3d(138px,25px,0);transition-duration:.46s,.46s,.46s,.46s,.2s}
+.nav-handle>.icon{transition:transform .32s var(--navigation-easing,cubic-bezier(.4,0,.2,1))}.screen[data-nav-open=true] .nav-handle>.icon{transition-duration:.46s}
+/* 关闭界面动画或系统要求减少动态时，收起导航立即隐藏。 */
+.screen[data-motion=false] .navigation[hidden]{transition-delay:0s}
+@media(prefers-reduced-motion:reduce){.screen .navigation[hidden]{transition-delay:0s}}
+
+/* 初次加载电网时预留日历整卡空间，重组件挂载后替换提示，不在切页过程中改变双列高度。 */
+.overview-card-loading{min-height:866px;display:grid;place-items:center;color:var(--muted);font-size:20px}
+
+/* 双列家电按内容撑高，避免管线机的温控、出水和详情入口被固定网格行裁切。 */
+.screen[data-appliance-columns='2'] .appliance-grid{height:auto;grid-template-rows:none;grid-auto-rows:minmax(480px,max-content)}
+
+/* 三列长型号完整换行，卡片按内容撑高，避免型号和下方操作被裁切。 */
+.screen[data-appliance-columns='3'] .product-model{white-space:normal;overflow:visible;text-overflow:clip;overflow-wrap:anywhere;flex-shrink:0}
+.screen[data-appliance-columns='3'] .appliance-grid{grid-auto-rows:minmax(430px,max-content)}
+
+/* 以首页的暖灰、米白和金色为基准统一表面层级，设备类别及告警继续使用语义颜色。 */
+:root{--surface-dialog:linear-gradient(145deg,#35372ff5,#20231ffb);--surface-card:linear-gradient(145deg,#343a35ed,#1e2826f5);--surface-inset:#191e1940;--surface-input:#1f211e7d;--surface-button:linear-gradient(145deg,#333432c9,#20211fd9);--surface-selected:#e7bd7929;--surface-selected-border:#e7bd7955;--surface-scrim:#0c100d80;--surface-shadow:0 24px 90px #0005;--accent-solid:#e7bd79;--accent-ink:#28231b;--danger:#e5a58d;--video-stage:#090d0b}
+html[data-theme=light]{--surface-dialog:linear-gradient(145deg,#fffdf7fc,#eaf0e0fc);--surface-card:linear-gradient(145deg,#fffef8ee,#e9efdfed);--surface-inset:#f5f7ed80;--surface-input:#f9faf2cc;--surface-button:#fffdf5cc;--surface-selected:#e3c99b50;--surface-selected-border:#b08a4966;--surface-scrim:#34463340;--surface-shadow:0 24px 90px #33462e30;--accent-solid:#d9ae61;--accent-ink:#29372e;--danger:#a43f2f;--video-stage:#090d0b}
+/* 各弹窗共用显示设置面板的底色、边框、文字和遮罩。 */
+.screen[data-theme] :is(.settings-drawer,.wx-sheet,.climate-dialog,.calendar-dialog,.appliance-detail-dialog,.pad-dialog,.appliance-modal){background:var(--surface-dialog);border-color:var(--line);color:var(--text);box-shadow:var(--surface-shadow)}
+.screen[data-theme] :is(.settings-scrim,.wx-scrim,.climate-scrim,.calendar-scrim,.appliance-detail-scrim,.pad-scrim,.camera-modal-scrim){background:var(--surface-scrim)}
+.screen[data-theme] :is(.room-panel,.appliance-card,.overview-section,.overview-status){background:var(--surface-card);border-color:var(--line);color:var(--text)}
+.screen[data-theme] :is(.settings-body section,.pad-sections>section,.pad-operations,.pad-control-groups details,.wx-card,.background-upload-box,.background-card){background:var(--surface-inset);border-color:var(--line);box-shadow:none}
+.screen[data-theme] :is(.idle-value input,.background-interval input,.background-interval select,.background-upload-theme select,.background-card select,.pad-control-value input,.pad-control-value textarea,.calendar-select-label select){background:var(--surface-input);border-color:var(--line);color:var(--text)}
+.screen[data-theme] :is(.scene-button,.action-pill,.appliance-details-link,.appliance-detail-action,.appliance-detail-stepper button,.climate-temperature button,.climate-options button,.climate-apply,.background-upload,.background-card-actions button,.background-retry,.pad-control-quick button,.pad-control-value button,.settings-preview,.calendar-picker-trigger){background:var(--surface-button);border-color:var(--line);color:var(--text)}
+.screen[data-theme] :is(.circle-button,.climate-close,.calendar-close,.appliance-detail-close){background:var(--surface-button);border-color:var(--line);color:var(--text)}
+.screen[data-theme] :is(.setting-options,.section-tabs){background:var(--surface-inset);border-color:var(--line)}
+.screen[data-theme] :is(.setting-options button[aria-pressed=true],.tab-button[aria-selected=true],.filter-button[aria-pressed=true],.scene-button.executed,.climate-options button[aria-pressed=true],.wx-hour[aria-pressed=true],.wx-metric[aria-expanded=true]){background:var(--surface-selected);border-color:var(--surface-selected-border);color:var(--gold);box-shadow:none}
+.screen[data-theme] :is(.action-pill.gold,.climate-apply){background:var(--surface-selected);border-color:var(--surface-selected-border);color:var(--gold)}
+.screen[data-theme] :is(.product-model,.appliance-copy .location,.appliance-detail-location,.appliance-detail-model){color:var(--muted)}
+/* 天气的卡片与文字采用全局主题，天气图标继续使用首页的蓝色语义色。 */
+.screen[data-theme] :is(.wx-card h3,.wx-source){color:var(--text)}
+.screen[data-theme] :is(.wx-hero-icon,.wx-hour .icon,.wx-day-art .icon,.wx-hour small,.wx-day-art small){color:var(--blue)}
+.screen[data-theme] .wx-sheet>header{border-color:var(--line)}
+.screen[data-theme] :is(.wx-eyebrow,.wx-solar .icon,.wx-solar strong){color:var(--gold)}
+.screen[data-theme] :is(.wx-expanded,.wx-temperature-track){background:var(--surface-input)}
+.screen[data-theme] .wx-solar{background:var(--surface-selected);border-color:var(--surface-selected-border)}
+/* 日期选择与年月选择使用同一选中状态，不再额外使用蓝灰色弹层。 */
+.screen[data-theme] .calendar-picker-panel{background:var(--surface-dialog);border-color:var(--line);box-shadow:var(--surface-shadow)}
+.screen[data-theme] :is(.calendar-day[aria-pressed=true],.calendar-picker-option[aria-selected=true]){background:var(--accent-solid);border-color:var(--gold);color:var(--accent-ink)}
+.screen[data-theme] :is(.calendar-picker-trigger[aria-expanded=true],.calendar-day.is-today){border-color:var(--gold)}
+.screen[data-theme] :is(.calendar-selected-day,.calendar-almanac h3,.calendar-almanac-heading>span,.calendar-directions dd){color:var(--gold)}
+.screen[data-theme] .calendar-almanac-heading>span{background:var(--surface-selected)}
+/* 警告和危险操作在浅色主题中也保持足够对比度。 */
+.screen[data-theme] :is(.overview-status-items [data-tone=alert] strong,.pad-control-result[data-error=true],.background-status[data-error=true],.background-card-actions button[data-bg-action=delete]){color:var(--danger)}
+/* 视频保持暗底保证画面边缘对比，周围的按钮与弹窗仍跟随当前主题。 */
+.screen[data-theme] :is(.camera-overlay,.overview-camera-playback){color:var(--text)}
+.screen[data-theme] :is(.overview-camera-playback,.overview-camera-expand,.camera-modal-close){background:var(--surface-button);border-color:var(--line);color:var(--text)}
+.screen[data-theme] .camera-expanded .overview-camera-media{border-color:var(--line);box-shadow:var(--surface-shadow)}
+
+/* 在线与宜忌沿用首页的成功、风险语义色，避免浅色模式继续使用深色文字常量。 */
+.screen[data-theme] :is(.appliance-live-status[data-available=true],.calendar-good dd,.calendar-yi span){color:var(--green)}
+.screen[data-theme] :is(.calendar-bad dd,.calendar-ji span,.calendar-almanac-overview>div:nth-child(2) dd){color:var(--danger)}
+
+/* 图库的当前图片与轮换开关保留明确的选中提示。 */
+.screen[data-theme] .background-card[data-current=true]{border-color:var(--gold);box-shadow:0 0 0 1px var(--surface-selected-border)}
+.screen[data-theme] .background-card-actions button[aria-pressed=true]{color:var(--gold);background:var(--surface-selected);border-color:var(--surface-selected-border)}

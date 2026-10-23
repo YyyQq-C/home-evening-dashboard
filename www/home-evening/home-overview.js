@@ -1,4 +1,5 @@
 import {SITE,entityId} from './site-config.js';
+import {createCameraZoom} from './camera-zoom.js';
 import {createVisiblePoll} from './runtime.js';
 import {icon} from './icons.js';
 import {createCameraPlayer} from './camera-player.js';
@@ -24,6 +25,9 @@ const ELECTRICITY_STYLE=`
   .hero-title,.usage-title,.usage-section-small .usage-title{font-size:20px!important;line-height:1.4}
   .hero-elec-value{font-size:30px!important}.hero-cost-value{font-size:24px!important}
   .hero-elec-value span,.hero-cost-value span{font-size:18px!important}
+  .hero-data-left-content>.hero-elec-value,.hero-data-left-content>.hero-cost-value{display:none!important}
+  .evening-month-summary{display:flex;flex-direction:column;gap:2px;max-width:max-content;margin:0 auto}
+  .evening-month-pending{font-size:16px;line-height:20px;color:var(--secondary-text-color)}
   .hero-comparison,.price-item,.price-item-block,.progress-label{font-size:18px!important;line-height:1.4}
   .usage-amount,.usage-section-small .usage-amount span{font-size:24px!important;line-height:1.4}
   .hero-section{min-height:96px!important;padding:8px 14px!important}
@@ -37,6 +41,7 @@ const ELECTRICITY_STYLE=`
   .ladder-header,.ladder-header span{font-size:20px!important;line-height:1.4}
   .price-title,.price-range,.price-block{font-size:20px!important;line-height:1.4}
   .price-value{font-size:30px!important}.number{font-size:32px!important}.unit{font-size:18px!important}
+  .calendar-grid{margin-top:0!important}
   .calendar-selector{grid-template-rows:44px!important}
   .calendar-body{grid-template-rows:32px repeat(6,48px)!important;gap:3px!important;touch-action:pan-y;user-select:none}
   .celltotal,.celltotal:not(.nav-button):not(.today-button){font-size:20px!important;padding:2px!important}
@@ -46,20 +51,99 @@ const ELECTRICITY_STYLE=`
   .month-day>div:first-child,.month-day .day-number{font-size:20px!important;line-height:1.1!important}
   .electricity-num,.electricity-cost{font-size:15px!important;line-height:1.1!important;min-height:16px!important}
   ha-card,.panel-section,day-chart-view,month-chart-view{display:block!important;width:100%!important;box-sizing:border-box!important}
+  /* 以六行用电日历的实测高度预留详情行，切换曲线或收起页签都不改变整卡高度。 */
+  :host(smart-utilities-card-ele){--evening-detail-height:398px}
+  :host(smart-utilities-card-ele)>ha-card{display:grid!important;grid-template-rows:auto calc(var(--evening-detail-height) + 8px)!important;align-content:start;gap:0!important}
+  .panel-section{height:var(--evening-detail-height,398px)!important;min-height:var(--evening-detail-height,398px)!important;margin-top:8px!important}
+  /* 曲线在同一固定内容区内下移，仍保留完整坐标轴和图例。 */
+  .panel-section>day-chart-view,.panel-section>month-chart-view{padding-top:48px!important}
+
   :host(day-chart-view),:host(month-chart-view){display:block!important;width:100%!important;box-sizing:border-box!important}
   .card-chart{display:block!important;position:relative!important;top:auto!important;left:auto!important;right:auto!important;width:100%!important;height:auto!important;min-height:300px!important;padding:12px 10px 8px!important;box-sizing:border-box!important;overflow:hidden!important}
   :host(day-chart-view) #chart-container,:host(month-chart-view) #chart-container{width:100%!important;height:280px!important;min-height:280px!important;box-sizing:border-box!important}
   .apexcharts-canvas,.apexcharts-svg{max-width:100%!important}
+  /* 共享电网组件只在本仪表盘内跟随首页色板，图表数据系列颜色保留原意。 */
+  ha-card,.top-content{background:transparent!important;color:var(--text)!important;border-color:var(--line)!important;box-shadow:none!important}
+  .hero-section,.usage-section-small{background:var(--surface-inset)!important;border-color:var(--line)!important}
+  :host .action-button{background:var(--surface-button)!important;border-color:var(--line)!important;color:var(--text)!important;box-shadow:none!important}
+  :host .action-button.active{background:var(--surface-selected)!important;border-color:var(--surface-selected-border)!important;color:var(--gold)!important;box-shadow:none!important}
+  .cell{background:var(--surface-inset)!important;color:var(--text)!important}
+  .celltotal,.weekday,.balance-label,.days-label,.balance-amount,.days-number{color:var(--text)!important}
+  .nav-button,.today-button{color:var(--gold)!important}
+  .apexcharts-text{fill:var(--muted)!important}.apexcharts-legend-text{color:var(--muted)!important}
   .apexcharts-legend-text{font-size:16px!important}
   .apexcharts-xaxis-label,.apexcharts-yaxis-label{font-size:14px!important}
 `;
 const ELECTRICITY_TAGS=['smart-utilities-card-ele','main-info-panel','day-chart-view','month-chart-view','calendar-view','usage-summary','ladder-pricing','power-progress'];
 const REPLAY_STYLE=`
+  ha-card{background:transparent!important;border-color:var(--line)!important;color:var(--text)!important;box-shadow:none!important}
+  .clip[aria-pressed=true]{background:var(--surface-selected)!important}
+
   .list{max-height:168px!important}
-  .player{position:relative}
-  .player video{max-height:220px!important}
-  .evening-replay-close{position:absolute;z-index:2;top:8px;right:24px;padding:6px 14px;border-radius:999px;background:#101a21e6;color:#fff;border:1px solid #ffffff55;font-size:16px;line-height:1.4}
+  /* 原生弹窗进入浏览器顶层，避免被卡片裁切或大屏缩放画布压小。 */
+  .evening-replay-dialog{box-sizing:border-box;width:94vw;max-width:94vw;height:90vh;max-height:90vh;margin:auto;padding:18px;border:1px solid var(--line);border-radius:18px;background:var(--surface-dialog);color:var(--text);overflow:hidden;box-shadow:var(--surface-shadow)}
+  .evening-replay-dialog[open]{display:flex;flex-direction:column;gap:12px}
+  .evening-replay-dialog::backdrop{background:var(--surface-scrim)}
+  .evening-replay-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-shrink:0}
+  .evening-replay-heading h2{font-size:20px;color:inherit}
+  .evening-replay-dialog .evening-replay-close{padding:8px 16px;min-height:40px;border-radius:999px;background:var(--surface-button);color:var(--text);border:1px solid var(--line);font-size:16px;line-height:1.4}
+  .evening-replay-dialog .player{display:flex;flex:1;flex-direction:column;min-height:0;padding:0;gap:8px}
+  .evening-replay-dialog .player video{width:100%;height:100%;min-height:0;max-height:none!important;flex:1;object-fit:contain;background:#000;border-radius:10px}
+  .evening-replay-dialog .selected{font-size:14px;line-height:1.4;margin:0;color:var(--muted);flex-shrink:0}
+  .evening-replay-status{font-size:14px;line-height:1.4;min-height:20px;color:var(--muted);flex-shrink:0}
 `;
+const replayDialogs=new WeakMap();
+let activeReplayDialog=null,replayKeysAttached=false;
+
+/** 只接受实际返回的非负数值，缺失电费不能被转换成零。 */
+function electricityNumber(value) {
+  if((typeof value!=='number'&&typeof value!=='string')||String(value).trim()==='')return null;
+  const number=Number(value);
+  return Number.isFinite(number)&&number>=0?number:null;
+}
+
+/** 按家庭时区汇总本月已上报的每日用电，重复日期只计一次，未知日期不补零。 */
+export function currentMonthElectricity(entity,now=Date.now(),timeZone='Asia/Shanghai') {
+  const parts=new Intl.DateTimeFormat('en-CA',{timeZone,year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(now);
+  const date=Object.fromEntries(parts.map(part=>[part.type,part.value]));
+  const month=`${date.year}-${date.month}`,today=`${month}-${date.day}`;
+  const result={month,total:null,days:0,lastDay:null,cost:null};
+  if(!entity||['unknown','unavailable'].includes(entity.state))return result;
+  const attributes=entity.attributes||{},records=new Map();
+  for(const record of Array.isArray(attributes.daylist)?attributes.daylist:[]){
+    const day=typeof record?.day==='string'?record.day.match(/^\d{4}-\d{2}-\d{2}(?=$|[ T])/)?.[0]:null;
+    const value=electricityNumber(record?.dayEleNum);
+    if(!day||!day.startsWith(month+'-')||day>today||value===null||records.has(day))continue;
+    const parsed=new Date(day+'T00:00:00Z');
+    if(!Number.isFinite(parsed.getTime())||parsed.toISOString().slice(0,10)!==day)continue;
+    records.set(day,value);
+  }
+  if(!records.size)return result;
+  result.total=Math.round([...records.values()].reduce((sum,value)=>sum+value,0)*100)/100;
+  result.days=records.size;result.lastDay=[...records.keys()].sort().at(-1);
+  const reportedMonth=(Array.isArray(attributes.monthlist)?attributes.monthlist:[]).find(item=>item?.month===month);
+  result.cost=electricityNumber(reportedMonth?.monthEleCost);
+  return result;
+}
+
+/** 在本页补充独立的累计电量展示，保留原组件的图表、点击事件和 Lit 管理节点。 */
+function updateCurrentMonthElectricity(element) {
+  const root=element.shadowRoot,original=root?.querySelector('.hero-data-left-content');
+  if(!original)return;
+  const timeZone=element.getRootNode()?.host?.hass?.config?.time_zone||'Asia/Shanghai';
+  const usage=currentMonthElectricity(element.selectedEntity,Date.now(),timeZone);
+  let summary=root.querySelector('[data-evening-month-summary]');
+  if(!summary){
+    summary=document.createElement('div');
+    summary.className='evening-month-summary';summary.dataset.eveningMonthSummary='true';
+    original.before(summary);
+  }
+  const signature=JSON.stringify(usage);
+  if(summary.dataset.signature===signature)return;
+  summary.dataset.signature=signature;
+  summary.title=usage.days?`本月已上报 ${usage.days} 天，累计至 ${usage.lastDay}`:'本月暂无日用电记录';
+  summary.innerHTML=usage.total===null?'<div class="hero-elec-value">暂无数据</div>':`<div class="hero-elec-value">${usage.total.toLocaleString('zh-CN',{maximumFractionDigits:2})}<span>度</span></div>${usage.cost===null?'<div class="evening-month-pending">电费待更新</div>':`<div class="hero-cost-value">${usage.cost.toFixed(2)}<span>元</span></div>`}`;
+}
 
 /** 相同曲线数据与配色保留现有图表，避免宿主轮询重复创建 SVG 和播放动画。 */
 export function stabilizeElectricityCharts(manager) {
@@ -118,6 +202,9 @@ export function attachElectricityCalendarSwipe(element) {
 
 /** 收起 SD 录像播放窗口并停止当前回放，列表仍可再次点选。 */
 export function collapseSdReplay(root) {
+  // 使尚未返回的取流请求失效，关闭弹窗后不能再次启动后台回放。
+  if(typeof root?.host?._request==='number')root.host._request++;
+  if(root?.host)root.host._selected=null;
   const player=root?.querySelector?.('.player');
   const video=root?.querySelector?.('video');
   try {
@@ -128,23 +215,63 @@ export function collapseSdReplay(root) {
     console.warn('SD replay collapse failed to stop media',error);
   }
   if(player)player.hidden=true;
+  const status=root?.querySelector?.('.status');
+  if(status)status.textContent='回放已关闭，可重新选择录像。';
   root?.querySelectorAll?.('.clip')?.forEach(item=>item.setAttribute('aria-pressed','false'));
 }
 
-/** 在录像播放器上补上收起按钮，不改共享回放组件本身。 */
-export function attachSdReplayClose(element) {
+/** 将原播放器在空闲时挂入大尺寸弹窗，继续复用共享组件的取流与进度控制。 */
+export function attachSdReplayDialog(element) {
   const root=element?.shadowRoot;
   const player=root?.querySelector?.('.player');
-  if(!player||player.querySelector('[data-evening-replay-close]'))return;
+  if(!player||replayDialogs.has(element))return;
   if(typeof document==='undefined')return;
-  const button=document.createElement('button');
-  button.type='button';
-  button.className='evening-replay-close';
-  button.dataset.eveningReplayClose='true';
-  button.textContent='收起';
-  button.setAttribute('aria-label','收起录像播放');
-  button.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();collapseSdReplay(root);});
-  player.prepend(button);
+  const dialog=document.createElement('dialog');
+  dialog.className='evening-replay-dialog';dialog.setAttribute('aria-label','SD 卡录像播放');
+  dialog.innerHTML='<div class="evening-replay-heading"><h2>SD 卡录像</h2><button type="button" class="evening-replay-close" aria-label="关闭录像播放" autofocus>关闭</button></div><div class="evening-replay-status" role="status" aria-live="polite"></div>';
+  const status=root.querySelector('.status'),message=dialog.querySelector('.evening-replay-status');
+  let opened=false,previousFocus=null;
+  // 提前消费 Escape，避免继续触发宿主或页面的快捷键。
+  if(!replayKeysAttached){
+    replayKeysAttached=true;
+    document.addEventListener('keydown',event=>{if(activeReplayDialog&&event.key==='Escape'){event.preventDefault();event.stopImmediatePropagation();activeReplayDialog.close();}},true);
+  }
+  // 仅初始化时移动一次空闲播放器；播放期间只开关弹窗，不重建或移动视频节点。
+  dialog.insertBefore(player,message);root.append(dialog);
+  const video=player.querySelector('video'),viewport=document.createElement('div');
+  viewport.style.cssText='flex:1;min-height:0;border-radius:10px';
+  video.before(viewport);viewport.append(video);
+  const zoom=createCameraZoom(viewport,{targets:[video],video});
+  /** 将原组件的连接、缓冲和失败提示同步到弹窗内。 */
+  function syncStatus(){if(message.textContent!==status?.textContent)message.textContent=status?.textContent||'';}
+  const statusObserver=new MutationObserver(syncStatus);
+  if(status)statusObserver.observe(status,{childList:true,subtree:true,characterData:true});
+  /** 关闭时释放当前及未完成的回放，并恢复录像列表焦点。 */
+  function finish(restoreFocus=true){
+    if(!opened)return;
+    opened=false;activeReplayDialog=null;zoom.reset();collapseSdReplay(root);
+    if(restoreFocus&&previousFocus?.isConnected)previousFocus.focus({preventScroll:true});
+  }
+  /** 点击关闭、遮罩或离开页签时退出顶层弹窗。 */
+  function close(restoreFocus=true){if(dialog.open)dialog.close();finish(restoreFocus);}
+  /** 在共享组件处理点击前展示播放器，连接期间也保留足够大的视频区域。 */
+  function open(event){
+    const clip=event.target.closest?.('.clip');if(!clip)return;
+    previousFocus=clip;
+    try{
+      dialog.showModal();zoom.reset();opened=true;activeReplayDialog={close};player.hidden=false;
+      player.querySelector('.selected').textContent=clip.querySelector('.time')?.textContent||'';
+      message.textContent='正在连接录像…';
+    }catch(error){console.error('SD replay dialog opening failed',error);event.preventDefault();event.stopImmediatePropagation();}
+  }
+  root.addEventListener('click',open,{capture:true});
+  dialog.querySelector('.evening-replay-close').addEventListener('click',()=>close());
+  dialog.addEventListener('cancel',event=>{event.preventDefault();close();});
+  dialog.addEventListener('close',()=>{if(!dialog.open)finish();});
+  // 阻止 Escape 继续触发底层房间或页面的快捷键。
+  dialog.addEventListener('keydown',event=>{if(event.key==='Escape')event.stopPropagation();});
+  dialog.addEventListener('click',event=>{if(event.target!==dialog)return;const box=dialog.getBoundingClientRect();if(event.clientX<box.left||event.clientX>box.right||event.clientY<box.top||event.clientY>box.bottom)close();});
+  replayDialogs.set(element,{close});
 }
 
 /** 修复电网卡片打包产物的实例字段遮蔽及缩放画布下的图表尺寸测量。 */
@@ -165,6 +292,15 @@ export function restoreElectricityElement(element) {
     const tag=element.tagName?.toLowerCase?.()||'';
     if(!element.__eveningPatched){
       element.__eveningPatched=true;
+      if(tag==='usage-summary'){
+        const originalUpdated=element.updated;
+        /** 原组件完成渲染后同步日用电累计值，不改写宿主实体或共享组件。 */
+        element.updated=function updateMonthlySummary(...args){
+          originalUpdated?.apply(this,args);
+          try{updateCurrentMonthElectricity(this);}
+          catch(error){console.warn('Evening monthly electricity summary update failed',error);}
+        };
+      }
       if(tag==='smart-utilities-card-ele'&&typeof element.updateDayData==='function'){
         const originalUpdateDayData=element.updateDayData;
         // 余额实体异步加载完成后先同步数据处理器，避免首次切换曲线时缺少实体 ID。
@@ -241,7 +377,7 @@ export function createHomeOverview() {
   let visible=false,epoch=0,mounted=false,lastSignature='',warned=false;
   const cards=new Map(),cardObservers=[],styledCardRoots=new WeakSet();
   let cameraPicture='';
-  host.innerHTML=`<div class="overview-columns"><article class="overview-section"><header><h2>摄像头</h2><span>萤石 BC2 · 实时画面与录像</span></header><div data-overview-card="camera" class="overview-camera"><div class="overview-camera-media"><button type="button" class="overview-camera-preview" aria-label="播放摄像头实时画面"><img alt="萤石 BC2 画面" hidden><span>点击播放实时画面</span></button><video class="overview-camera-video" controls playsinline muted preload="none" aria-label="摄像头实时画面" hidden></video><span class="overview-camera-playback" role="status" aria-live="polite" hidden></span><button type="button" class="overview-camera-expand" aria-label="放大播放画面" aria-haspopup="dialog" aria-expanded="false">${icon('expand')}</button></div><div class="overview-camera-meta"><span id="overview-camera-state">状态待确认</span><button type="button" class="action-pill" id="overview-camera-open" aria-pressed="false">播放实时画面</button></div></div><div data-overview-card="replay"></div></article><article class="overview-section"><header><h2>电网信息</h2><span>家庭用电 · 国家电网</span></header><div data-overview-card="electricity"></div></article></div><article class="overview-status"><header><div><h2>家中状态</h2><p id="overview-headline"></p></div>${icon('home')}</header><div class="overview-status-items">${STATUS.map(([id,name])=>`<div data-overview-entity="${id}"><span>${name}</span><strong>暂不可用</strong></div>`).join('')}</div></article>`;
+  host.innerHTML=`<div class="overview-columns"><article class="overview-section" aria-label="摄像头"><div data-overview-card="camera" class="overview-camera"><div class="overview-camera-media"><button type="button" class="overview-camera-preview" aria-label="播放摄像头实时画面"><img alt="萤石 BC2 画面" hidden><span>点击播放实时画面</span></button><video class="overview-camera-video" controls playsinline muted preload="none" aria-label="摄像头实时画面" hidden></video><span class="overview-camera-playback" role="status" aria-live="polite" hidden></span><button type="button" class="overview-camera-expand" aria-label="放大播放画面" aria-haspopup="dialog" aria-expanded="false">${icon('expand')}</button></div><div class="overview-camera-meta"><span id="overview-camera-state">状态待确认</span><button type="button" class="action-pill" id="overview-camera-open" aria-pressed="false">播放实时画面</button></div></div><div data-overview-card="replay"></div></article><article class="overview-section" aria-label="电网信息"><div data-overview-card="electricity"><div class="overview-card-loading" role="status">正在加载电网信息…</div></div></article></div><article class="overview-status"><header><div><h2>家中状态</h2><p id="overview-headline"></p></div>${icon('home')}</header><div class="overview-status-items">${STATUS.map(([id,name])=>`<div data-overview-entity="${id}"><span>${name}</span><strong>暂不可用</strong></div>`).join('')}</div></article>`;
   const cameraPlayer=createCameraPlayer(host,readHass);
   const cameraImage=host.querySelector('.overview-camera-preview img'),cameraHint=host.querySelector('.overview-camera-preview span');
   cameraImage.addEventListener('load',()=>{cameraImage.hidden=false;cameraHint.hidden=true;});
@@ -259,6 +395,8 @@ export function createHomeOverview() {
       if((key==='replay'&&!SITE.camera.serial)||(key==='electricity'&&!entityId('sensor.example_electricity'))){host.querySelector(`[data-overview-card="${key}"]`).textContent='未配置，可按使用说明启用';continue;}
       const slot=host.querySelector(`[data-overview-card="${key}"]`);
       try {
+        // 中途切页只取消未完成的挂载，已创建的卡片在下次进入时直接复用。
+        if(cards.has(key)){cards.get(key).hass=hass;continue;}
         // 原组件在当前文档加载，避免跨 iframe 共享构造样式表导致渲染失败。
         await import(url);
         if(!visible||requestEpoch!==epoch)return;
@@ -287,7 +425,7 @@ export function createHomeOverview() {
         replayStyle.textContent=REPLAY_STYLE;
         root.append(replayStyle);
       }
-      attachSdReplayClose(element);
+      attachSdReplayDialog(element);
     }
     if(!styledCardRoots.has(root)){
       styledCardRoots.add(root);
@@ -303,6 +441,7 @@ export function createHomeOverview() {
   }
   /** 离开概览或断线时释放组件样式监听，避免保留已移除的录像和图表节点。 */
   function stopCardObservers() {
+    replayDialogs.get(cards.get('replay'))?.close(false);
     cardObservers.splice(0).forEach(observer=>observer.disconnect());
   }
   /** 更新摄像头预览和电量，只使用已有实体图片地址，不持久化访问参数。 */
@@ -334,21 +473,33 @@ export function createHomeOverview() {
     if(hass?.connected!==false&&hass){
       host.querySelectorAll('.overview-unavailable').forEach(slot=>slot.classList.remove('overview-unavailable'));
       if(!mounted)mountCards(hass);
-      for(const card of cards.values())card.hass=hass;
+      for(const [key,card] of cards){
+        card.hass=hass;
+        // 即使实体尚未更新，跨月后的首个轮询也按新的家庭月份重新汇总。
+        const summary=key==='electricity'?card.shadowRoot?.querySelector('usage-summary'):null;
+        if(summary)updateCurrentMonthElectricity(summary);
+      }
     }else{
       if(mounted){epoch++;mounted=false;stopCardObservers();cards.clear();}
       for(const [key] of CARDS){const slot=host.querySelector(`[data-overview-card="${key}"]`);slot.textContent='暂未连接 Home Assistant，内容不可用';slot.classList.add('overview-unavailable');}
     }
   }
-  /** 离开页面移除视频组件，停止后台播放与回放请求。 */
+  /** 离开页面停止媒体与轮询，保留静态卡片，避免重建图表挤占切页动画。 */
   function setVisible(value) {
     if(visible===value){if(value)refresh();return;}
     visible=value;
-    if(value)poll.start();
-    else{poll.stop();cameraPlayer.stop();epoch++;mounted=false;stopCardObservers();cards.clear();cameraPicture='';cameraImage.removeAttribute('src');cameraImage.hidden=true;for(const [key] of CARDS)host.querySelector(`[data-overview-card="${key}"]`).replaceChildren();}
+    if(value){
+      // 每次进入仍默认用电日历；此时切页动画已经完成，不在动画中销毁旧曲线。
+      const electricity=cards.get('electricity');
+      if(electricity&&electricity.showPanel!=='calendar'){electricity.showPanel='calendar';electricity.requestUpdate?.();}
+      poll.start();
+    }else{
+      poll.stop();cameraPlayer.stop();replayDialogs.get(cards.get('replay'))?.close(false);
+      epoch++;mounted=cards.size===CARDS.length;
+    }
   }
   const poll=createVisiblePoll(refresh,5000);
-  window.addEventListener('pagehide',()=>cameraPlayer.stop());
+  window.addEventListener('pagehide',()=>{cameraPlayer.stop();replayDialogs.get(cards.get('replay'))?.close(false);});
   // 主题改变只重绘现有电网组件，不重建录像播放器或丢失展开内容。
   new MutationObserver(()=>cards.get('electricity')?.requestUpdate()).observe(document.querySelector('#screen'),{attributes:true,attributeFilter:['data-theme']});
   return {refresh,setVisible};

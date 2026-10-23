@@ -1,4 +1,4 @@
-/** 用户配置：仅填写实体 ID，不得填写密码、Token、设备验证码或 API 密钥。 */
+/** 项目配置：只放实体映射，不放凭据。家居和 Pad 控制分别显式启用。 */
 export const SITE = {
   "control": {
     "mode": "read-only",
@@ -159,8 +159,36 @@ export const SITE = {
     "switch.example_pad_ren_ti_jian_ce": "",
     "switch.example_pad_suo_ding_mo_shi": "",
     "weather.example_weather": ""
+  },
+  "pad": {
+    "mode": "read-only",
+    "entities": {
+      "reload": "",
+      "home": "",
+      "wake": "",
+      "screenOff": "",
+      "screenshot": "",
+      "brightness": "",
+      "volume": "",
+      "standbyBrightness": "",
+      "dimDelay": "",
+      "motion": "",
+      "lock": "",
+      "schedule": "",
+      "day": "",
+      "night": "",
+      "daily": "",
+      "dailyHour": "",
+      "dailyMinute": "",
+      "watchdog": "",
+      "sleep": "",
+      "sleepStart": "",
+      "sleepEnd": "",
+      "notify": "",
+      "speak": ""
+    }
   }
 };
 
-/** 按中性别名读取用户明确填写的实体，未配置返回空串。 */
+/** 按中性别名读取显式配置，未配置返回空串。 */
 export function entityId(alias){return SITE.entities[alias]||'';}

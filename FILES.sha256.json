@@ -12,6 +12,21 @@
       "sha256": "8d50a94c525f7136c690982c1a24b8475f0b864ed947d62c180e29ed3493c2a2"
     },
     {
+      "path": "CHANGELOG.html",
+      "bytes": 3925,
+      "sha256": "c842ef7cd650d05d0196fe57aeaa6106709009ae1e7245476bfb21515888bb1f"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "bytes": 2368,
+      "sha256": "2666b16c7d50ec47592144f7ede9e06c8f5721c49b6e3bbc5f6ce12ce8643347"
+    },
+    {
+      "path": "configs/backgrounds.example.yaml",
+      "bytes": 359,
+      "sha256": "dcf72958033f7475d718be28093f340c31501b7071227a422427a71d5f2743a4"
+    },
+    {
       "path": "configs/configuration-dashboard.example.yaml",
       "bytes": 488,
       "sha256": "b1673b6a8057f03a525aa0feac7072356cc0a6395a3a25082a5f3043e69204be"
@@ -38,33 +53,33 @@
     },
     {
       "path": "docs/00-新手上手与配置示例.html",
-      "bytes": 11529,
-      "sha256": "99cbb21fb9e480178c98f6c5ac99ebe6483ab11658eaaaccfe5f9555357a104d"
+      "bytes": 11980,
+      "sha256": "0308bb5d7515ff104f2b73fa88170616e582d5329ffbf58c4bcef5c38b4e0afc"
     },
     {
       "path": "docs/00-新手上手与配置示例.md",
-      "bytes": 8158,
-      "sha256": "ff42ff7cb596cabb3542d70aa4403d3f65e4b29a7037e7b17b302992afcef301"
+      "bytes": 8472,
+      "sha256": "78bbb87da9d5f1be20384855e2db4c05cf22c0df6771e9c4e146081963715feb"
     },
     {
       "path": "docs/01-安装和第一次打开.html",
-      "bytes": 6855,
-      "sha256": "53bbf9dbc049ed0521622f213082b7009cb2783e5575a7281342b976204e9292"
+      "bytes": 7308,
+      "sha256": "cd17527d2895820f5db8f389bba9f205661ec582c589f270a3e3d7172eec7945"
     },
     {
       "path": "docs/01-安装和第一次打开.md",
-      "bytes": 4866,
-      "sha256": "d1fa1307341a95e600c74c7578b8dec9f2c230a8037459ce5d82a8164f92b107"
+      "bytes": 5184,
+      "sha256": "b2b0770f8746ba401d478a1cae32f7bcdb568a0791d80b7dff4a5a0c8f989990"
     },
     {
       "path": "docs/02-真实控制配置.html",
-      "bytes": 12120,
-      "sha256": "bd81d5a86f62adffb5fe963efd37e825030d45be47829e83daf293b9a3bb43c8"
+      "bytes": 12573,
+      "sha256": "c52bde991b5843e9dff35bf99888d8bcde9620224f0d7bea2f0aebe0d4163e52"
     },
     {
       "path": "docs/02-真实控制配置.md",
-      "bytes": 9172,
-      "sha256": "db1a455a4e9e5a13669d6fb797d0075401c5a4f938d039d058551cc739f076d7"
+      "bytes": 9490,
+      "sha256": "08e271702e5ed7d979347387ee806a5f84d58fec476101f52d967c755270e7d1"
     },
     {
       "path": "docs/03-数据接入配置.html",
@@ -78,13 +93,13 @@
     },
     {
       "path": "docs/04-文件逐项说明.html",
-      "bytes": 13132,
-      "sha256": "b742a6a9df2ec449089ae1fda093aea217843a30e4487b5bceaaf2398fa312df"
+      "bytes": 14278,
+      "sha256": "c6ee8ae5656e86fe0cc3f1c75b649283c3fd46daf4e48e3a9fd9719f184447b0"
     },
     {
       "path": "docs/04-文件逐项说明.md",
-      "bytes": 9050,
-      "sha256": "ca5b9ddec88c6db0475025f192dfbc7d28e1b5c7b3c11477a05c9d34359a2f1e"
+      "bytes": 10008,
+      "sha256": "1bb97435587c328753f8c5d3e261e075178a7107505125eb96871a678c05a6d1"
     },
     {
       "path": "docs/05-更换户型和维护.html",
@@ -98,13 +113,23 @@
     },
     {
       "path": "docs/06-更换背景图片.html",
-      "bytes": 203429,
-      "sha256": "c27119b06c344e705d923b99b7bab7d5c5cde3901ca4f2b822b0def72587fb71"
+      "bytes": 203558,
+      "sha256": "612434812f4a98b1d202db2643a5da9dd8032d4039e9d9c6d317caee27685cf5"
     },
     {
       "path": "docs/06-更换背景图片.md",
-      "bytes": 9300,
-      "sha256": "7e850eb47c875d5dd3696d4b9344120d7a939c0cdcb0b442963c24a4ebefa44b"
+      "bytes": 9678,
+      "sha256": "bdc1390ba31c02cbb6ef3ad7447dab7964be0264ffea8bb3e4b85bf9fe7f4e22"
+    },
+    {
+      "path": "docs/07-Pad操作与界面更新.html",
+      "bytes": 10480,
+      "sha256": "7ffb0f61053a1d3f173b7d333a89a3444857d4b73ae60c9842f0e5f998b83665"
+    },
+    {
+      "path": "docs/07-Pad操作与界面更新.md",
+      "bytes": 7229,
+      "sha256": "c8d9e4d9731fc0d625813dbb2c4d6d989c580d14468e9a88452b661cc7db697f"
     },
     {
       "path": "docs/images/control-mobile.png",
@@ -133,13 +158,13 @@
     },
     {
       "path": "docs/验证与脱敏说明.html",
-      "bytes": 124367,
-      "sha256": "5aaf1e08e1a88900448937df51867cbba2f66047636f2d361a2e714cd5713c0e"
+      "bytes": 124774,
+      "sha256": "625ea9dd97fc61fb750dab775bdea4b6de58bb824857ccf086bf8fce1f5d0a6a"
     },
     {
       "path": "docs/验证与脱敏说明.md",
-      "bytes": 4799,
-      "sha256": "45b59e5edb4fa8ccfe3eb5ee180da0ba19ac5ea12cc4fda2d9421d3c5ca0efdd"
+      "bytes": 5184,
+      "sha256": "673764bd49be09461baa49f85a15d47121056533f9c45ba3c787128995909e47"
     },
     {
       "path": "integrations/custom_components/ezviz_stream/__init__.py",
@@ -270,6 +295,21 @@
       "path": "integrations/custom_components/heweather/weather.py",
       "bytes": 22266,
       "sha256": "e4dc822fc609eadb419b4c3c4545f092d9f8530ef1a7efb19ddb375943ddbf67"
+    },
+    {
+      "path": "integrations/custom_components/home_evening_backgrounds/__init__.py",
+      "bytes": 9573,
+      "sha256": "61a9758f711f1053d63b7259087116cd0c4bdfb2ce04c0c702189696fe052985"
+    },
+    {
+      "path": "integrations/custom_components/home_evening_backgrounds/manifest.json",
+      "bytes": 357,
+      "sha256": "9c88282ea1acd623c2679d5762fc880597c9a13abafa96a5fdded3c845d1b328"
+    },
+    {
+      "path": "integrations/custom_components/home_evening_backgrounds/model.py",
+      "bytes": 5100,
+      "sha256": "fac763e2145965fcc6ca762517a4e2a1bdd7bf7ee6ad6c311b26a9cf30ba8f89"
     },
     {
       "path": "integrations/custom_components/konke_local/__init__.py",
@@ -488,18 +528,93 @@
     },
     {
       "path": "package.json",
-      "bytes": 229,
-      "sha256": "8822f768b492704a595cdccc5f9817173d31965e86a8c88c852359794db4c55f"
+      "bytes": 324,
+      "sha256": "6f3fd5723a2bd5090e84c5cbd1dd2109a8d7bb18f792e89b12b5c2e5ed64db3b"
     },
     {
       "path": "README.md",
-      "bytes": 8968,
-      "sha256": "19e28896aa872bd3b97053054b69cd3c732f3660f7a8907eefe41a1919b6adfa"
+      "bytes": 10153,
+      "sha256": "04501af69cc580454da20b44708c90eea17d89732dad675c1334fd324324e1e5"
+    },
+    {
+      "path": "tests/background_backend_test.py",
+      "bytes": 2899,
+      "sha256": "2bff7c7812080594c942f3d9f73042083c76ede6dd80524376a491b3a5557443"
     },
     {
       "path": "tests/control-actions.test.mjs",
       "bytes": 8594,
       "sha256": "a3db6fe5de24dbd288a6688b96bc90c374ac1d88bde03e4f9e9d5ede59eae645"
+    },
+    {
+      "path": "tests/showcase/ambient.test.mjs",
+      "bytes": 988,
+      "sha256": "a6a48e451f909d0689a9cbaa6e679ef5ad15775011d415a0a2de85dc028fc321"
+    },
+    {
+      "path": "tests/showcase/appliance.test.mjs",
+      "bytes": 2343,
+      "sha256": "a122716b389891069a739fd105286bbcc360b639bb857cdfea6b58121dc75b44"
+    },
+    {
+      "path": "tests/showcase/backgrounds.test.mjs",
+      "bytes": 3093,
+      "sha256": "02e58bef106fc29043e24b2aa3cd419a705804c1a64a9be650315ece1217343d"
+    },
+    {
+      "path": "tests/showcase/calendar.test.mjs",
+      "bytes": 5361,
+      "sha256": "3e4fce0bd04e9f1cd7f83b1d8517ffa6718f180c70ee2a1e7e4e0c3eac0d213d"
+    },
+    {
+      "path": "tests/showcase/climate-dialog.test.mjs",
+      "bytes": 3190,
+      "sha256": "c51eac07a80499586ebdfe3a790dea2aa9287a796f4fa88747b7dfa834df6a5e"
+    },
+    {
+      "path": "tests/showcase/overview.test.mjs",
+      "bytes": 6823,
+      "sha256": "505354e528bd1516e2b324345c7802fae23761e257db145f8c1a9136f96e1314"
+    },
+    {
+      "path": "tests/showcase/pad-controls.test.mjs",
+      "bytes": 3027,
+      "sha256": "61fbf235e3683ed301a6c4703d3867324f669d7b2706306732c3e557c72d876a"
+    },
+    {
+      "path": "tests/showcase/pad-data.test.mjs",
+      "bytes": 2943,
+      "sha256": "105a357a42a20a4a9ae3acd406523fa5bf9ef9811e7474212fb089d6980529bc"
+    },
+    {
+      "path": "tests/showcase/preferences.test.mjs",
+      "bytes": 4968,
+      "sha256": "3730f016b76d2a47873f5b87c8757f9e73108ace36e0f024d491d32e04561679"
+    },
+    {
+      "path": "tests/showcase/room-climate.test.mjs",
+      "bytes": 2627,
+      "sha256": "b23397db3aaab87d502bf5a5f9d452860fd5bb5e4c5979bce737335c6d40d980"
+    },
+    {
+      "path": "tests/showcase/runtime.test.mjs",
+      "bytes": 2002,
+      "sha256": "e8f51fcb683313b9be590a1865e225c3ccf290e24e75b29cd9c3ae2efb040340"
+    },
+    {
+      "path": "tests/showcase/setup.mjs",
+      "bytes": 2178,
+      "sha256": "ddd01be9c988c3df8192d9def9bcaaf220539a0752b3d6c3b0cd088b7d95e312"
+    },
+    {
+      "path": "tests/showcase/state.test.mjs",
+      "bytes": 2467,
+      "sha256": "e599df9e3abe8ac88159b9f6de8ad9ed9016d0796d08cecbf1d7a89f297cfdbb"
+    },
+    {
+      "path": "tests/showcase/weather.test.mjs",
+      "bytes": 4648,
+      "sha256": "306862ae17c4fd990f7e110d90a0f52e3c6108fe92ba8b4bf18b3ec09490ccf0"
     },
     {
       "path": "third-party/ezviz_stream.LICENSE",
@@ -528,13 +643,13 @@
     },
     {
       "path": "THIRD_PARTY.html",
-      "bytes": 5107,
-      "sha256": "b6fa0f4b43d3c66ec856ea6e652006eaef3413789bd55b9a84eef2c63b368e2f"
+      "bytes": 5401,
+      "sha256": "45033fc83243993d2912f8ad5a18428eba0dcd2957a839f29d63b4b2ffc802d0"
     },
     {
       "path": "THIRD_PARTY.md",
-      "bytes": 3054,
-      "sha256": "4627dda249d4b44ca549f3cd047d209f6aa2248e8ad459f5bb7de945525d9c82"
+      "bytes": 3343,
+      "sha256": "5751f080cbdddc2418693b4da958b45a5e91a53cd329f7925ddf797705a96c3c"
     },
     {
       "path": "tools/electricity_bridge.py",
@@ -553,13 +668,13 @@
     },
     {
       "path": "www/home-evening/ambient.js",
-      "bytes": 324,
-      "sha256": "c338896be0d46cc6fe1ce7202de5c69460e31e55151d35a8422db9bbe50235ca"
+      "bytes": 5363,
+      "sha256": "4ad84d880c2df11dccc7582fe6c420e87eeed510effe277fa6d41404be142f39"
     },
     {
       "path": "www/home-evening/app.js",
-      "bytes": 51180,
-      "sha256": "2b2c1dc2607a0f3452610d09d3f18261f497436f93677dd946979c4ab87848d0"
+      "bytes": 54896,
+      "sha256": "7cbc1d6c722420c357c37061b26054b317df44b4e9e6f5eb76c69f3b22e11027"
     },
     {
       "path": "www/home-evening/appliance-data.js",
@@ -657,6 +772,11 @@
       "sha256": "0b67ee87c8816c2985826a0bdfab11c6dc0575015fe0664d3cea906d2250671a"
     },
     {
+      "path": "www/home-evening/backgrounds.js",
+      "bytes": 23873,
+      "sha256": "662801088eaf9e608ac1d3c96474c8e7bb1e249ae7f1b9cb584c5182e4b4643c"
+    },
+    {
       "path": "www/home-evening/calendar-almanac.js",
       "bytes": 2644,
       "sha256": "c1fba3f4e83303f98d1e3f526bf600343059b783a148e2fa966d737a731cbbcc"
@@ -673,13 +793,18 @@
     },
     {
       "path": "www/home-evening/camera-expand.js",
-      "bytes": 4087,
-      "sha256": "766a75d40c03896a064cdb8996b8ca185ba8877d0f16158b2d255a5e4150fcef"
+      "bytes": 4344,
+      "sha256": "28f77fb2b7fec22d77fc96ec77d55fda424f86d7290c153320b4bec9a03d45ed"
     },
     {
       "path": "www/home-evening/camera-player.js",
-      "bytes": 4718,
-      "sha256": "56881f4620e1dd33fc3a0e2795351e3f2f927048827a46f2894dd9f79619f49b"
+      "bytes": 4893,
+      "sha256": "bba2b31f9e0efb84b8ce6a75c753f92bf09849a762a472505689f78cbdfd0b82"
+    },
+    {
+      "path": "www/home-evening/camera-zoom.js",
+      "bytes": 8187,
+      "sha256": "6ea84858d5f37518e8ce2ede6bcba6a1b8b1065f684f2b447a1348d4e23b579a"
     },
     {
       "path": "www/home-evening/climate-dialog.js",
@@ -713,8 +838,8 @@
     },
     {
       "path": "www/home-evening/floorplan.js",
-      "bytes": 5810,
-      "sha256": "9f6ae89579c853dc3de972fd3dfda4ff70d3867867654301f5b31d37fd7fe31f"
+      "bytes": 8767,
+      "sha256": "dc7440ad713f4e06f4c748fe6eb65a4b7d85f9f2a07c6841ca9da0d67feee85e"
     },
     {
       "path": "www/home-evening/ha-evening-screen.js",
@@ -738,8 +863,8 @@
     },
     {
       "path": "www/home-evening/home-overview.js",
-      "bytes": 24373,
-      "sha256": "9a03560f001fe77bec318055d1c557e1bac91c69313e43b9bb61b6d6eb03aff7"
+      "bytes": 35866,
+      "sha256": "10a505f9af9fb3730c831a1a3cd8bdfdb30612d96d4d123596afe9498dce2a5a"
     },
     {
       "path": "www/home-evening/icons.js",
@@ -748,8 +873,8 @@
     },
     {
       "path": "www/home-evening/index.html",
-      "bytes": 3891,
-      "sha256": "7010ea5d8a41ae1042751beac90326fb1b115ee32bde6804a9c066da0991f38f"
+      "bytes": 3913,
+      "sha256": "4e645c30640c9a39125e5cb4a1ee79cc1bfb5ebb81a354d497cc129467fb056a"
     },
     {
       "path": "www/home-evening/lunar-vendor-source.json",
@@ -802,14 +927,19 @@
       "sha256": "8e5053c71d106f7b77544157823d3679392d579f9c23fa095fd588b96ce96963"
     },
     {
+      "path": "www/home-evening/pad-controls.js",
+      "bytes": 11062,
+      "sha256": "7aa2d7065f15dec12a80e05b7c54b3189887f783867b0e456b3b4b29aa2d4616"
+    },
+    {
       "path": "www/home-evening/pad-data.js",
       "bytes": 6002,
       "sha256": "7b5d8b8b53cf880be0f366f650fe258b7316116b604f0f2e2071f48051e7e52b"
     },
     {
       "path": "www/home-evening/pad.js",
-      "bytes": 7268,
-      "sha256": "e5d85cf007d9c357faa8429effe45f699d8599ea0aef3781e8fc0d0efb4a81fa"
+      "bytes": 7422,
+      "sha256": "7fc8f71e064135370953834f5c7cb383900496d48afa9da7acf66d376b37dc2a"
     },
     {
       "path": "www/home-evening/preferences.js",
@@ -828,23 +958,28 @@
     },
     {
       "path": "www/home-evening/screen.css",
-      "bytes": 107394,
-      "sha256": "777362342ad68561784c785f4d139c1471ccd2e196b6103fc8637a471242cbc4"
+      "bytes": 125356,
+      "sha256": "049a8824bb2701bb0afa2d32a8951f46bb23012e1af08a7b938e6e03592f2a65"
     },
     {
       "path": "www/home-evening/settings.js",
-      "bytes": 12663,
-      "sha256": "aa68b0c508a177d2270a3d09473a82d52ddd18cf586b9f715f45ee92a88ae06e"
+      "bytes": 12764,
+      "sha256": "4d973e24e490fc27788dbc6316a2ac6579bf5c1e85906ac4fcf16e212b5fd26b"
+    },
+    {
+      "path": "www/home-evening/sidebar-swipe.js",
+      "bytes": 2622,
+      "sha256": "a2d557bbfdcc16f8c22f3004816c416192edff09c1d9cfe70db94b6c67330206"
     },
     {
       "path": "www/home-evening/site-config.example.js",
-      "bytes": 1519,
-      "sha256": "7ee395a9c7c3179d1c51c68d9cdbf0626cc94c52a398732bae54ab56b3fa8ff9"
+      "bytes": 2528,
+      "sha256": "c855987bc4c08028396b291fd74e037d133e149a0a79d5485d0c1c896e02dda3"
     },
     {
       "path": "www/home-evening/site-config.js",
-      "bytes": 8021,
-      "sha256": "bac81a74b8b04118ed62cdd55fb0a0d3f9d1fd6a8cb5ef19a21353f762972552"
+      "bytes": 8582,
+      "sha256": "3a51c822420c3537307cede4b05bd98b4559485bab6518fdd7035021dd9096d2"
     },
     {
       "path": "www/home-evening/state.js",
@@ -863,8 +998,8 @@
     },
     {
       "path": "离线使用说明.html",
-      "bytes": 811611,
-      "sha256": "7fb89019a957419ecd0ccb766d9396bd1e7d844408d7f2df85fb5a1cc2b81e38"
+      "bytes": 813090,
+      "sha256": "a84f94939948ddaede9c167d1fb21c54cff9bf5d3807d824c11dbab59f2be670"
     }
   ]
 }

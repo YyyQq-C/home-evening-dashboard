@@ -1,16 +1,18 @@
 import {SITE,entityId} from './site-config.js';
+import {createCameraZoom} from './camera-zoom.js';
 import {createCameraExpansion} from './camera-expand.js';
 
 /** 在现有摄像头画面区域播放 HA HLS，停止或离开页面时释放媒体资源。 */
 export function createCameraPlayer(host,readHass){
   const preview=host.querySelector('.overview-camera-preview'),video=host.querySelector('.overview-camera-video'),button=host.querySelector('#overview-camera-open'),status=host.querySelector('.overview-camera-playback');
   let request=0,active=false,hls=null,timeout=null;
+  const zoom=createCameraZoom(host.querySelector('.overview-camera-media'),{targets:[preview,video],video});
   const expansion=createCameraExpansion(host,()=>{if(!active)play();});
   /** 更新播放提示，空提示时恢复完整播放器操作区域。 */
   function message(text){status.textContent=text;status.hidden=!text;}
   /** 停止取流、使未完成请求失效并恢复缩略图入口。 */
   function stop(text=''){
-    expansion.close(false);
+    expansion.close(false);zoom.reset();
     request++;active=false;clearTimeout(timeout);hls?.destroy();hls=null;
     video.pause();video.removeAttribute('src');video.load();video.hidden=true;preview.hidden=false;
     button.textContent='播放实时画面';button.setAttribute('aria-pressed','false');message(text);

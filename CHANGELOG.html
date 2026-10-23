@@ -1,0 +1,27 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CHANGELOG</title><style>*{box-sizing:border-box}body{margin:0;background:#f4f5f2;color:#28342e;font-family:system-ui,"Microsoft YaHei",sans-serif;line-height:1.85}main{max-width:1000px;margin:0 auto;background:white;padding:36px 46px 70px}h1{font-size:28px;line-height:1.5}h2{margin-top:2em;font-size:23px}h3{font-size:19px}p,li{overflow-wrap:anywhere}a{color:#286c55;overflow-wrap:anywhere}pre{padding:18px;background:#edf2ee;border-radius:8px;white-space:pre-wrap;word-break:break-word;overflow-wrap:anywhere;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}table{border-collapse:collapse;min-width:540px;width:100%;font-size:14px}td,th{padding:10px;border:1px solid #d6ded8;text-align:left}th{background:#edf2ee}.table{overflow-x:auto;max-width:100%}img{max-width:100%;height:auto;border-radius:8px}blockquote{margin:20px 0;border-left:3px solid #8aa995;padding:5px 20px;background:#f4f7f3}@media(max-width:600px){main{padding:22px 18px 45px}h1{font-size:24px}h2{font-size:21px}}</style><main><h1>更新记录</h1>
+<h2>2026-10-23：同步暮色页面的界面与交互优化</h2>
+<ul>
+<li>2D 房间、房屋和工具栏使用合成位移，灯光蒙版增加位图缓存、乱序保护和 SVG 回退。</li>
+<li>侧栏平滑展开/收起，支持上下滑动切页；主内容与标题同步上下过渡，切页期间延迟重组件初始化。</li>
+<li>概览返回时复用卡片，电网默认显示用电日历；固定详情高度，减少同数据曲线重画，本月用电按已上报日数据累计。</li>
+<li>摄像头增加 1～4 倍显示缩放、拖动和复位，SD 录像用大弹窗；关闭或离开时停止媒体。</li>
+<li>深浅主题统一侧栏、按钮、卡片和弹窗；双列管线机按内容撑高，三列长型号换行。</li>
+<li>Pad 详情顶部增加 CPU，保留电量、内存、电池温度；新增 23 项显式映射操作，分组默认收起，输入草稿不随刷新丢失。</li>
+<li>共享背景支持上传、删除、主题归属、来源、显示方式、顺序/随机及间隔；可选后端随项目提供，已登录用户均可管理。</li>
+</ul>
+<h3>公开版本适配</h3>
+<ul>
+<li>保留空家庭映射、空摄像头序列号及原有独立家居控制入口，不同步作者的实际图库、运行配置或部署凭据。</li>
+<li>Pad 使用 <code>SITE.pad.entities</code>，不用原家庭 MQTT 前缀；<code>SITE.pad.mode</code> 默认 <code>read-only</code>，与 <code>SITE.control</code> 独立。</li>
+<li>同步使用说明和现有源码测试，补齐公开目录下的测试路径、测试替身和默认只读验证。</li>
+<li>更新时先备份自己的配置和图库，完整复制新增运行模块；共享背景后端需另行加载，不能仅靠静态页面获得接口。</li>
+</ul>
+<h3>验证范围</h3>
+<ul>
+<li>92 项 Node 离线测试、4 项 Python 背景图片与输入测试通过。</li>
+<li>本地 Edge/Playwright、1280×800、1000×800、390×844：图库上传/删除及显示方式、深浅主题、Pad 四项状态/默认只读、切页与房间开合通过，无页面脚本错误。</li>
+<li>视频缩放/复位与显式 Pad 操作仅使用本地替身，未调用真实设备服务。</li>
+<li>历史原环境的部署、实机与供应商验证不等同于本次公开配置验证；本轮未部署、重启 HA 或重新验证实际摄像头/Pad。</li>
+</ul>
+<p>新手可先阅读 <a href="docs/00-%E6%96%B0%E6%89%8B%E4%B8%8A%E6%89%8B%E4%B8%8E%E9%85%8D%E7%BD%AE%E7%A4%BA%E4%BE%8B.html">安装教程</a>、<a href="docs/06-%E6%9B%B4%E6%8D%A2%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87.html">新版背景教程</a> 和 <a href="docs/07-Pad%E6%93%8D%E4%BD%9C%E4%B8%8E%E7%95%8C%E9%9D%A2%E6%9B%B4%E6%96%B0.html">Pad 与升级说明</a>。</p>
+</main></html>

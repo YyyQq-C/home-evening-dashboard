@@ -1,4 +1,5 @@
 import {createVisiblePoll} from './runtime.js';
+import {bindSidebarSwipe} from './sidebar-swipe.js';
 import {createRoomClimateSource} from './room-climate-data.js';
 import {createFloorplan} from './floorplan.js';
 import {createHomeOverview} from './home-overview.js';
@@ -20,9 +21,10 @@ const roomClimate={living:[23.8,52],master:[24,50],secondary:[23.5,54],study:[23
 const temperatureTimers=new Map();
 const roomClimateSimulated=new Set();
 let initializing=true;
-let modelReady=false,toastTimer,sceneTimer,navIdleTimer;
+let modelReady=false,toastTimer,navIdleTimer;
+const sceneFeedbackTimers=new WeakMap();
 let roomPanelLastActivity=Date.now(),lastRoomPanelDelay=10;
-let displayedPage='home',pageTransitionTimer,pageAnimations=[];
+let displayedPage='home',pageAnimations=[],pageTransitionId=0,pageTransitionDone=Promise.resolve();
 let roomScrollTarget=null,lastPanelRoom='living',roomSettleTimer;
 let roomPanelOpen=null,roomPanelAnimations=[],roomPanelMotionId=0;
 let roomPanelMarkup='',shellSignature='',clockZone='',clockMinute='',clockDay='';
@@ -167,6 +169,15 @@ function cancelTemperatureEdits() {
 function sceneStrip() {
   return `<div class="scene-strip">${SCENES.map(item=>`<button class="scene-button" data-action="scene" data-scene="${item.id}">${icon(item.icon)}<span>${item.name}</span></button>`).join('')}</div>`;
 }
+/** 为每个快捷按钮独立恢复点击反馈，重复点击只延长该按钮的反馈时间。 */
+function showSceneFeedback(button) {
+  if(!button)return;
+  clearTimeout(sceneFeedbackTimers.get(button));
+  button.classList.add('executed');
+  sceneFeedbackTimers.set(button,setTimeout(()=>{
+    button.classList.remove('executed');sceneFeedbackTimers.delete(button);
+  },1200));
+}
 /** 从最近一次点击重新计算侧边栏闲置时间，后台渲染不延长展开时间。 */
 function resetNavigationIdle() {
   clearTimeout(navIdleTimer);
@@ -175,41 +186,59 @@ function resetNavigationIdle() {
 /** 更新侧边栏展开状态，仅首次展开启动计时，保留手动收起入口。 */
 function setNavigation(open) {
   const changed=ui.navOpen!==open;
-  ui.navOpen=open;document.querySelector('#navigation').hidden=!open;screen.dataset.navOpen=String(open);
+  const navigation=document.querySelector('#navigation');
+  // 与房间信息共用缓动曲线，CSS 保留收起节点以完成双向滑动。
+  if(!screen.style.getPropertyValue('--navigation-easing'))screen.style.setProperty('--navigation-easing',roomPanelEasing());
+  if(!open&&navigation.contains(document.activeElement))document.querySelector('#nav-handle').focus({preventScroll:true});
+  ui.navOpen=open;navigation.hidden=!open;navigation.inert=!open;navigation.setAttribute('aria-hidden',String(!open));screen.dataset.navOpen=String(open);
   const handle=document.querySelector('#nav-handle');handle.setAttribute('aria-expanded',String(open));handle.setAttribute('aria-label',open?'收起导航':'展开导航');
   if(!open)clearTimeout(navIdleTimer);else if(changed)resetNavigationIdle();
 }
 /** 清理上一轮分页动画，让快速连续导航始终停在最新目标页面。 */
 function finishPageTransition() {
-  clearTimeout(pageTransitionTimer);
   pageAnimations.forEach(animation=>animation.cancel());pageAnimations=[];
   document.querySelectorAll('.page').forEach(page=>page.classList.remove('page-moving','page-leaving'));
 }
-/** 按导航顺序水平滑动分页，保留模型实例及各页滚动位置。 */
+/** 按导航顺序只做合成层纵向位移，重组件在动画结束后更新。 */
 function transitionPages() {
   const pages={home:document.querySelector('#home-page'),overview:document.querySelector('#overview-page'),appliances:document.querySelector('#appliance-page')};
   const previous=displayedPage,changed=previous!==ui.page;
-  if(changed)finishPageTransition();
-  for(const [id,page] of Object.entries(pages)) {
-    page.hidden=id!==ui.page;page.inert=id!==ui.page;
-    page.setAttribute('aria-hidden',String(id!==ui.page));
+  if(!changed)return pageTransitionDone;
+  // 连续反向时从当前画面位置继续，不先跳回上一轮动画的起点。
+  const positions=new Map();
+  if(pageAnimations.length)for(const page of Object.values(pages))if(page.classList.contains('page-moving'))positions.set(page,getComputedStyle(page).transform);
+  finishPageTransition();
+  const id=++pageTransitionId;
+  for(const [key,page] of Object.entries(pages)) {
+    page.hidden=key!==ui.page;page.inert=key!==ui.page;
+    page.setAttribute('aria-hidden',String(key!==ui.page));
   }
   displayedPage=ui.page;
-  if(!changed||!settings.preferences.motion||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  if(!settings.preferences.motion||matchMedia('(prefers-reduced-motion: reduce)').matches||typeof pages[ui.page].animate!=='function')return pageTransitionDone=Promise.resolve();
   const direction=Object.keys(pages).indexOf(ui.page)>Object.keys(pages).indexOf(previous)?1:-1;
-  const outgoing=pages[previous],incoming=pages[ui.page];
+  const outgoing=pages[previous],incoming=pages[ui.page],distance=screen.clientHeight;
   outgoing.classList.add('page-leaving','page-moving');incoming.classList.add('page-moving');
-  // 仅合成平移，不改变 WebGL 画布尺寸，也不复制或重建设备控件。
-  const timing={duration:480,easing:'cubic-bezier(.22,.75,.24,1)',fill:'both'};
-  pageAnimations=[
-    outgoing.animate([{transform:'translateX(0)',opacity:1},{transform:`translateX(${-direction*2000}px)`,opacity:.25}],timing),
-    incoming.animate([{transform:`translateX(${direction*2000}px)`,opacity:.25},{transform:'translateX(0)',opacity:1}],timing),
-    document.querySelector('#header-content').animate([{transform:`translateX(${direction*90}px)`,opacity:0},{transform:'translateX(0)',opacity:1}],timing)
+  // 页面不做透明混合，减少整屏图表与房屋图层滑动时的合成开销。
+  const timing={duration:420,easing:roomPanelEasing(),fill:'both'};
+  const animations=[
+    outgoing.animate([{transform:positions.get(outgoing)||'translate3d(0,0,0)'},{transform:`translate3d(0,${-direction*distance}px,0)`}],timing),
+    incoming.animate([{transform:positions.get(incoming)||`translate3d(0,${direction*distance}px,0)`},{transform:'translate3d(0,0,0)'}],timing),
+    document.querySelector('#header-content').animate([{transform:`translate3d(0,${direction*90}px,0)`,opacity:0},{transform:'translate3d(0,0,0)',opacity:1}],timing)
   ];
-  pageTransitionTimer=setTimeout(finishPageTransition,timing.duration+30);
+  pageAnimations=animations;animations.forEach(animation=>animation.pause());
+  // 先给首帧布局和合成层准备时间，再用同一时钟启动，避免第一帧被内容渲染耗尽。
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    if(id!==pageTransitionId)return;
+    const start=document.timeline.currentTime;
+    animations.forEach(animation=>{animation.play();animation.startTime=start;});
+  }));
+  pageTransitionDone=Promise.all(animations.map(animation=>animation.finished.catch(()=>{}))).then(()=>{
+    if(id===pageTransitionId)finishPageTransition();
+  });
+  return pageTransitionDone;
 }
 /** 渲染固定导航及当前页面对应的标题、分类。 */
-function renderShell() {
+function renderShell({transition=true}={}) {
   const signature=JSON.stringify([ui.page,ui.page==='appliances'?ui.filter:null]);
   if(signature===shellSignature)return;
   shellSignature=signature;
@@ -219,7 +248,7 @@ function renderShell() {
   if(ui.page==='home') header.innerHTML=sceneStrip();
   else if(ui.page==='overview') header.innerHTML='<h1 class="page-heading">家中概览</h1>';
   else header.innerHTML=`<h1 class="page-heading">家电设备</h1><div class="section-tabs appliance-tabs" aria-label="家电筛选">${[['all','全部'],['kitchen','厨房'],['laundry','洗护']].map(([id,name])=>`<button class="tab-button" aria-pressed="${ui.filter===id}" aria-selected="${ui.filter===id}" data-action="filter" data-filter="${id}">${name}</button>`).join('')}</div>`;
-  transitionPages();
+  if(transition)transitionPages();
 }
 /** 渲染主页模型分类、视角入口及房间卡片，设备操作集中在房间卡片。 */
 function renderHome() {
@@ -248,16 +277,21 @@ function roomPanelEasing() {
   }).join(',')})`;
   return CSS.supports('animation-timing-function',curve)?curve:'cubic-bezier(.4,0,.2,1)';
 }
+/** 在已有变换上叠加水平位移，显式使用三维矩阵供旧版 Android WebView 合成。 */
+function translatedFrame(transform,x=0) {
+  const matrix=new DOMMatrix(transform==='none'?undefined:transform);matrix.m41+=x;
+  return `matrix3d(${[...matrix.toFloat64Array()].join(',')})`;
+}
 /** 固定房屋布局，仅在同一显示层移动房屋与工具栏，避免切换布局后再补偿导致跳动。 */
 function layoutRoomPanel(panel) {
   const open=!!ui.panel,page=document.querySelector('#home-page');
   const motion=settings.preferences.motion&&!matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(roomPanelOpen===open&&motion){if(open)renderRoomPanel();return;}
   const house=document.querySelector(settings.preferences.houseMode==='2d'?'#floorplan':'#model-stage');
-  const footer=document.querySelector('#model-footer');
+  const footer=document.querySelector('#model-footer'),compositor2d=settings.preferences.houseMode==='2d';
   const oldX=house.getBoundingClientRect().left,oldClip=getComputedStyle(house).clipPath;
   const oldFooterX=footer.getBoundingClientRect().left,wasHidden=panel.hidden;
-  const panelShift=parseFloat(getComputedStyle(panel).translate)||0,initial=roomPanelOpen===null;
+  const panelShift=(compositor2d?new DOMMatrix(getComputedStyle(panel).transform==='none'?undefined:getComputedStyle(panel).transform).m41:parseFloat(getComputedStyle(panel).translate))||0,initial=roomPanelOpen===null;
   const id=++roomPanelMotionId;roomPanelOpen=open;
   for(const animation of roomPanelAnimations)animation.cancel();roomPanelAnimations=[];
   page.classList.add('room-moving');
@@ -274,12 +308,21 @@ function layoutRoomPanel(panel) {
   const offset=(oldX-house.getBoundingClientRect().left)/scale,offscreen=screen.clientWidth-panel.offsetLeft;
   const footerOffset=(oldFooterX-footer.getBoundingClientRect().left)/scale;
   // CSS 保留最终位移；动画直接从当前画面坐标走到该位移，结束时无需切换布局。
-  const houseTarget=getComputedStyle(house).translate,footerTarget=getComputedStyle(footer).translate;
-  const houseFrames=[{translate:`${(parseFloat(houseTarget)||0)+offset}px 0`},{translate:houseTarget}];
+  const property=compositor2d?'transform':'translate';
+  const houseTarget=getComputedStyle(house)[property],footerTarget=getComputedStyle(footer)[property];
+  const houseFrames=compositor2d
+    ?[{transform:translatedFrame(houseTarget,offset)},{transform:translatedFrame(houseTarget)}]
+    :[{translate:`${(parseFloat(houseTarget)||0)+offset}px 0`},{translate:houseTarget}];
   const clip=getComputedStyle(house).clipPath;
-  if(oldClip!==clip){houseFrames[0].clipPath=oldClip;houseFrames[1].clipPath=clip;}
+  if(!compositor2d&&oldClip!==clip){houseFrames[0].clipPath=oldClip;houseFrames[1].clipPath=clip;}
+  const panelFrames=compositor2d
+    ?[{transform:translatedFrame('none',wasHidden?offscreen:panelShift)},{transform:translatedFrame('none',open?0:offscreen)}]
+    :[{translate:`${wasHidden?offscreen:panelShift}px 0`},{translate:`${open?0:offscreen}px 0`}];
+  const footerFrames=compositor2d
+    ?[{transform:translatedFrame(footerTarget,footerOffset)},{transform:translatedFrame(footerTarget)}]
+    :[{translate:`${(parseFloat(footerTarget)||0)+footerOffset}px 0`},{translate:footerTarget}];
   const options={duration:open?460:320,easing:roomPanelEasing(),fill:'both'};
-  roomPanelAnimations=[house.animate(houseFrames,options),panel.animate([{translate:`${wasHidden?offscreen:panelShift}px 0`},{translate:`${open?0:offscreen}px 0`}],options),footer.animate([{translate:`${(parseFloat(footerTarget)||0)+footerOffset}px 0`},{translate:footerTarget}],options)];
+  roomPanelAnimations=[house.animate(houseFrames,options),panel.animate(panelFrames,options),footer.animate(footerFrames,options)];
   // 先固定首帧，给房间内容布局和合成层准备时间，避免渲染卡片消耗入场动画时长。
   roomPanelAnimations.forEach(animation=>animation.pause());
   requestAnimationFrame(()=>{
@@ -526,11 +569,16 @@ function commit({lights=false,homeOnly=false}={}) {
 }
 /** 更新当前页面内容并保持三维 iframe 实例不被重建。 */
 function render() {
-  renderShell();
-  if(ui.page==='home') renderHome();
+  // 准备轻量内容后才创建动画，避免动画已经计时却仍在同步创建页面。
+  renderShell({transition:false});
+  // 准备内容前恢复目标页尺寸；首帧仍由下方暂停的位移动画控制，不会提前闪现。
+  document.querySelector({home:'#home-page',overview:'#overview-page',appliances:'#appliance-page'}[ui.page]).hidden=false;
+  if(ui.page==='home')renderHome();
   else if(ui.page==='appliances')renderAppliances();
-  if(ui.page==='overview'){overview??=createHomeOverview();overview.setVisible(true);}
+  if(ui.page==='overview')overview??=createHomeOverview();
   else overview?.setVisible(false);
+  const settled=transitionPages(),id=pageTransitionId;
+  settled.then(()=>{if(id===pageTransitionId&&ui.page==='overview')overview.setVisible(true);});
   climateDialog.refresh();applianceDialog.refresh();
 }
 /** 显示短暂操作结果，减少常驻说明对三维模型的遮挡。 */
@@ -576,8 +624,8 @@ function onClick(event) {
       for(const kind of ['ac','floor'])if(['home','leave','sleep',kind==='ac'?'ac-off':'floor-off'].includes(target.dataset.scene))for(const id of Object.keys(state[kind]))roomClimateSimulated.add(`${kind}:${id}`);
       applyScene(state,target.dataset.scene);commit({lights:true});
       const label=SCENES.find(item=>item.id===target.dataset.scene).name;
-      const button=document.querySelector(`[data-scene="${target.dataset.scene}"]`);button?.classList.add('executed');
-      clearTimeout(sceneTimer);sceneTimer=setTimeout(()=>button?.classList.remove('executed'),1200);toast(`${label} · 已模拟执行`);
+      showSceneFeedback(document.querySelector(`[data-scene="${target.dataset.scene}"]`));
+      toast(`${label} · 已模拟执行`);
     } else if(action==='climate-open') climateDialog.open({kind,id,label:target.dataset.label},target);
     else if(action==='toggle') toggleState(kind,id);
     else if(action==='open-environment') {ui.page='home';selectPanelRoom('living');render();}
@@ -668,6 +716,11 @@ function onModelMessage(event) {
 }
 // 设备操作仅影响本地模拟状态；天气模块独立只读订阅现有 HA 数据。
 document.addEventListener('click',onClick);
+// 上滑进入下一页，下滑返回上一页；设置是弹窗入口，不参与页签轮换。
+bindSidebarSwipe(document.querySelector('#navigation'),{onActivity:resetNavigationIdle,onStep:step=>{
+  const pages=['home','overview','appliances'],next=pages[pages.indexOf(ui.page)+step];
+  if(next){ui.page=next;ui.modal=null;render();}
+}});
 // 页面内点击只重置三十秒计时，不因切页、点击空白或设备操作收回侧栏。
 document.addEventListener('click',resetNavigationIdle,{capture:true});
 window.addEventListener('pagehide',()=>clearTimeout(navIdleTimer));
