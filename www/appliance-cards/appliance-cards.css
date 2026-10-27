@@ -1,6 +1,6 @@
-/* 从 screen.css 复制的家电卡片与设备详情样式。
-   原展示页仍使用 screen.css，本文件不替换、不删减原样式。
-   复用时包在 .screen 内，并设置 data-theme 与 data-appliance-columns。 */
+/* 家电卡片与设备详情样式。单独放在 www/appliance-cards/，不进入暮色大屏目录。
+   复用时包在 .screen 内，并设置 data-theme 与 data-appliance-columns。
+   浅色变量写在 html[data-theme=light] 上。 */
 
 @font-face {
   font-family:HomeUI;
