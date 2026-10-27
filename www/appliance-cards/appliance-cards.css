@@ -1,6 +1,6 @@
-/* 家电卡片与设备详情样式。页面、图片和本文件都在 www/appliance-cards/ 内。
-   复用时包在 .screen 内，并设置 data-theme 与 data-appliance-columns。
-   浅色变量写在 html[data-theme=light] 上。字体使用本机已安装的界面字体，不加载外部字体文件。 */
+/* 整页展示用的样式表，给 index.html 的 2000×1200 画布、筛选和列数使用。
+   只要单张卡片和详情弹窗时，改用 appliance-card.js（样式内嵌）或 appliance-card.css。
+   字体使用本机已安装的界面字体，不加载外部字体文件。 */
 
 @font-face {
   font-family:HomeUI;

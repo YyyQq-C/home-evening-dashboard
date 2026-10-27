@@ -1,0 +1,859 @@
+/* 单张家电卡片和设备详情弹窗。不含整页画布、筛选条和列数布局。
+   appliance-card.js 会内嵌并注入这份样式。单独用 <link> 引用本文件也可以。
+   字体使用本机已安装的界面字体，不加载外部字体文件。 */
+
+@font-face {
+  font-family:HomeUI;
+  src:local('Microsoft YaHei UI'),local('Microsoft YaHei'),local('Noto Sans CJK SC');
+  font-display:swap;
+}
+
+.appliance-card,
+.appliance-detail-layer,
+.appliance-detail-dialog {
+  color-scheme:dark;
+  --text:#f6f1e6;
+  --muted:#b9b5aa;
+  --gold:#e7bd79;
+  --blue:#a7d7ed;
+  --green:#a7d6bd;
+  --line:rgba(225,209,180,.18);
+  --surface-dialog:linear-gradient(145deg,#35372ff5,#20231ffb);
+  --surface-card:linear-gradient(145deg,#343a35ed,#1e2826f5);
+  --surface-button:linear-gradient(145deg,#333432c9,#20211fd9);
+  --surface-selected:#e7bd7929;
+  --surface-selected-border:#e7bd7955;
+  --surface-scrim:#0c100d80;
+  --surface-shadow:0 24px 90px #0005;
+  color:var(--text);
+  font-family:HomeUI,"PingFang SC",system-ui,sans-serif;
+}
+
+[data-theme="light"] :is(.appliance-card,.appliance-detail-layer,.appliance-detail-dialog),
+:is(.appliance-card,.appliance-detail-layer,.appliance-detail-dialog)[data-theme="light"] {
+  color-scheme:light;
+  --text:#29372e;
+  --muted:#6d776a;
+  --gold:#976a26;
+  --blue:#3e7b99;
+  --green:#438268;
+  --line:#73836533;
+  --surface-dialog:linear-gradient(145deg,#fffdf7fc,#eaf0e0fc);
+  --surface-card:linear-gradient(145deg,#fffef8ee,#e9efdfed);
+  --surface-button:#fffdf5cc;
+  --surface-selected:#e3c99b50;
+  --surface-selected-border:#b08a4966;
+  --surface-scrim:#34463340;
+  --surface-shadow:0 24px 90px #33462e30;
+  color:var(--text);
+}
+
+.appliance-card,
+.appliance-card *,
+.appliance-detail-layer,
+.appliance-detail-layer * {
+  box-sizing:border-box;
+}
+
+.appliance-card button,
+.appliance-detail-dialog button,
+.appliance-detail-scrim {
+  font:inherit;
+  color:inherit;
+  cursor:pointer;
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+  border:1px solid var(--line);
+  background:var(--surface-button);
+}
+
+.appliance-card button:disabled,
+.appliance-detail-dialog button:disabled {
+  cursor:default;
+  opacity:.42;
+}
+
+.appliance-card button:focus-visible,
+.appliance-detail-dialog button:focus-visible,
+.appliance-detail-dialog summary:focus-visible {
+  outline:3px solid var(--blue);
+  outline-offset:3px;
+}
+
+.appliance-card button:hover:not(:disabled),
+.appliance-detail-dialog button:hover:not(:disabled) {
+  filter:brightness(1.12);
+}
+
+.appliance-card button:active:not(:disabled),
+.appliance-detail-dialog button:active:not(:disabled) {
+  transform:scale(.97);
+}
+
+.appliance-card [hidden],
+.appliance-detail-layer[hidden],
+.appliance-detail-dialog [hidden] {
+  display:none!important;
+}
+
+.appliance-card .icon,
+.appliance-detail-dialog .icon {
+  width:36px;
+  height:36px;
+  flex-shrink:0;
+  vertical-align:middle;
+}
+
+.appliance-card .toggle,
+.appliance-detail-dialog .toggle {
+  position:relative;
+  width:94px;
+  height:54px;
+  border-radius:40px;
+  background:#444642;
+  border:1px solid #ffffff0d;
+  flex-shrink:0;
+  padding:0;
+  transition:background .18s;
+  box-shadow:inset 0 2px 4px #0002;
+}
+
+.appliance-card .toggle:after,
+.appliance-detail-dialog .toggle:after {
+  content:"";
+  position:absolute;
+  top:6px;
+  left:7px;
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  background:#d4d6d0;
+  box-shadow:0 2px 5px #0004;
+  transition:left .18s;
+}
+
+.appliance-card .toggle[aria-checked="true"],
+.appliance-detail-dialog .toggle[aria-checked="true"] {
+  background:linear-gradient(110deg,#f1c67e,#d8a44f);
+  border-color:#f0d09a60;
+  box-shadow:0 0 20px #d7a45920;
+}
+
+.appliance-card .toggle[aria-checked="true"]:after,
+.appliance-detail-dialog .toggle[aria-checked="true"]:after {
+  left:45px;
+  background:#fff8ed;
+}
+
+.appliance-card .circle-button,
+.appliance-detail-dialog .circle-button {
+  height:86px;
+  width:86px;
+  border-radius:50%;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:0;
+  background:var(--surface-button);
+  border:1px solid var(--line);
+  color:var(--text);
+}
+
+.appliance-card .circle-button .icon,
+.appliance-detail-dialog .circle-button .icon {
+  width:30px;
+  height:30px;
+}
+
+.appliance-card {
+  width:min(100%,560px);
+  min-height:430px;
+  min-width:0;
+  margin:0;
+  border:1px solid var(--line);
+  border-radius:40px;
+  background:var(--surface-card);
+  position:relative;
+  padding:24px;
+  display:flex;
+  gap:16px;
+  overflow:hidden;
+}
+
+.appliance-visual {
+  width:30%;
+  height:100%;
+  flex-shrink:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  border-radius:0;
+  background:transparent;
+  overflow:hidden;
+  padding:0;
+}
+
+.appliance-visual:before {
+  display:none;
+}
+
+.appliance-visual img {
+  position:absolute;
+  height:auto;
+  width:160%;
+  max-width:none;
+  object-fit:contain;
+  filter:drop-shadow(0 12px 12px #0005);
+  flex-shrink:0;
+}
+
+.appliance-card[data-appliance="washer"] .appliance-visual img {
+  width:150%;
+}
+
+.appliance-card[data-appliance="fridge"] .appliance-visual img {
+  width:245%;
+}
+
+.appliance-card[data-appliance="purifier"] .appliance-visual img {
+  width:205%;
+}
+
+.appliance-card[data-appliance="drinker"] .appliance-visual img {
+  width:160%;
+}
+
+.appliance-copy {
+  flex:1;
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  position:relative;
+}
+
+.appliance-copy h2 {
+  font-size:28px;
+  font-weight:500;
+  letter-spacing:1px;
+  margin:0 0 5px;
+}
+
+.appliance-copy .product-model {
+  font-size:15px;
+  line-height:1.45;
+  color:var(--muted);
+  margin:0 0 6px;
+  max-width:100%;
+  white-space:normal;
+  overflow:visible;
+  text-overflow:clip;
+  overflow-wrap:anywhere;
+  flex-shrink:0;
+}
+
+.appliance-copy .location {
+  font-size:18px;
+  color:var(--muted);
+  margin:0 0 12px;
+}
+
+.appliance-state {
+  font-size:25px;
+  color:var(--blue);
+  margin:0 0 8px;
+}
+
+.appliance-state.green {
+  color:var(--green);
+}
+
+.appliance-state.gold {
+  color:var(--gold);
+}
+
+.appliance-state.off {
+  color:var(--muted);
+}
+
+.appliance-copy .appliance-detail {
+  font-size:20px;
+  color:var(--text);
+  margin:0 0 10px;
+}
+
+.appliance-copy .cycle-ring {
+  position:absolute;
+  width:66px;
+  height:66px;
+  right:0;
+  top:106px;
+  border-radius:50%;
+  background:conic-gradient(#83c5e5 calc(var(--progress) * 1%),#3d4546 0);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.appliance-copy .cycle-ring:before {
+  content:"";
+  position:absolute;
+  inset:7px;
+  background:#282c28;
+  border-radius:50%;
+}
+
+[data-theme="light"] .appliance-card .cycle-ring:before,
+.appliance-card[data-theme="light"] .cycle-ring:before {
+  background:#f2f3e8;
+}
+
+.appliance-copy .cycle-ring b {
+  position:relative;
+  font-size:20px;
+  font-weight:500;
+}
+
+.appliance-copy .cycle-steps {
+  display:flex;
+  align-items:center;
+  gap:7px;
+  align-self:stretch;
+  margin:12px 0 18px;
+  color:#999e98;
+  font-size:18px;
+}
+
+[data-theme="light"] .appliance-card .cycle-steps,
+.appliance-card[data-theme="light"] .cycle-steps {
+  color:var(--muted);
+}
+
+.appliance-copy .cycle-steps span {
+  border-top:3px solid #555b54;
+  padding-top:10px;
+  flex:1;
+}
+
+.appliance-copy .cycle-steps span.active {
+  border-color:var(--blue);
+  color:var(--blue);
+}
+
+.appliance-copy > .action-pill,
+.appliance-card .action-pill {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+  border-radius:55px;
+  min-height:60px;
+  padding:10px 18px;
+  font-size:21px;
+  white-space:nowrap;
+  background:var(--surface-button);
+  border:1px solid var(--line);
+  color:var(--text);
+}
+
+.appliance-copy > .action-pill {
+  margin-top:auto;
+  width:100%;
+}
+
+.appliance-card .action-pill.gold {
+  background:var(--surface-selected);
+  border-color:var(--surface-selected-border);
+  color:var(--gold);
+}
+
+.appliance-card .action-pill .icon {
+  width:28px;
+  height:28px;
+}
+
+.appliance-copy .appliance-power {
+  position:absolute;
+  right:0;
+  top:1px;
+  width:64px;
+  height:40px;
+}
+
+.appliance-copy .appliance-power:after {
+  width:28px;
+  height:28px;
+  top:5px;
+  left:5px;
+}
+
+.appliance-copy .appliance-power[aria-checked="true"]:after {
+  left:29px;
+}
+
+.fridge-values {
+  display:flex;
+  gap:25px;
+  margin:4px 0 22px;
+  font-size:20px;
+  color:var(--muted);
+}
+
+.fridge-values strong {
+  display:block;
+  font-size:40px;
+  font-weight:400;
+  color:var(--text);
+  margin-top:8px;
+  white-space:nowrap;
+}
+
+.appliance-card .filter-track {
+  height:12px;
+  background:#62665d4d;
+  border-radius:10px;
+  overflow:hidden;
+  width:100%;
+  margin:4px 0 26px;
+}
+
+[data-theme="light"] .appliance-card .filter-track,
+.appliance-card[data-theme="light"] .filter-track {
+  background:#cbd2c3;
+}
+
+.appliance-card .filter-track span {
+  display:block;
+  height:100%;
+  width:82%;
+  background:linear-gradient(90deg,#bce6cd,#8dc9b2);
+  border-radius:10px;
+}
+
+.appliance-copy .appliance-temperature {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  align-self:stretch;
+  margin-top:6px;
+  gap:12px;
+}
+
+.appliance-temperature output {
+  font-size:44px;
+  font-weight:400;
+}
+
+.appliance-temperature .circle-button {
+  height:58px;
+  width:58px;
+}
+
+.appliance-copy .temperature-label {
+  color:var(--muted);
+  font-size:19px;
+  margin:3px 0 7px;
+}
+
+.appliance-card[data-appliance="drinker"] .action-pill {
+  margin-top:16px;
+}
+
+.appliance-details-link {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  width:100%;
+  min-height:48px;
+  margin-top:12px;
+  padding:8px 12px;
+  border-radius:22px;
+  background:var(--surface-button);
+  border:1px solid var(--line);
+  color:var(--text);
+  font-size:20px;
+}
+
+.appliance-details-link .icon {
+  width:22px;
+  height:22px;
+}
+
+.appliance-detail-layer {
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  display:grid;
+  place-items:center;
+  padding:24px;
+}
+
+.appliance-detail-scrim {
+  position:absolute;
+  inset:0;
+  border:0;
+  border-radius:0;
+  padding:0;
+  background:var(--surface-scrim);
+  backdrop-filter:blur(8px);
+}
+
+.appliance-detail-layer .appliance-detail-scrim:active {
+  transform:none;
+}
+
+.appliance-detail-dialog {
+  position:relative;
+  width:min(1280px,100%);
+  max-height:min(1080px,100%);
+  display:flex;
+  flex-direction:column;
+  background:var(--surface-dialog);
+  border:1px solid var(--line);
+  border-radius:36px;
+  box-shadow:var(--surface-shadow);
+  overflow:hidden;
+}
+
+.appliance-detail-dialog > header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:24px;
+  padding:28px 36px;
+  border-bottom:1px solid var(--line);
+  flex-shrink:0;
+}
+
+.appliance-detail-dialog > header small {
+  font-size:18px;
+  color:var(--muted);
+}
+
+.appliance-detail-dialog h2 {
+  font-size:34px;
+  font-weight:500;
+  margin:6px 0 0;
+}
+
+.appliance-detail-close {
+  display:grid;
+  place-items:center;
+  flex:none;
+  width:52px;
+  height:52px;
+  padding:12px;
+  border-radius:50%;
+  background:var(--surface-button);
+  border:1px solid var(--line);
+  color:var(--text);
+}
+
+.appliance-detail-close .icon {
+  width:26px;
+  height:26px;
+}
+
+.appliance-dialog-body {
+  display:grid;
+  grid-template-columns:390px minmax(0,1fr);
+  grid-template-rows:minmax(0,1fr);
+  gap:40px;
+  min-height:0;
+  overflow:hidden;
+  padding:28px 36px;
+}
+
+.appliance-detail-sidebar {
+  min-width:0;
+  min-height:0;
+  border-right:1px solid var(--line);
+  padding-right:32px;
+}
+
+.appliance-product-overview {
+  text-align:center;
+}
+
+.appliance-product-overview img {
+  width:180px;
+  height:220px;
+  object-fit:contain;
+  display:block;
+  margin:0 auto 18px;
+}
+
+.appliance-product-overview p {
+  font-size:20px;
+  line-height:1.5;
+  margin:6px 0;
+  overflow-wrap:anywhere;
+}
+
+.appliance-product-overview .appliance-detail-model,
+.appliance-detail-location {
+  font-size:18px;
+  color:var(--muted);
+}
+
+.appliance-detail-dialog h3 {
+  font-size:24px;
+  font-weight:500;
+  margin:0;
+}
+
+.appliance-detail-dialog h3 small {
+  font-size:17px;
+  color:var(--muted);
+  margin-left:12px;
+}
+
+.appliance-simulated-controls {
+  margin-top:30px;
+}
+
+.appliance-control-row {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  min-height:80px;
+  padding:18px 0;
+  border-bottom:1px solid var(--line);
+  font-size:22px;
+}
+
+.appliance-control-row strong {
+  font-size:23px;
+  font-weight:500;
+}
+
+.appliance-detail-stepper {
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.appliance-detail-stepper .circle-button {
+  width:48px;
+  height:48px;
+  min-height:48px;
+}
+
+.appliance-detail-stepper .icon {
+  width:24px;
+  height:24px;
+}
+
+.appliance-detail-stepper output {
+  min-width:76px;
+  text-align:center;
+  font-size:32px;
+  white-space:nowrap;
+  font-variant-numeric:tabular-nums;
+}
+
+.appliance-detail-stepper output small {
+  font-size:17px;
+  margin-left:4px;
+  color:var(--muted);
+}
+
+.appliance-control-row .toggle {
+  width:78px;
+  height:46px;
+}
+
+.appliance-control-row .toggle:after {
+  width:34px;
+  height:34px;
+  top:5px;
+  left:5px;
+}
+
+.appliance-control-row .toggle[aria-checked="true"]:after {
+  left:37px;
+}
+
+.appliance-detail-action {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  width:100%;
+  min-height:58px;
+  margin-top:20px;
+  padding:12px;
+  border-radius:18px;
+  font-size:22px;
+  background:var(--surface-button);
+  border:1px solid var(--line);
+  color:var(--text);
+}
+
+.appliance-detail-action .icon {
+  width:24px;
+  height:24px;
+}
+
+.appliance-control-note {
+  font-size:17px;
+  line-height:1.5;
+  color:var(--muted);
+  margin:16px 0 0;
+}
+
+.appliance-information {
+  min-width:0;
+  min-height:0;
+  overflow-y:auto;
+  overflow-x:hidden;
+  overscroll-behavior:contain;
+  padding-right:8px;
+}
+
+.appliance-live-heading {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+}
+
+.appliance-live-status {
+  font-size:18px;
+  color:var(--muted);
+  white-space:nowrap;
+}
+
+.appliance-live-status[data-available="true"] {
+  color:var(--green);
+}
+
+.appliance-live-message {
+  font-size:20px;
+  line-height:1.6;
+  color:var(--muted);
+  margin:18px 0 24px;
+}
+
+.appliance-info-groups details {
+  border-bottom:1px solid var(--line);
+}
+
+.appliance-info-groups summary {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  min-height:76px;
+  padding:20px 0;
+  font-size:23px;
+  cursor:pointer;
+  list-style:none;
+  gap:20px;
+}
+
+.appliance-info-groups summary::-webkit-details-marker {
+  display:none;
+}
+
+.appliance-info-groups summary:after {
+  content:"+";
+  font-size:25px;
+  color:var(--muted);
+}
+
+.appliance-info-groups details[open] > summary:after {
+  content:"−";
+}
+
+.appliance-info-groups summary small {
+  font-size:17px;
+  color:var(--muted);
+  margin-left:auto;
+}
+
+.appliance-info-groups summary:focus-visible {
+  outline:3px solid var(--blue);
+  outline-offset:2px;
+  border-radius:8px;
+}
+
+.appliance-info-groups dl {
+  margin:0 0 12px;
+}
+
+.appliance-info-groups dl > div {
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:26px;
+  padding:18px 0;
+  border-top:1px solid var(--line);
+  font-size:21px;
+  line-height:1.5;
+}
+
+.appliance-info-groups dt {
+  color:var(--muted);
+  max-width:58%;
+  overflow-wrap:anywhere;
+}
+
+.appliance-info-groups dd {
+  margin:0;
+  text-align:right;
+  font-weight:500;
+  overflow-wrap:anywhere;
+  min-width:0;
+  max-width:55%;
+}
+
+.appliance-basic-info h4 {
+  font-size:23px;
+  font-weight:500;
+  margin:26px 0 18px;
+}
+
+.appliance-report-time {
+  font-size:17px;
+  line-height:1.5;
+  color:var(--muted);
+  margin:22px 0 0;
+}
+
+.appliance-detail-dialog > footer {
+  border-top:1px solid var(--line);
+  padding:20px 36px;
+  font-size:18px;
+  color:var(--muted);
+  line-height:1.5;
+  flex-shrink:0;
+}
+
+@media (max-width:900px) {
+  .appliance-dialog-body {
+    grid-template-columns:1fr;
+    overflow-y:auto;
+  }
+
+  .appliance-detail-sidebar {
+    border-right:0;
+    border-bottom:1px solid var(--line);
+    padding-right:0;
+    padding-bottom:24px;
+  }
+
+  .appliance-information {
+    overflow:visible;
+  }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .appliance-card *,
+  .appliance-detail-layer * {
+    animation:none!important;
+    transition:none!important;
+  }
+}
