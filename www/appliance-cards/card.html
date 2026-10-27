@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>家电卡片</title>
+  <script src="./appliance-card.js"></script>
+  <style>
+    body{margin:0;min-height:100vh;background:#121312;color:#f6f1e6;font:16px/1.5 HomeUI,"PingFang SC",system-ui,sans-serif}
+    html[data-theme=light] body{background:#e7ebe3;color:#29372e}
+    .demo{max-width:1200px;margin:0 auto;padding:32px 24px 64px}
+    .demo-head{display:flex;align-items:center;gap:16px;margin-bottom:24px}
+    .demo-head h1{font-size:22px;font-weight:500;margin:0;flex:1}
+    .demo-head button{min-height:36px;padding:6px 14px;border-radius:999px;border:1px solid #ffffff22;background:transparent;color:inherit;cursor:pointer}
+    .demo-row{display:flex;flex-wrap:wrap;gap:24px;align-items:stretch}
+  </style>
+</head>
+<body>
+  <div class="demo">
+    <div class="demo-head">
+      <h1>单张家电卡片</h1>
+      <button type="button" id="theme-toggle">浅色</button>
+    </div>
+    <div class="demo-row">
+      <section class="appliance-card" data-appliance="washer">
+        <div class="appliance-visual"><img src="./assets/washer.png" alt="海尔 XHG13L98U1 产品图" draggable="false"></div>
+        <div class="appliance-copy">
+          <h2>洗衣机</h2>
+          <p class="product-model">海尔 XHG13L98U1</p>
+          <p class="location">生活阳台</p>
+          <p class="appliance-state" data-washer-state>洗涤中</p>
+          <p class="appliance-detail">剩余 38 分钟</p>
+          <div class="cycle-ring" style="--progress:62"><b>62%</b></div>
+          <div class="cycle-steps"><span class="active">洗涤</span><span>漂洗</span><span>脱水</span></div>
+          <button class="action-pill" type="button" data-washer-toggle><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4v16M16 4v16"/></svg>暂停</button>
+          <button type="button" class="appliance-details-link" data-detail="washer" aria-expanded="false">查看详情<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 4 8 8-8 8"/></svg></button>
+        </div>
+      </section>
+      <section class="appliance-card" data-appliance="fridge">
+        <div class="appliance-visual"><img src="./assets/fridge.png" alt="卡萨帝冰箱产品图" draggable="false"></div>
+        <div class="appliance-copy">
+          <h2>冰箱</h2>
+          <p class="product-model">卡萨帝 BCD-570WGCFDM4WHU1 · 白色</p>
+          <p class="location">厨房</p>
+          <p class="appliance-state green">运行中</p>
+          <div class="fridge-values"><div>冷藏<strong data-cool>4°</strong></div><div>冷冻<strong data-freeze>-18°</strong></div></div>
+          <button class="action-pill" type="button" data-detail="fridge">温度设置<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 4 8 8-8 8"/></svg></button>
+          <button type="button" class="appliance-details-link" data-detail="fridge" aria-expanded="false">查看详情<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 4 8 8-8 8"/></svg></button>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <template id="detail-washer">
+    <button type="button" class="appliance-detail-scrim" data-close aria-label="关闭" tabindex="-1"></button>
+    <section class="appliance-detail-dialog" role="dialog" aria-modal="true" aria-labelledby="washer-detail-title">
+      <header><div><small>设备详情</small><h2 id="washer-detail-title">洗衣机详情</h2></div><button type="button" class="appliance-detail-close" data-close aria-label="关闭"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 5 14 14M5 19 19 5"/></svg></button></header>
+      <div class="appliance-dialog-body">
+        <div class="appliance-detail-sidebar">
+          <div class="appliance-product-overview">
+            <img src="./assets/washer.png" alt="">
+            <p>海尔 · 洗衣机</p>
+            <p class="appliance-detail-model">XHG13L98U1</p>
+            <p class="appliance-detail-location">生活阳台</p>
+          </div>
+          <section class="appliance-simulated-controls" aria-label="模拟操作">
+            <h3>快捷操作 <small>模拟</small></h3>
+            <div class="appliance-control-row"><span>运行状态</span><strong data-dialog-washer>洗涤中</strong></div>
+            <div class="appliance-control-row"><span>剩余时间</span><strong>38 分钟</strong></div>
+            <button type="button" class="appliance-detail-action" data-washer-toggle><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4v16M16 4v16"/></svg>暂停洗涤</button>
+          </section>
+        </div>
+        <section class="appliance-information">
+          <div class="appliance-live-heading"><h3>设备详细信息 <small>只读</small></h3><span class="appliance-live-status">样式示例</span></div>
+          <p class="appliance-live-message">这里只展示详情弹窗的样式，不连接设备。</p>
+          <div class="appliance-info-groups">
+            <details open><summary>运行状态<small>2 项</small></summary><dl><div><dt>运行状态</dt><dd>洗涤中</dd></div><div><dt>当前洗衣程序</dt><dd>标准洗</dd></div></dl></details>
+          </div>
+        </section>
+      </div>
+      <footer>按钮只改变本页显示，不控制真实家电。</footer>
+    </section>
+  </template>
+
+  <template id="detail-fridge">
+    <button type="button" class="appliance-detail-scrim" data-close aria-label="关闭" tabindex="-1"></button>
+    <section class="appliance-detail-dialog" role="dialog" aria-modal="true" aria-labelledby="fridge-detail-title">
+      <header><div><small>设备详情</small><h2 id="fridge-detail-title">冰箱详情</h2></div><button type="button" class="appliance-detail-close" data-close aria-label="关闭"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 5 14 14M5 19 19 5"/></svg></button></header>
+      <div class="appliance-dialog-body">
+        <div class="appliance-detail-sidebar">
+          <div class="appliance-product-overview">
+            <img src="./assets/fridge.png" alt="">
+            <p>卡萨帝 · 冰箱</p>
+            <p class="appliance-detail-model">BCD-570WGCFDM4WHU1</p>
+            <p class="appliance-detail-location">厨房</p>
+          </div>
+          <section class="appliance-simulated-controls" aria-label="模拟操作">
+            <h3>快捷操作 <small>模拟</small></h3>
+            <div class="appliance-control-row"><span>冷藏温度</span><div class="appliance-detail-stepper"><button class="circle-button" type="button" aria-label="降低冷藏温度" data-step="cool" data-delta="-1"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/></svg></button><output data-value="cool">4<small>°C</small></output><button class="circle-button" type="button" aria-label="提高冷藏温度" data-step="cool" data-delta="1"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg></button></div></div>
+            <div class="appliance-control-row"><span>冷冻温度</span><div class="appliance-detail-stepper"><button class="circle-button" type="button" aria-label="降低冷冻温度" data-step="freeze" data-delta="-1"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/></svg></button><output data-value="freeze">-18<small>°C</small></output><button class="circle-button" type="button" aria-label="提高冷冻温度" data-step="freeze" data-delta="1"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg></button></div></div>
+            <div class="appliance-control-row"><span>节能模式</span><button type="button" class="toggle" role="switch" aria-label="节能模式" aria-checked="false"></button></div>
+            <p class="appliance-control-note">温度只在本页变化。</p>
+          </section>
+        </div>
+        <section class="appliance-information">
+          <div class="appliance-live-heading"><h3>设备详细信息 <small>只读</small></h3><span class="appliance-live-status">样式示例</span></div>
+          <p class="appliance-live-message">这里只展示详情弹窗的样式，不连接设备。</p>
+          <div class="appliance-info-groups">
+            <div class="appliance-basic-info"><h4>设备资料</h4><dl><div><dt>品牌</dt><dd>卡萨帝</dd></div><div><dt>型号</dt><dd>BCD-570WGCFDM4WHU1</dd></div><div><dt>颜色</dt><dd>白色</dd></div><div><dt>安装位置</dt><dd>厨房</dd></div></dl></div>
+          </div>
+        </section>
+      </div>
+      <footer>按钮只改变本页显示，不控制真实家电。</footer>
+    </section>
+  </template>
+
+  <script>
+    const values = {cool:4, freeze:-18};
+    let paused = false;
+    const themeToggle = document.querySelector('#theme-toggle');
+
+    function paintWasher() {
+      const state = document.querySelector('[data-washer-state]');
+      state.textContent = paused ? '已暂停' : '洗涤中';
+      state.classList.toggle('off', paused);
+      const label = paused ? '继续' : '暂停';
+      const dialogLabel = paused ? '继续洗涤' : '暂停洗涤';
+      const icon = paused
+        ? '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7 3 14 9-14 9Z"/></svg>'
+        : '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4v16M16 4v16"/></svg>';
+      document.querySelector('[data-washer-toggle]').innerHTML = icon + label;
+      const dialogState = document.querySelector('.appliance-detail-layer [data-dialog-washer]');
+      if (dialogState) dialogState.textContent = paused ? '已暂停' : '洗涤中';
+      const dialogButton = document.querySelector('.appliance-detail-layer [data-washer-toggle]');
+      if (dialogButton) dialogButton.innerHTML = icon + dialogLabel;
+    }
+
+    document.addEventListener('click', event => {
+      if (event.target.closest('#theme-toggle')) {
+        const next = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+        document.documentElement.dataset.theme = next;
+        themeToggle.textContent = next === 'light' ? '深色' : '浅色';
+        return;
+      }
+      const toggle = event.target.closest('.toggle');
+      if (toggle) {
+        toggle.setAttribute('aria-checked', String(toggle.getAttribute('aria-checked') !== 'true'));
+        return;
+      }
+      if (event.target.closest('[data-washer-toggle]')) {
+        paused = !paused;
+        paintWasher();
+        return;
+      }
+      const step = event.target.closest('[data-step]');
+      if (!step) return;
+      const key = step.dataset.step;
+      const limits = {cool:[2, 8], freeze:[-24, -16]};
+      const [min, max] = limits[key];
+      values[key] = Math.max(min, Math.min(max, values[key] + Number(step.dataset.delta)));
+      document.querySelector(`[data-${key}]`).textContent = `${values[key]}°`;
+      const output = document.querySelector(`.appliance-detail-layer [data-value="${key}"]`);
+      if (output) output.firstChild.textContent = values[key];
+    });
+  </script>
+</body>
+</html>
