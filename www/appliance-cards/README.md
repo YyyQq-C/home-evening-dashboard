@@ -1,6 +1,6 @@
 # 家电卡片
 
-`www/appliance-cards` 是一套可以单独打开、单独部署的家电卡片和设备详情样式。它和暮色大屏目录 `www/home-evening` 并列，不要放进大屏包里面。
+`www/appliance-cards` 是一套可以单独打开、单独部署的家电卡片和设备详情样式。样式、示例页、产品图和截图都在这个目录里，不引用其他文件夹。
 
 ## 界面
 
@@ -29,7 +29,7 @@ python3 -m http.server 8765
 
 ## 部署到 Home Assistant
 
-把整个 `appliance-cards` 目录复制到 HA 配置目录的 `www` 下，和 `home-evening` 同级：
+把整个 `appliance-cards` 目录复制到 HA 配置目录的 `www` 下。只需要这一份目录，里面的页面、样式和图片一起生效：
 
 ```text
 配置目录/
@@ -39,8 +39,6 @@ python3 -m http.server 8765
       appliance-cards.css
       assets/
       docs/
-    home-evening/
-      ...原来的大屏文件
 ```
 
 保存后在浏览器访问：
@@ -49,7 +47,7 @@ python3 -m http.server 8765
 http://homeassistant.local:8123/local/appliance-cards/index.html
 ```
 
-地址里是 `/local/`，不是 `/www/`。只更新这一个目录时，不要覆盖 `www/home-evening`。暮色展示页和实控页仍然加载各自原来的样式，外观和入口都不变。
+地址里是 `/local/`，不是 `/www/`。复制时保持目录结构，不要拆走 `assets/` 里的产品图。
 
 ## 用到自己的页面
 

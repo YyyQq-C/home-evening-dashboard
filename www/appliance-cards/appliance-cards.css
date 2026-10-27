@@ -1,6 +1,6 @@
-/* 家电卡片与设备详情样式。单独放在 www/appliance-cards/，不进入暮色大屏目录。
+/* 家电卡片与设备详情样式。页面、图片和本文件都在 www/appliance-cards/ 内。
    复用时包在 .screen 内，并设置 data-theme 与 data-appliance-columns。
-   浅色变量写在 html[data-theme=light] 上。 */
+   浅色变量写在 html[data-theme=light] 上。字体使用本机已安装的界面字体，不加载外部字体文件。 */
 
 @font-face {
   font-family:HomeUI;
@@ -185,7 +185,7 @@ button[hidden],[hidden] {
   }
 }
 
-/* 以下规则按 screen.css 中的出现顺序复制，只保留家电卡片、设备详情和紧邻的筛选条。 */
+/* 卡片、详情弹窗和筛选条按层叠顺序书写，后出现的规则覆盖前面的同名声明。 */
 
 .page {
   position:absolute;
